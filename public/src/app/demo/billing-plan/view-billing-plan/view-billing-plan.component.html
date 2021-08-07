@@ -1,0 +1,217 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="View Billing Plan" [options]="false">
+      <form [formGroup]="viewBillingPlanForm" (ngSubmit)="onFormSubmit()" novalidate class="custom-login">
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">Name English <span class="text-danger">*</span></label>
+              <input *ngIf="action == 'view'" type="text" name="name_en" placeholder="Enter Name English"
+                formControlName="name_en"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.name_en.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                readonly>
+              <input *ngIf="action == 'edit'" type="text"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.name_en.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="name_en" name="name_en" placeholder="Enter Name English" formControlName="name_en" trim="blur">
+              <span *ngIf="isSubmitted && viewBillingPlanForm.hasError('required','name_en')"
+                class="custom-error-show">Please
+                enter name in english.</span>
+              <div
+                *ngIf="isSubmitted && !viewBillingPlanForm.hasError('required','name_en') && viewBillingPlanForm.hasError('pattern','name_en')"
+                class="custom-error-show">
+                Name english should contains alphabetic only.</div>
+              <div
+                *ngIf="isSubmitted && !viewBillingPlanForm.hasError('required','name_en') && !viewBillingPlanForm.hasError('pattern','name_en') && (viewBillingPlanForm.hasError('maxlength','name_en') || viewBillingPlanForm.hasError('minlength','name_en'))"
+                class="custom-error-show">Name english
+                must be 2 to 50 characters long.</div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">Name China <span class="text-danger">*</span></label>
+              <input *ngIf="action == 'view'" type="text" name="name_ch" placeholder="Enter Name China"
+                formControlName="name_ch" trim="blur"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.name_ch.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                readonly>
+              <input *ngIf="action == 'edit'" type="text"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.name_ch.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="name_ch" name="name_ch" placeholder="Enter Name China" formControlName="name_ch" trim="blur">
+              <span *ngIf="isSubmitted && viewBillingPlanForm.hasError('required','name_ch')"
+                class="custom-error-show">Please
+                enter name china.</span>
+              <div
+                *ngIf="isSubmitted && !viewBillingPlanForm.hasError('required','name_ch') && !viewBillingPlanForm.hasError('pattern','name_ch') && (viewBillingPlanForm.hasError('maxlength','name_ch') || viewBillingPlanForm.hasError('minlength','name_ch'))"
+                class="custom-error-show">Name china
+                must be 2 to 50 characters long.</div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">Name Combodia <span class="text-danger">*</span></label>
+              <input *ngIf="action == 'view'" type="text" name="name_kh" placeholder="Enter Name Combodia"
+                formControlName="name_kh" trim="blur"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.name_kh.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                readonly>
+              <input *ngIf="action == 'edit'" type="text"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.name_kh.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="name_kh" name="name_kh" placeholder="Enter Name Combodia" formControlName="name_kh" trim="blur">
+              <span *ngIf="isSubmitted && viewBillingPlanForm.hasError('required','name_kh')"
+                class="custom-error-show">Please
+                enter name combodia.</span>
+              <div
+                *ngIf="isSubmitted && !viewBillingPlanForm.hasError('required','name_kh') && !viewBillingPlanForm.hasError('pattern','name_kh') && (viewBillingPlanForm.hasError('maxlength','name_kh') || viewBillingPlanForm.hasError('minlength','name_kh'))"
+                class="custom-error-show">Name combodia
+                must be 2 to 50 characters long.</div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">Detail English <span class="text-danger">*</span></label>
+              <input *ngIf="action == 'view'" type="text" name="detail_en" placeholder="Enter Detail English"
+                formControlName="detail_en"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.detail_en.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                readonly>
+              <input *ngIf="action == 'edit'" type="text"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.detail_en.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="detail_en" name="detail_en" placeholder="Enter Name English" formControlName="detail_en"
+                trim="blur">
+              <span *ngIf="isSubmitted && viewBillingPlanForm.hasError('required','detail_en')"
+                class="custom-error-show">Please enter detail in english.</span>
+              <div
+                *ngIf="isSubmitted && !viewBillingPlanForm.hasError('required','detail_en') && !viewBillingPlanForm.hasError('pattern','detail_en') && (viewBillingPlanForm.hasError('maxlength','detail_en') || viewBillingPlanForm.hasError('minlength','name_en'))"
+                class="custom-error-show">Detail english must be 2 to 100 characters long.</div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">Detail China <span class="text-danger">*</span></label>
+              <input *ngIf="action == 'view'" type="text" name="detail_ch" placeholder="Enter Detail China"
+                formControlName="detail_ch" trim="blur"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.detail_ch.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                readonly>
+              <input *ngIf="action == 'edit'" type="text"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.detail_ch.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="detail_ch" name="detail_ch" placeholder="Enter Name China" formControlName="detail_ch" trim="blur">
+              <span *ngIf="isSubmitted && viewBillingPlanForm.hasError('required','detail_ch')"
+                class="custom-error-show">Please enter detail china.</span>
+              <div
+                *ngIf="isSubmitted && !viewBillingPlanForm.hasError('required','detail_ch') && !viewBillingPlanForm.hasError('pattern','detail_ch') && (viewBillingPlanForm.hasError('maxlength','detail_ch') || viewBillingPlanForm.hasError('minlength','name_ch'))"
+                class="custom-error-show">Detail china must be 2 to 100 characters long.</div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">Detail Combodia <span class="text-danger">*</span></label>
+              <input *ngIf="action == 'view'" type="text" name="detail_kh" placeholder="Enter Detail Combodia"
+                formControlName="detail_kh" trim="blur"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.detail_kh.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                readonly>
+              <input *ngIf="action == 'edit'" type="text"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.detail_kh.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="detail_kh" name="detail_kh" placeholder="Enter Name Combodia" formControlName="detail_kh"
+                trim="blur">
+              <span *ngIf="isSubmitted && viewBillingPlanForm.hasError('required','detail_kh')"
+                class="custom-error-show">Please enter detail combodia.</span>
+              <div
+                *ngIf="isSubmitted && !viewBillingPlanForm.hasError('required','detail_kh') && !viewBillingPlanForm.hasError('pattern','detail_kh') && (viewBillingPlanForm.hasError('maxlength','detail_kh') || viewBillingPlanForm.hasError('minlength','name_kh'))"
+                class="custom-error-show">Detail combodia must be 2 to 100 characters long.</div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <label class="form-control-label">Type <span class="text-danger">*</span></label>
+            <div class="d-flex">
+              <div *ngIf="viewBillingPlanForm.value.billingType == 'percentage'" class="form-group mr-4">
+                <div class="radio d-inline">
+                  <input type="radio" name="billingType" id="percentage" value="percentage"
+                    formControlName="billingType" disabled>
+                  <!-- <input *ngIf="action == 'edit'" type="radio" name="billingType" id="percentage" value="percentage"
+                    formControlName="billingType" (change)="onTypeChange()" > -->
+                  <label for="percentage" class="cr">Percentage</label>
+                </div>
+              </div>
+              <div *ngIf="viewBillingPlanForm.value.billingType == 'cash'" class="form-group">
+                <div class="radio d-inline">
+                  <input type="radio" name="billingType" id="cash" value="cash"
+                    formControlName="billingType" disabled>
+                  <!-- <input *ngIf="action == 'edit'" type="radio" name="billingType" id="cash" value="cash"
+                    formControlName="billingType" (change)="onTypeChange()"> -->
+                  <label for="amount" class="cr">Cash</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-xl-6" *ngIf="viewBillingPlanForm.value.billingType == 'cash'">
+            <div class="form-group">
+              <label class="form-control-label">Charge Amount Per Month <span class="text-danger">*</span></label>
+              <input *ngIf="action == 'view'" type="text"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.chargeAmt.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="chargeAmt" name="chargeAmt" placeholder="Enter Charge Amount" formControlName="chargeAmt"
+                trim="blur" readonly>
+              <input *ngIf="action == 'edit'" type="text"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.chargeAmt.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="chargeAmt" name="chargeAmt" placeholder="Enter Charge Amount" formControlName="chargeAmt"
+                trim="blur">
+              <div *ngIf="isSubmitted && viewBillingPlanForm.hasError('required','chargeAmt')"
+                class="custom-error-show">
+                Please enter charge amount.
+              </div>
+              <div
+                *ngIf="isSubmitted && !viewBillingPlanForm.hasError('pattern','chargeAmt') && !viewBillingPlanForm.hasError('required','chargeAmt') && (viewBillingPlanForm.hasError('minlength','chargeAmt') || viewBillingPlanForm.hasError('maxlength','chargeAmt')) "
+                class="custom-error-show">
+                Charge amount must contain 1 to 9 digits.
+              </div>
+              <div
+                *ngIf="isSubmitted && !viewBillingPlanForm.hasError('required','chargeAmt') && viewBillingPlanForm.hasError('pattern','chargeAmt')"
+                class="custom-error-show">
+                Please enter valid charge amount.
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-xl-6" *ngIf="viewBillingPlanForm.value.billingType == 'percentage'">
+            <div class="form-group">
+              <label class="form-control-label">Charge Percentage (KHR) <span class="text-danger">*</span></label>
+              <input *ngIf="action == 'view'" type="text"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.chargePercentage.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="chargePercentage" name="chargePercentage" placeholder="Enter Charge Percentage" formControlName="chargePercentage"
+                trim="blur" readonly>
+                <input *ngIf="action == 'edit'" type="text"
+                [ngClass]="(isSubmitted && viewBillingPlanForm.controls.chargePercentage.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="chargePercentage" name="chargePercentage" placeholder="Enter Charge Percentage" formControlName="chargePercentage"
+                trim="blur">
+              <div *ngIf="isSubmitted && viewBillingPlanForm.hasError('required','chargePercentage')"
+                class="custom-error-show">
+                Please enter charge percentage.
+              </div>
+              <div
+                *ngIf="isSubmitted && !viewBillingPlanForm.hasError('pattern','chargePercentage') && !viewBillingPlanForm.hasError('required','chargePercentage') && (viewBillingPlanForm.hasError('min','chargePercentage') || viewBillingPlanForm.hasError('max','chargePercentage'))"
+                class="custom-error-show">
+                Charge percentage must contain 1 to 100 only.
+              </div>
+              <div
+                *ngIf="isSubmitted && !viewBillingPlanForm.hasError('required','chargePercentage') && viewBillingPlanForm.hasError('pattern','chargePercentage')"
+                class="custom-error-show">
+                Please enter valid charge percentage.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footrt-btns">
+          <button *ngIf="action == 'view'" type="button" class="btn btn-info" (click)="onEdit()"><i
+              class="fa fa-edit"></i>Edit</button>
+          <button *ngIf="action == 'edit'" type="submit" class="btn btn-info"><i class="fa fa-edit"></i>Update</button>
+          <button type="button" class="btn btn-danger" [routerLink]="['/billing-plan/list-billing-plan/']"><i
+              class="fa fa-backward"></i>Cancel</button>
+        </div>
+      </form>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="col-sm-12">
+      <app-card cardTitle="View Passenger" [options]="false">
+        <form [formGroup]="viewPassengerForm" (ngSubmit)="onFormSubmit()" novalidate class="custom-login">
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <div class="form-group">
+                <label class="form-control-label">Name <span class="text-danger">*</span></label>
+                <input *ngIf="action == 'view'" type="text" id="name" name="name" placeholder="Enter Name" formControlName="name" [ngClass]="(isSubmitted && viewPassengerForm.controls.name.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'" readonly>
+                <input *ngIf="action == 'edit'" type="text"
+                  [ngClass]="(isSubmitted && viewPassengerForm.controls.name.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                  id="name" name="name" placeholder="Enter Name" formControlName="name" trim="blur">
+                <span *ngIf="isSubmitted && viewPassengerForm.hasError('required','name')" class="custom-error-show">Please
+                  enter name.</span>
+                <div
+                  *ngIf="isSubmitted && !viewPassengerForm.hasError('required','name') && viewPassengerForm.hasError('pattern','name')"
+                  class="custom-error-show">
+                  Name should not be enter special characters.</div>
+                <div
+                  *ngIf="isSubmitted && !viewPassengerForm.hasError('required','name') && !viewPassengerForm.hasError('pattern','name') && (viewPassengerForm.hasError('maxlength','name') || viewPassengerForm.hasError('minlength','name'))"
+                  class="custom-error-show">Name
+                  must be 2 to 50 characters long.</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <div class="form-group">
+                <label class="form-control-label">Email </label>
+                <input type="email" id="email" name="email" placeholder="Enter Email" formControlName="email" [ngClass]="(isSubmitted && viewPassengerForm.controls.name.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'" readonly>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <div class="form-group">
+                <label class="form-control-label">Date Of Birth <span class="text-danger">*</span></label>
+                <div class="input-group">
+                  <input class="form-control"
+                    [ngClass]="(isSubmitted && viewPassengerForm.controls.dob.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                    autocomplete="off" placeholder="yyyy-mm-dd" name="dob" ngbDatepicker #d="ngbDatepicker"
+                    formControlName="dob" readonly>
+                  <div class="input-group-append">
+                    <span *ngIf="action == 'view'" class="input-group-text">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                    <span *ngIf="action == 'edit'" class="input-group-text" (click)="d.toggle()">
+                        <i class="fa fa-calendar"></i>
+                      </span>
+                  </div>
+                  <span *ngIf="isSubmitted && viewPassengerForm.hasError('required','dob')"
+                    class="custom-error-show">Please enter date of birth.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <div class="form-group">
+                <label class="form-control-label">Mobile Number <span class="text-danger">*</span></label>
+                <div class="row">
+                  <div class="col-sm-4 col-md-4 col-xl-4">
+                    <select class="form-control" formControlName="countryCode" disabled="disabled">
+                      <option *ngFor="let country of countries" [value]="country.phoneCode">
+                        {{country.phoneCode}} - {{country.code}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-sm-8 col-md-8 col-xl-8">
+                      <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Enter Mobile Number" formControlName="phoneNumber"
+                      trim="blur" [ngClass]="(isSubmitted && viewPassengerForm.controls.name.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'" readonly>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <div class="form-group">
+                <label class="form-control-label">Upload Profile Pic</label>
+                <div class="profile-upload-wrap">
+                  <div class="custom-file-upload">
+                    <input *ngIf="action == 'view'" id="file-upload" type="file" name="profilePhoto" formControlName="profilePhoto"
+                      (change)="onImageChange($event)" placeholder="Upload file" accept=".png,.jpg,.jpeg" disabled />
+                    <input *ngIf="action == 'edit'" id="file-upload" type="file" name="profilePhoto" formControlName="profilePhoto"
+                      (change)="onImageChange($event)" placeholder="Upload file" accept=".png,.jpg,.jpeg" />
+                      <span *ngIf="isSubmitted && isImageExtensionError"
+                      class="custom-error-show">Only JPG, JPEG and PNG format allow.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="uploded-profile-pic">
+                  <figure>
+                    <img *ngIf="passengerData.profilePhoto != ''" src="{{profilePhotoUrl}}{{passengerData.profilePhoto}}" alt="profile-pic">
+                    <img *ngIf="passengerData.profilePhoto == ''" src="{{profilePhotoUrl}}default.png" alt="profile-pic">
+                  </figure>
+                </div>
+            </div>
+          </div>
+          <div class="footrt-btns">
+            <button *ngIf="action == 'edit'" type="button" class="btn btn-warning" (click)="onDelete()"><i class="fa fa-trash"></i>Delete</button>
+            <button *ngIf="action == 'view'" type="button" class="btn btn-info" (click)="onEdit()"><i class="fa fa-edit"></i>Edit</button>
+            <button *ngIf="action == 'edit'" type="submit" class="btn btn-info"><i class="fa fa-edit"></i>Update</button>
+            <button type="button" class="btn btn-danger" [routerLink]="['/passenger/list-passenger/']"><i class="fa fa-backward"></i>Cancel</button>
+          </div>
+        </form>
+      </app-card>
+    </div>
+  </div>
+  <ngx-loading [show]="loading"
+    [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}"></ngx-loading>

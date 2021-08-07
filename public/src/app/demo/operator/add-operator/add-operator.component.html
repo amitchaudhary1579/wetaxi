@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Add Operator" [options]="false">
+      <form [formGroup]="addOperatorForm" (ngSubmit)="onFormSubmit()" novalidate class="custom-login">
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">First Name <span class="text-danger">*</span></label>
+              <input type="text"
+                [ngClass]="(isSubmitted && addOperatorForm.controls.first_name.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="first_name" name="first_name" placeholder="Enter First Name" formControlName="first_name" trim="blur">
+              <span *ngIf="isSubmitted && addOperatorForm.hasError('required','first_name')" class="custom-error-show">Please enter first name.</span>
+              <div
+                *ngIf="isSubmitted && !addOperatorForm.hasError('required','first_name') && addOperatorForm.hasError('pattern','first_name')"
+                class="custom-error-show">
+                First name should contains alphabetic only.</div>
+              <div
+                *ngIf="isSubmitted && !addOperatorForm.hasError('required','first_name') && !addOperatorForm.hasError('pattern','first_name') && (addOperatorForm.hasError('maxlength','first_name') || addOperatorForm.hasError('minlength','first_name'))"
+                class="custom-error-show">First name must be 2 to 50 characters long.</div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">Last Name <span class="text-danger">*</span></label>
+              <input type="text"
+                [ngClass]="(isSubmitted && addOperatorForm.controls.last_name.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="last_name" name="last_name" placeholder="Enter First Name" formControlName="last_name" trim="blur">
+              <span *ngIf="isSubmitted && addOperatorForm.hasError('required','last_name')" class="custom-error-show">Please enter last name.</span>
+              <div
+                *ngIf="isSubmitted && !addOperatorForm.hasError('required','last_name') && addOperatorForm.hasError('pattern','last_name')"
+                class="custom-error-show">
+                Last name should contains alphabetic only.</div>
+              <div
+                *ngIf="isSubmitted && !addOperatorForm.hasError('required','last_name') && !addOperatorForm.hasError('pattern','last_name') && (addOperatorForm.hasError('maxlength','last_name') || addOperatorForm.hasError('minlength','first_name'))"
+                class="custom-error-show">Last name must be 2 to 50 characters long.</div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">Email <span class="text-danger">*</span></label>
+              <input type="email"
+                [ngClass]="(isSubmitted && addOperatorForm.controls.email.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="email" name="email" placeholder="Enter Email" formControlName="email" trim="blur">
+              <span *ngIf="isSubmitted && addOperatorForm.hasError('required','email')"
+                class="custom-error-show">Please enter email.</span>
+              <span
+                *ngIf="isSubmitted && !addOperatorForm.hasError('required','email') && addOperatorForm.hasError('pattern','email')"
+                class="custom-error-show">Please enter valid email.</span>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">Password <span class="text-danger">*</span></label>
+              <input type="password"
+                [ngClass]="(isSubmitted && addOperatorForm.controls.password.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="password" name="password" placeholder="Enter Password" formControlName="password" trim>
+                <div *ngIf="isSubmitted && addOperatorForm.hasError('required','password')" class="custom-error-show">Please enter password.</div>
+                <div *ngIf="isSubmitted && !addOperatorForm.hasError('required','password') && (addOperatorForm.hasError('minlength','password') || addOperatorForm.hasError('maxlength','password'))" class="custom-error-show">Password must be 6-16 charaters long.</div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">Confirm Password <span class="text-danger">*</span></label>
+              <input type="password"
+                [ngClass]="(isSubmitted && addOperatorForm.controls.confirmPassword.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="confirmPassword" name="confirmPassword" placeholder="Enter Confirm Password" formControlName="confirmPassword" trim>
+                <div *ngIf="isSubmitted && addOperatorForm.hasError('required','confirmPassword')" class="custom-error-show">Please enter confirm password.</div>
+                <div *ngIf="isSubmitted && !addOperatorForm.hasError('required','confirmPassword') && addOperatorForm.hasError('MatchPassword','confirmPassword')" class="custom-error-show">Confirm password does not match with entered password.</div>
+            </div>
+          </div>
+        </div>
+        <div class="footrt-btns">
+          <button type="submit" class="btn btn-info"><i class="fa fa-check"></i>Submit</button>
+          <button type="button" class="btn btn-danger" [routerLink]="['/operator/list-operator/']"><i
+              class="fa fa-backward"></i>Cancel</button>
+        </div>
+      </form>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}"></ngx-loading>

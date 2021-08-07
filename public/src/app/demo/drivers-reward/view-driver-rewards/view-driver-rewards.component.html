@@ -1,0 +1,124 @@
+<div class="row">
+  <div class="col-sm-12">
+    <button type="button" class="btn btn-primary" [routerLink]="['/reward/driver-reward/']"><i
+        class="fa fa-backward"></i>Back</button>
+    <br>
+    <br>
+    <app-card cardTitle="Driver Details" [options]="false">
+      <div class="col-sm-12 col-md-12 col-xl-12">
+        <div class="card-block text-center">
+          <h5>{{ driverName }}</h5>
+          <img class="img-fluid rounded-circle" style="width:100px;height:100px;"
+            src="{{profileImageUrl}}{{driverData?.profilePhoto ? driverData?.profilePhoto : 'default.png'}}"
+            (error)="imgErrorHandler($event)" alt="dashboard-user">
+          <div class="row m-t-30">
+            <div class="col-md-4 col-6">
+              <h5 *ngIf="driverData?.email != ''">{{driverData?.email}}</h5>
+              <h5 *ngIf="driverData?.email == ''">Not Available</h5>
+              <span class="text-muted">Email</span>
+            </div>
+            <div class="col-md-4 col-12">
+            </div>
+            <div class="col-md-4 col-6">
+              <h5>{{driverData?.countryCode}} {{ driverData?.onlyPhoneNumber}}</h5>
+              <span class="text-muted">Phone Number</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-card>
+    <app-card cardTitle="View Driver Reward" [options]="false">
+      <div class="datatable-top-btn-left">
+        <form class="row" [formGroup]="filterForm" (ngSubmit)="filterList()" novalidate>
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="fromDate" ngbDatepicker
+                #fd="ngbDatepicker">
+              <div class="input-group-append">
+                <span class="input-group-text" (click)="fd.toggle()">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+            </div>
+            <span *ngIf="submitted && filterForm.hasError('required','fromDate')" class="custom-error-show">
+              Please select start date.
+            </span>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="toDate" ngbDatepicker
+                #td="ngbDatepicker" [minDate]="filterForm.value.fromDate">
+              <div class="input-group-append">
+                <span class="input-group-text" (click)="td.toggle()">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+            </div>
+            <span *ngIf="submitted && filterForm.hasError('required','toDate')" class="custom-error-show">
+              Please select to date.
+            </span>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <button class="btn btn-primary" type="submit" title="Filter">
+                <i class="fas fa-filter"></i>
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <button class="btn btn-danger" type="button" (click)="resetFilter()" title="Reset">
+                  <i class="fas fa-times"></i>
+                </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="table-responsive custom-table-responsive">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+            <tr>
+              <th>Reaward Id</th>
+              <th>Reaward Date</th>
+              <th>Reaward Title</th>
+              <th>Reaward Type</th>
+              <th>Gift Type</th>
+              <th>Reaward value</th>
+              <th>Is Reawarded</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="diver_reward && diver_reward?.length > 0">
+            <tr *ngFor="let reward_list of diver_reward">
+              <td>{{ reward_list?.autoIncrementID ?  reward_list?.autoIncrementID : "---"}}</td>
+              <td>{{ reward_list?.createdAt | date: "d MMM y, h:mm:ss a"}}</td>
+              <td>{{ reward_list?.name?.en ? (reward_list?.name?.en | titlecase) : "---" }}</td>
+              <td>{{ reward_list?.type | titlecase }}</td>
+              <td>{{ reward_list?.giftType | titlecase }}</td>
+              <td>{{ reward_list?.amount ? reward_list?.amount : "---" }}</td>
+              <td>
+                <span *ngIf="reward_list?.isReceived" class="btn btn-success btn-verify">Yes</span>
+                <span *ngIf="!reward_list?.isReceived" class="btn btn-danger btn-verify">No</span>&#160;
+                <button *ngIf="!reward_list?.isReceived" (click)="receive_reward(reward_list)"
+                  class="btn btn-warning btn-action" ngbtooltip="btn-primary" type="button">Give <i
+                    class="far fa-money-bill-alt"></i></button>
+              </td>
+              <!-- <td>
+              <button class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button"
+                [routerLink]="['/ride/single-view-driver-ride/', reward_list._id]" title="view"><i
+                  class="fas fa-eye"></i></button>
+            </td> -->
+            </tr>
+          </tbody>
+          <tbody *ngIf="diver_reward?.length == 0">
+            <tr>
+              <td colspan="8" class="no-data-available">No data!</td>
+            </tr>
+          <tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

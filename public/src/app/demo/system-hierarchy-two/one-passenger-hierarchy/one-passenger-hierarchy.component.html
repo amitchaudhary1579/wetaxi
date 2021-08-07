@@ -1,0 +1,129 @@
+<div class="row">
+  <div class="col-sm-12">
+    <!-- <button *ngIf="back_hierarchy" type="button" class="btn btn-primary" [routerLink]="['/hierarchys/passenger-hierarchy/']"><i
+          class="fa fa-backward"></i>Back</button> -->
+    <button type="button" class="btn btn-primary" (click)="backHierarchy()"><i class="fa fa-backward"></i>Back</button>
+    <br>
+    <br>
+    <app-card cardTitle="List Of Passengers" [options]="false">
+        <div class="datatable-top-btn-left">
+            <form class="row" [formGroup]="filterForm" (ngSubmit)="filterList()" novalidate>
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="fromDate" ngbDatepicker
+                    #fd="ngbDatepicker">
+                  <div class="input-group-append">
+                    <span class="input-group-text" (click)="fd.toggle()">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                </div>
+                <span *ngIf="submitted && filterForm.hasError('required','fromDate')" class="custom-error-show">
+                  Please select start date.
+                </span>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="toDate" ngbDatepicker
+                    #td="ngbDatepicker" [minDate]="filterForm.value.fromDate">
+                  <div class="input-group-append">
+                    <span class="input-group-text" (click)="td.toggle()">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                </div>
+                <span *ngIf="submitted && filterForm.hasError('required','toDate')" class="custom-error-show">
+                  Please select to date.
+                </span>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <button class="btn btn-primary" type="submit" title="Filter">
+                    <i class="fas fa-filter"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                    <button class="btn btn-danger" type="button" (click)="resetFilter()" title="Reset">
+                        <i class="fas fa-times"></i>
+                      </button>
+                </div>
+              </div>
+            </form>
+          </div>
+      <div class="table-responsive custom-table-responsive">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+            <tr>
+              <th>Auto Id</th>
+              <th>Unique Id</th>
+              <th>Email</th>
+              <th>Name</th>
+              <th>Country Code</th>
+              <th>Phone Number</th>
+              <th>Date Of Birth</th>
+              <th>Register Date</th>
+              <th>Profile Photo</th>
+              <th>Picture of invited by</th>
+              <th>Number of invited by</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="passengers?.length != 0">
+            <tr *ngFor="let passenger_data of passengers">
+              <td>{{ passenger_data?.passenger?.autoIncrementID ? passenger_data?.passenger?.autoIncrementID : "---"}}
+              </td>
+              <td>{{ passenger_data?.passenger?.uniqueID }} <span *ngIf="passenger_data?.passenger?.isDeleted">(Deleted)</span></td>
+              <td *ngIf="passenger_data?.passenger.email != ''">{{ passenger_data?.passenger?.email }}</td>
+              <td *ngIf="passenger_data?.passenger.email == ''"> Not Available </td>
+              <td>{{ passenger_data?.passenger?.name }}</td>
+              <td>{{ passenger_data?.passenger?.countryCode }}</td>
+              <td>{{ passenger_data?.passenger?.onlyPhoneNumber }}</td>
+              <td><label
+                  [ngStyle]="{'color': passenger_data?.passenger.isSelected ? 'green' : '' }"><b>{{ passenger_data?.passenger?.dob | date:"dd/MM/yyyy" }}</b></label>
+              </td>
+              <td>{{ passenger_data?.createdAt | date: "dd/MM/yyyy  h:mm a"  }}</td>
+              <td>
+                <div class="uploded-profile-pic datatable-profile-pic">
+                  <figure>
+                    <img src="{{profilePhotoUrl}}{{passenger_data?.passenger.profilePhoto}}" alt="profile-pic"
+                      (error)="imgErrorHandler($event)">
+                  </figure>
+                </div>
+              </td>
+              <td>
+                  <div class="uploded-profile-pic datatable-profile-pic">
+                    <figure>
+                      <img src="{{profilePhotoUrl}}{{passenger_data?.parentPassenger.profilePhoto}}" alt="profile-pic"
+                        (error)="imgErrorHandler($event)">
+                    </figure>
+                  </div>
+                </td>
+              <td>{{ passenger_data?.parentPassenger?.phoneNumber }}</td>
+              <td>
+                <button  class="btn btn-primary btn-action"
+                  ngbtooltip="btn-primary" type="button"
+                  [routerLink]="['/hierarchys/view-passenger-hierarchy/', passenger_data?.passenger._id]"
+                  title="view"><i class="fas fa-eye"></i></button>
+                <button class="btn btn-warning btn-action"
+                  ngbtooltip="btn-primary" type="button" (click)="rerenderTable()"
+                  [routerLink]="['/hierarchys/one-passenger-hierarchy/', passenger_data?.passenger._id]"
+                  [queryParams]="{LevelId:  passenger_data?.passenger.passengerLevel}" title="Level"><i
+                    class="fas fa-level-down-alt"></i></button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="passengers?.length == 0">
+            <tr>
+              <td colspan="9" class="no-data-available">No data!</td>
+            </tr>
+          <tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

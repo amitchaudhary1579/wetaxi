@@ -1,0 +1,108 @@
+<div class="row">
+  <div class="col-sm-12">
+    <button type="button" class="btn btn-primary" [routerLink]="['/credit/list-credit/']"><i
+        class="fa fa-backward"></i>Back</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" (click)="openModal()"><i
+        class="fa fa-plus"></i>Add Credit</button>
+    <br>
+    <br>
+    <app-card cardTitle="Driver Details" [options]="false">
+      <div class="col-sm-12 col-md-12 col-xl-12">
+        <div class="card-block text-center">
+          <h5>{{ driverName }}</h5>
+          <img class="img-fluid rounded-circle" style="width:100px;height:100px;"
+            src="{{profileImageUrl}}{{driverData?.profilePhoto ? driverData?.profilePhoto : 'default.png'}}"
+            alt="dashboard-user" (error)="imgErrorHandler($event)">
+          <div class="row m-t-30">
+            <div class="col-md-4 col-6">
+              <h5 *ngIf="driverData?.email != ''">{{driverData?.email}}</h5>
+              <h5 *ngIf="driverData?.email == ''">Not Available</h5>
+              <span class="text-muted">Email</span>
+            </div>
+            <div class="col-md-4 col-12">
+              <h5>{{driverData?.creditBalance | round |number : '1.0-0'}}</h5>
+              <span class="text-muted">Balance (KHR)</span>
+            </div>
+            <div class="col-md-4 col-6">
+              <h5>{{driverData?.countryCode}} {{ driverData?.onlyPhoneNumber}}</h5>
+              <span class="text-muted">Phone Number</span>
+            </div>
+          </div>
+
+          <!-- Add Credit Moal -->
+          <form [formGroup]="addCreditForm" (ngSubmit)="onFormSubmit()" novalidate>
+            <app-ui-modal #myPersistenceModal [containerClick]="false">
+              <div class="app-modal-header">
+                <h5 class="modal-title">Add Credit</h5>
+                <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+                  (click)="myPersistenceModal.hide()"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="app-modal-body">
+                <div class="row">
+                  <div class="col-sm-12 col-md-12 col-xl-12">
+                    <div class="form-group">
+                      <label class="form-control-label">Amount <span class="text-danger">*</span></label>
+                      <input type="text"
+                        [ngClass]="(isSubmitted && addCreditForm.controls.amount.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                        id="amount" name="amount" placeholder="Enter Amount" formControlName="amount" trim="blur">
+                      <div *ngIf="isSubmitted && addCreditForm.hasError('required','amount')" class="custom-error-show">
+                        Please enter amount.
+                      </div>
+                      <div
+                        *ngIf="isSubmitted && !addCreditForm.hasError('pattern','amount') && !addCreditForm.hasError('required','amount') && (addCreditForm.hasError('minlength','amount') || addCreditForm.hasError('maxlength','amount')) "
+                        class="custom-error-show">
+                        Amount must contain 1 to 9 digits.
+                      </div>
+                      <div
+                        *ngIf="isSubmitted && !addCreditForm.hasError('required','amount') && addCreditForm.hasError('pattern','amount')"
+                        class="custom-error-show">
+                        Please enter valid amount.
+                      </div>
+                      <div *ngIf="isSubmitted && operatorDisable" class="custom-error-show">
+                        Operator maximum add credit limit is 80,000 KHR.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="app-modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="myPersistenceModal.hide()"
+                  #closeBtn>Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </app-ui-modal>
+          </form>
+
+        </div>
+      </div>
+    </app-card>
+    <app-card cardTitle="View Credit Logs" [options]="false">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+        <thead>
+          <tr>
+            <th>Amount (KHR)</th>
+            <th>Credit By</th>
+            <th>Name</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="credits && credits?.length > 0">
+          <tr *ngFor="let credit of credits">
+            <td>{{ credit?.amount | round |number : '1.0-0'}}</td>
+            <td>{{ credit?.creditBy?.type ? (credit?.creditBy?.type | titlecase) : "--"}}</td>
+            <td>{{ credit?.creditBy?.first_name ? ((credit?.creditBy?.first_name  | titlecase) + credit?.creditBy?.last_name) : "--" }}</td>
+            <td>{{ credit?.createdAt | date: "dd/MM/yyyy, h:mm:ss a" }}</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="credits?.length == 0">
+          <tr>
+            <td colspan="4" class="no-data-available">No data!</td>
+          </tr>
+        <tbody>
+      </table>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

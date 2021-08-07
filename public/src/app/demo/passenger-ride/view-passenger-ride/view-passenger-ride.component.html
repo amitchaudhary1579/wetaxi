@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-sm-12">
+    <!-- <button type="button" class="btn btn-primary" [routerLink]="['/rides/list-passenger-ride/']"><i
+        class="fa fa-backward"></i>Back</button> -->
+    <button type="button" class="btn btn-primary" (click)="backHierarchy()"><i class="fa fa-backward"></i>Back</button>
+    <br>
+    <br>
+    <app-card cardTitle="Passenger Details" [options]="false">
+      <div class="col-sm-12 col-md-12 col-xl-12">
+        <div class="card-block text-center">
+          <h5>{{ viewPassengerData?.name }}</h5>
+          <img class="img-fluid rounded-circle" style="width:100px;height:100px;"
+            src="{{profileImageUrl}}{{viewPassengerData?.profilePhoto ? viewPassengerData?.profilePhoto : 'default.png' }}" alt="dashboard-user" (error)="imgErrorHandler($event)">
+            <div class="row m-t-30">
+            <div class="col-md-4 col-6">
+              <h5 *ngIf="viewPassengerData?.email != ''">{{viewPassengerData?.email}}</h5>
+              <h5 *ngIf="viewPassengerData?.email == ''">Not Available</h5>
+              <span class="text-muted">Email</span>
+            </div>
+            <div class="col-md-4 col-12">
+              <!-- <h5>{{driverData.creditBalance}}</h5>
+              <span class="text-muted">Balance (KHR)</span> -->
+            </div>
+            <div class="col-md-4 col-6">
+              <h5>{{viewPassengerData?.countryCode}} {{ viewPassengerData?.onlyPhoneNumber}}</h5>
+              <span class="text-muted">Phone Number</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-card>
+    <app-card cardTitle="View Ride Logs" [options]="false">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+        <thead>
+          <tr>
+            <th>Auto Id</th>
+            <th>Date</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Price</th>
+            <th>Distance</th>
+            <th>Time</th>
+            <th>Reason</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="credits && credits?.length > 0">
+          <tr *ngFor="let credit of credits">
+            <td>{{ credit?.rideId ? credit?.rideId : "---" }}</td>
+            <td>{{ credit?.paymentAt ? (credit?.paymentAt | date: "d MMM y, h:mm:ss a") : (credit?.updatedAt | date: "d MMM y, h:mm:ss a") }}</td>
+            <td>{{ credit?.pickupAddress ? credit?.pickupAddress :"---" }}</td>
+            <td>{{ credit?.destinationAddress ? credit?.destinationAddress :"---" }}</td>
+            <td>KHR {{ credit?.toatlFare | round |number : '1.0-0'}}</td>
+            <td>{{ credit?.toatlDistance | round |number : '1.0-0' }} Km</td>
+            <td>{{ credit?.totalTime ? (credit?.totalTime/60 | number: '1.0-0') : 0 }} Min</td>
+            <td>{{ credit?.reasonText?.en ? credit?.reasonText?.en : "---"  }}</td>
+            <td>
+              <span *ngIf="credit.status == 'completed'" class="btn btn-success btn-verify"  title="verify">KHR {{ credit.toatlFare | round |number : '1.0-0' }}</span>
+              <span *ngIf="credit.status == 'cancelled'" class="btn btn-danger btn-verify"  title="Unverify">Cancelled</span>                
+              <span *ngIf="credit.status == 'accepted' || credit.status == 'arrived' ||credit.status == 'onride'" class="btn btn-warning btn-verify"  title="Unverify">Active</span>                
+            </td>
+          <td>
+              <button *ngIf="credit.status == 'completed'" class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button"
+              [routerLink]="['/rides/single-view-passenger-ride/', credit._id]"  [queryParams]="{PassengerId: passenger_id}" title="view"><i class="fas fa-eye"></i></button>
+              <button *ngIf="credit.status == 'cancelled'"  class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button" [routerLink]="['/rides/single-view-passenger-ride/', credit._id]"  [queryParams]="{PassengerId: passenger_id}" title="block"><i class="fas fa-eye"></i></button>
+              <button *ngIf="credit.status == 'accepted' || credit.status == 'arrived' ||credit.status == 'onride'" class="btn btn-danger btn-action" ngbtooltip="btn-primary" type="button" (click)="cancelRideSystem(credit)" title="block"><i class="far fa-window-close"></i></button>
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="credits?.length == 0">
+          <tr>
+            <td colspan="8" class="no-data-available">No data!</td>
+          </tr>
+        <tbody>
+      </table>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

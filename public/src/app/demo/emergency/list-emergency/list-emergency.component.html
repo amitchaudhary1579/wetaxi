@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="List Of Emergency" [options]="false">
+      <div class="datatable-top-btn">
+        <button *ngIf="this.operatorDisable" class="btn btn-info" type="button" (click)="operatorPermission()"><i
+            class="fas fa-plus" title="Add Driver"></i>Add Emergency</button>
+        <button *ngIf="!this.operatorDisable" class="btn btn-info" type="button"
+          [routerLink]="['/emergency/add-emergency']"><i class="fas fa-plus" title="Add Driver"></i>Add
+          Emergency</button>
+      </div>
+      <div class="table-responsive custom-table-responsive">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+            <tr>
+              <th>Auto Id</th>
+              <th>Phone Number</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="emergencies?.length != 0">
+            <tr *ngFor="let emergency of emergencies">
+              <td>{{ emergency?.autoIncrementID ? emergency?.autoIncrementID : "---"}}</td>
+              <td>{{ emergency.phoneNumber }}</td>
+              <td>
+                <button class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button"
+                  [routerLink]="['/emergency/view-emergency/', emergency._id]" title="View"><i
+                    class="fas fa-edit"></i></button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="emergencies?.length == 0">
+            <tr>
+              <td colspan="3" class="no-data-available">No data!</td>
+            </tr>
+          <tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

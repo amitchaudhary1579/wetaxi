@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="List Of Billing Plan" [options]="false">
+      <div class="table-responsive custom-table-responsive">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Details</th>
+              <th>Charge Amount (KHR)</th>
+              <th>Billing Type</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="billingPlans?.length != 0">
+            <tr *ngFor="let billingPlan of billingPlans">
+              <td>{{ billingPlan.name.en }}</td>
+              <td>{{ billingPlan.details.en }}</td>
+              <td>{{ billingPlan.chargeAmt }}</td>
+              <td>{{ billingPlan.billingType }}</td>
+              <td>
+                  <button *ngIf="this.operatorDisable" class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button"
+                  (click)="operatorPermission()" title="View"><i class="fas fa-edit"></i></button>
+                  <button *ngIf="!this.operatorDisable" class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button"
+                  [routerLink]="['/billing-plan/view-billing-plan/', billingPlan._id]" title="View"><i class="fas fa-edit"></i></button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="billingPlans?.length == 0">
+            <tr>
+              <td colspan="5" class="no-data-available">No data!</td>
+            </tr>
+          <tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading" [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}"></ngx-loading>

@@ -1,0 +1,127 @@
+<div class="row">
+    <div class="col-sm-12">
+      <app-card cardTitle="Add Reward" [options]="false">
+        <form [formGroup]="addRewardForm" (ngSubmit)="onFormSubmit()" novalidate class="custom-login">
+          <div class="row">
+              <div class="col-sm-6 col-md-6 col-xl-6">
+                  <div class="form-group">
+                      <label class="form-control-label">Reward Title English </label>
+                      <input type="text"
+                          [ngClass]="(isSubmitted && addRewardForm.controls.name_en.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                          id="name_en" name="name_en" placeholder="Enter Title English" formControlName="name_en"
+                          trim="blur">
+                      <span *ngIf="isSubmitted && addRewardForm.hasError('required','name_en')"
+                          class="custom-error-show">Please
+                          enter name in english.</span>
+                      <div *ngIf="isSubmitted && !addRewardForm.hasError('required','name_en') && addRewardForm.hasError('pattern','name_en')"
+                          class="custom-error-show">
+                          Name english should contains alphabetic only.</div>
+                      <div *ngIf="isSubmitted && !addRewardForm.hasError('required','name_en') && !addRewardForm.hasError('pattern','name_en') && (addRewardForm.hasError('maxlength','name_en') || addRewardForm.hasError('minlength','name_en'))"
+                          class="custom-error-show">Name english
+                          must be 2 to 50 characters long.</div>
+                  </div>
+              </div>
+              <div class="col-sm-6 col-md-6 col-xl-6">
+                  <div class="form-group">
+                      <label class="form-control-label">Reward Title China </label>
+                      <input type="text"
+                          [ngClass]="(isSubmitted && addRewardForm.controls.name_ch.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                          id="name_ch" name="name_ch" placeholder="Enter Title China" formControlName="name_ch"
+                          trim="blur">
+                      <span *ngIf="isSubmitted && addRewardForm.hasError('required','name_ch')"
+                          class="custom-error-show">Please
+                          enter name china.</span>
+                      <div *ngIf="isSubmitted && !addRewardForm.hasError('required','name_ch') && (addRewardForm.hasError('maxlength','name_ch') || addRewardForm.hasError('minlength','name_ch'))"
+                          class="custom-error-show">Name china
+                          must be 2 to 50 characters long.</div>
+                  </div>
+              </div>
+              <div class="col-sm-6 col-md-6 col-xl-6">
+                  <div class="form-group">
+                      <label class="form-control-label">Reward Title Combodia </label>
+                      <input type="text"
+                          [ngClass]="(isSubmitted && addRewardForm.controls.name_kh.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                          id="name_kh" name="name_kh" placeholder="Enter Title Combodia" formControlName="name_kh"
+                          trim="blur">
+                      <span *ngIf="isSubmitted && addRewardForm.hasError('required','name_kh')"
+                          class="custom-error-show">Please
+                          enter name china.</span>
+                      <div *ngIf="isSubmitted && !addRewardForm.hasError('required','name_kh')  && (addRewardForm.hasError('maxlength','name_kh') || addRewardForm.hasError('minlength','name_kh'))"
+                          class="custom-error-show">Name China
+                          must be 2 to 50 characters long.</div>
+                  </div>
+              </div>
+          </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-xl-6">
+                <div class="form-group">
+                    <label class="form-control-label">Reward Type </label>
+                    <ng-select [ngClass]="'ng-select'" [options]="Rewardtype" name="type"
+                        formControlName="type" placeholder="Select Reward Type" 
+                        [ngClass]="(isSubmitted && addRewardForm.controls.type.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'">
+                    </ng-select>
+                    <span *ngIf="isSubmitted && addRewardForm.hasError('required','type')"
+                        class="custom-error-show">Please select Reward Type.</span>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-xl-6">
+                <div class="form-group">
+                    <label class="form-control-label">Gift Type </label>
+                    <ng-select [ngClass]="'ng-select'" [options]="Gifttype" name="giftType"
+                        formControlName="giftType" placeholder="Select Gift Type" (selected)="selectChange($event)"
+                        [ngClass]="(isSubmitted && addRewardForm.controls.giftType.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'">
+                    </ng-select>
+                    <span *ngIf="isSubmitted && addRewardForm.hasError('required','giftType')"
+                        class="custom-error-show">Please select Gift Type.</span>
+                </div>
+            </div>
+            <!-- <div  *ngIf="addRewardForm.value.giftType == 'other'" class="col-sm-6 col-md-6 col-xl-6">
+                <div class="form-group">
+                  <label class="form-control-label">Gift Name </label>
+                  <input type="text"
+                    [ngClass]="(isSubmitted && addRewardForm.controls.giftName.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                    id="giftName" name="giftName" placeholder="Enter Gift Name " formControlName="giftName" trim="blur">
+                  <span *ngIf="isSubmitted && addRewardForm.hasError('required','giftName')" class="custom-error-show">Please enter Gift Name .</span>
+                  <div
+                    *ngIf="isSubmitted && !addRewardForm.hasError('required','giftName') && addRewardForm.hasError('pattern','giftName')"
+                    class="custom-error-show">
+                    Gift Name  should contains alphabetic only.</div>
+                  <div
+                    *ngIf="isSubmitted && !addRewardForm.hasError('required','giftName') && !addRewardForm.hasError('pattern','giftName') && (addRewardForm.hasError('maxlength','giftName') || addRewardForm.hasError('minlength','giftName'))"
+                    class="custom-error-show">Gift Name  must be 2 to 50 characters long.</div>
+                </div>
+              </div> -->
+            <div *ngIf="addRewardForm.value.giftType != 'other'" class="col-sm-6 col-md-6 col-xl-6">
+                <div class="form-group">
+                    <label class="form-control-label">Amount</label>
+                    <input type="text"
+                        [ngClass]="(isSubmitted && addRewardForm.controls.amount.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                        id="amount" name="amount" placeholder="Enter Minimum Fare" formControlName="amount"
+                        trim="blur">
+                    <div *ngIf="isSubmitted && addRewardForm.hasError('required','amount')"
+                        class="custom-error-show">
+                        Please enter Amount.
+                    </div>
+                    <div *ngIf="isSubmitted && !addRewardForm.hasError('pattern','amount') && !addRewardForm.hasError('required','amount') && (addRewardForm.hasError('minlength','amount') || addRewardForm.hasError('maxlength','amount')) "
+                        class="custom-error-show">
+                        Minimum Amount must contain 1 to 8 digits.
+                    </div>
+                    <div *ngIf="isSubmitted && !addRewardForm.hasError('required','amount') && addRewardForm.hasError('pattern','amount')"
+                        class="custom-error-show">
+                        Please enter valid Amount.
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="footrt-btns">
+            <button type="submit" class="btn btn-info"><i class="fa fa-check"></i>Submit</button>
+            <button type="button" class="btn btn-danger" [routerLink]="['/reward/driver-reward']"><i
+                class="fa fa-backward"></i>Cancel</button>
+          </div>
+        </form>
+      </app-card>
+    </div>
+  </div>
+  <ngx-loading [show]="loading"
+    [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}"></ngx-loading>

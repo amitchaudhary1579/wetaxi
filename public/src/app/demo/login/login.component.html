@@ -1,0 +1,34 @@
+<div class="auth-wrapper">
+  <div class="auth-content">
+    <div class="auth-bg">
+      <span class="r"></span>
+      <span class="r s"></span>
+      <span class="r s"></span>
+      <span class="r"></span>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginFormSubmit()" novalidate class="custom-login">
+      <div class="card">
+        <div class="card-body text-center">
+          <div class="mb-4">
+            <span class="main-logo"><img src="assets/images/main-logo.png" alt="logo"></span>
+          </div>
+          <h3 class="mb-4">Login</h3>
+          <div class="input-group mb-3">
+            <input type="email" [ngClass]="(isSubmitted && loginForm.controls.email.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'" id="email" name="email" placeholder="Email" formControlName="email" trim="blur" #email>
+              <span *ngIf="isSubmitted && loginForm.hasError('required','email')" class="custom-error-show">Please enter email.</span>
+              <span *ngIf="isSubmitted && !loginForm.hasError('required','email') && loginForm.hasError('pattern','email')" class="custom-error-show">Please enter
+                valid email.</span>
+          </div>
+          <div class="input-group mb-4">
+            <input type="password" [ngClass]="(isSubmitted && loginForm.controls.password.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'" class="form-control" placeholder="Password" formControlName="password" trim>
+              <span *ngIf="isSubmitted && loginForm.hasError('required','password')" class="custom-error-show">Please enter password.</span>
+              <span *ngIf="isSubmitted && !loginForm.hasError('required','password') && (loginForm.hasError('minlength','password') || loginForm.hasError('maxlength','password'))" class="custom-error-show">Password must be 6-10 charaters long.</span>
+          </div>
+          <button type="submit" class="btn btn-primary mb-4">Login</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<ng2-toasty [position]="position"></ng2-toasty>
+<ngx-loading [show]="loading" [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}"></ngx-loading>

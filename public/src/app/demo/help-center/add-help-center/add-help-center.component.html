@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-sm-12">
+      <app-card cardTitle="Add Help Center" [options]="false">
+        <form [formGroup]="viewHelpCenterForm" (ngSubmit)="onFormSubmit()" novalidate class="custom-login">
+          <div class="row">
+              <div class="col-sm-6 col-md-6 col-xl-6">
+                <div class="form-group">
+                  <label class="form-control-label">Email <span class="text-danger">*</span></label>
+                  <input  type="email"
+                    [ngClass]="(isSubmitted && viewHelpCenterForm.controls.email.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                    id="email" name="email" placeholder="Enter Email" formControlName="email" trim="blur" >
+                  <span *ngIf="isSubmitted && viewHelpCenterForm.hasError('required','email')"
+                    class="custom-error-show">Please enter email.</span>
+                  <span
+                    *ngIf="isSubmitted && !viewHelpCenterForm.hasError('required','email') && viewHelpCenterForm.hasError('pattern','email')"
+                    class="custom-error-show">Please enter valid email.</span>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-6 col-xl-6">
+                <div class="form-group">
+                  <label class="form-control-label">Mobile Number <span class="text-danger">*</span></label>
+                      <input  type="text"
+                        [ngClass]="(isSubmitted && viewHelpCenterForm.controls.phoneNumber.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                        id="phoneNumber" name="phoneNumber" placeholder="Enter Mobile Number" formControlName="phoneNumber" >
+                      <div *ngIf="isSubmitted && viewHelpCenterForm.hasError('required','phoneNumber')"
+                        class="custom-error-show">
+                        Please enter mobile number.
+                      </div>
+                      <div
+                        *ngIf="isSubmitted && !viewHelpCenterForm.hasError('pattern','phoneNumber') && !viewHelpCenterForm.hasError('required','phoneNumber') && (viewHelpCenterForm.hasError('minlength','phoneNumber') || viewHelpCenterForm.hasError('maxlength','phoneNumber')) "
+                        class="custom-error-show">
+                        Mobile number must contain 8 to 16 digits.
+                      </div>
+                      <div
+                        *ngIf="isSubmitted && !viewHelpCenterForm.hasError('required','phoneNumber') && viewHelpCenterForm.hasError('pattern','phoneNumber')"
+                        class="custom-error-show">
+                        Please enter valid mobile number.
+                      </div>
+                </div>
+              </div>
+              <!-- <div class="col-sm-6 col-md-6 col-xl-6">
+                <div class="form-group">
+                  <label class="form-control-label">Facebook Url <span class="text-danger">*</span></label>
+                  <input  type="fbUrl"
+                    [ngClass]="(isSubmitted && viewHelpCenterForm.controls.fbUrl.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                    id="fbUrl" name="fbUrl" placeholder="Enter Facebook Url" formControlName="fbUrl" trim="blur" >
+                 <span *ngIf="isSubmitted && viewHelpCenterForm.hasError('required','fbUrl')"
+                    class="custom-error-show">Please enter facebook url.</span>
+                  <span
+                    *ngIf="isSubmitted && !viewHelpCenterForm.hasError('required','fbUrl') && viewHelpCenterForm.hasError('pattern','fbUrl')"
+                    class="custom-error-show">Please enter valid facebook url.</span>
+                </div>
+              </div> -->
+          </div>
+          <div class="footrt-btns">
+            <button  type="submit" class="btn btn-info"><i class="fa fa-plus"></i>Add</button>
+            <button type="button" class="btn btn-danger" [routerLink]="['/help-center/list-help-center/']"><i class="fa fa-backward"></i>Cancel</button>
+          </div>
+        </form>
+      </app-card>
+    </div>
+  </div>
+  <ngx-loading [show]="loading"
+    [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}"></ngx-loading>

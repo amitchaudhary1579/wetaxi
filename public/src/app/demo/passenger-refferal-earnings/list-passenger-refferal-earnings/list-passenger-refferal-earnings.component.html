@@ -1,0 +1,106 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="List Of Passengers" [options]="false">
+        <div class="datatable-top-btn-left">
+            <form class="row" [formGroup]="filterForm" (ngSubmit)="filterList()" novalidate>
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="fromDate" ngbDatepicker
+                    #fd="ngbDatepicker">
+                  <div class="input-group-append">
+                    <span class="input-group-text" (click)="fd.toggle()">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                </div>
+                <span *ngIf="submitted && filterForm.hasError('required','fromDate')" class="custom-error-show">
+                  Please select start date.
+                </span>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="toDate" ngbDatepicker
+                    #td="ngbDatepicker" [minDate]="filterForm.value.fromDate">
+                  <div class="input-group-append">
+                    <span class="input-group-text" (click)="td.toggle()">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                </div>
+                <span *ngIf="submitted && filterForm.hasError('required','toDate')" class="custom-error-show">
+                  Please select to date.
+                </span>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <button class="btn btn-primary" type="submit" title="Filter">
+                    <i class="fas fa-filter"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <button class="btn btn-danger" type="button" (click)="resetFilter()" title="Reset">
+                      <i class="fas fa-times"></i>
+                    </button>
+                </div>
+              </div>
+            </form>
+          </div>
+      <div class="table-responsive custom-table-responsive">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+            <tr>
+              <th>Auto Id</th>
+              <th>Passenger Id</th>
+              <th>Email</th>
+              <th>Name</th>
+              <th>Country Code</th>
+              <th>Phone Number</th>
+              <th>Date Of Birth</th>
+              <th>Register Date</th>
+              <th>Profile Photo</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="passengers?.length != 0">
+            <tr *ngFor="let passenger of passengers">
+              <td>{{ passenger?.autoIncrementID ? passenger?.autoIncrementID : "---"}}</td>
+              <td>{{ passenger?.uniqueID }}</td>
+              <td *ngIf="passenger.email != ''">{{ passenger?.email }}</td>
+              <td *ngIf="passenger.email == ''"> Not Available </td>
+              <td>{{ passenger?.name }}</td>
+              <td>{{ passenger?.countryCode }}</td>
+              <td>{{ passenger?.onlyPhoneNumber }}</td>
+              <td><label
+                  [ngStyle]="{'color': passenger.isSelected ? 'green' : '' }"><b>{{ passenger?.dob | date:"dd/MM/yyyy" }}</b></label>
+              </td>
+              <td>{{ passenger?.createdAt | date: "dd/MM/yyyy  h:mm a"  }}</td>
+              <td>
+                <div class="uploded-profile-pic datatable-profile-pic">
+                  <figure>
+                    <img src="{{profilePhotoUrl}}{{passenger?.profilePhoto ? passenger?.profilePhoto : 'default.png'}}"
+                      (error)="imgErrorHandler($event)" alt="dashboard-user">
+                  </figure>
+                </div>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button"
+                  [routerLink]="['/refferals/view-passenger-refferal-earnings/', passenger._id]" title="view"><i
+                    class="fas fa-eye"></i></button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="passengers?.length == 0">
+            <tr>
+              <td colspan="10" class="no-data-available">No data!</td>
+            </tr>
+          <tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

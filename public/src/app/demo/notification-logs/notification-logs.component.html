@@ -1,0 +1,125 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="List Of Notification Logs" [options]="false">
+        <div class="datatable-top-btn-left">
+            <form class="row" [formGroup]="filterForm" (ngSubmit)="filterList()" novalidate>
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="fromDate" ngbDatepicker
+                    #fd="ngbDatepicker">
+                  <div class="input-group-append">
+                    <span class="input-group-text" (click)="fd.toggle()">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                </div>
+                <span *ngIf="submitted && filterForm.hasError('required','fromDate')" class="custom-error-show">
+                  Please select start date.
+                </span>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="toDate" ngbDatepicker
+                    #td="ngbDatepicker" [minDate]="filterForm.value.fromDate">
+                  <div class="input-group-append">
+                    <span class="input-group-text" (click)="td.toggle()">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                </div>
+                <span *ngIf="submitted && filterForm.hasError('required','toDate')" class="custom-error-show">
+                  Please select to date.
+                </span>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <button class="btn btn-primary" type="submit" title="Filter">
+                    <i class="fas fa-filter"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <button class="btn btn-danger" type="button" (click)="resetFilter()" title="Reset">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+      <div class="table-responsive custom-table-responsive">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+            <tr>
+              <th>Auto Id</th>
+              <th>Title</th>
+              <th>Receiver Type</th>
+              <th>Notification Text</th>
+              <th>Notifiction Type</th>
+              <th>CreatedAt</th>
+              <th>Send Notification</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="notificationLogData?.length != 0">
+            <tr *ngFor="let logdata of notificationLogData">
+              <td>{{ logdata?.autoIncrementID ? logdata?.autoIncrementID : "---"}}</td>
+              <td>{{ logdata?.title }}</td>
+              <td>{{ logdata?.receiver_type }}</td>
+              <td>{{ logdata?.note }}</td>
+              <td>{{ logdata?.type }}</td>
+              <td> {{ logdata?.createdAt | date: "dd/MM/yyyy  h:mm a" }}</td>
+              <td> <span  style="cursor: pointer;" (click)="openModals(logdata?._id)">  <i class="far fa-arrow-alt-circle-right fa-2x"></i> </span> &#160;&#160;&#160;
+               <a href=javascript:void(0); (click)="copyText(logdata?.note)">  <i class="fas fa-copy fa-2x"></i> </a>
+               
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="notificationLogData?.length == 0">
+            <tr>
+              <td colspan="6" class="no-data-available">No data!</td>
+            </tr>
+          <tbody>
+        </table>
+      </div>
+      <app-ui-modal #modalDefault class="modal-dialog modal-xl app-modal-dialog app-modal-xl">
+        <div class="app-modal-header">
+          <h5 class="modal-title">Notification Log Users</h5>
+          <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+            (click)="modalDefault.hide()"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="app-modal-body">
+          <div class="col-sm-12">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <tbody>
+                  <tr class="unread">
+                    <td>
+                      <h6><b>Name</b></h6>
+                    </td>
+                    <td>
+                      <h6><b>Email</b></h6>
+                    </td>
+                    <td>
+                      <h6><b>Phone Number</b></h6>
+                    </td>
+                  </tr>
+                  <tr class="unread" *ngFor="let userList of notifyData">
+                    <td>{{ userList.name ? (userList.name| titlecase) : "--" }}</td>
+                    <td *ngIf="userList.email != ''">{{ userList.email }}</td>
+                    <td *ngIf="userList.email == ''"> Not Available </td>
+                    <td>{{ userList.phoneNumber }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <br><br>
+            <button class="btn btn-success" type="button" (click)="resendNotification()"> Resend Notification </button><br><br>
+          </div>
+        </div>
+      </app-ui-modal>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

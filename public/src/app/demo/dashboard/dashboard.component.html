@@ -1,0 +1,1018 @@
+<div class="row">
+  <div class="col-sm-6">
+    <app-card cardTitle="" cardClass="Recent-Users" blockClass="px-0 py-3">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <tbody>
+            <tr class="unread">
+              <td>
+                <h6><b>Top Ten List Driver</b></h6>
+              </td>
+              <td>
+                <h6><b>Max</b></h6>
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                <a href=javascript:void(0); (click)="openModals()"> Top Ten Driver By Earning </a>
+              </td>
+              <td>
+                {{ topTenData?.topTenDriverByDrivingMoney[0]?.driverEarning | round |number : '1.0-0'}}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                <a href=javascript:void(0); (click)="openModals1()"> Top Ten Driver By Ride </a>
+              </td>
+              <td>
+                {{topTenData?.topTenDriverByCompletedRide[0]?.totalCompletedRide }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                <a href=javascript:void(0); (click)="openModals2()"> Top Ten Driver By Referral People Count </a>
+              </td>
+              <td>
+                {{ topTenData?.topTenDriverByTotalInvited[0]?.totalInvitedCount  }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+  <div class="col-sm-6">
+    <app-card cardTitle="" cardClass="Recent-Users" blockClass="px-0 py-3">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <tbody>
+            <tr class="unread">
+              <td>
+                <h6><b>Top Ten List Passenger</b></h6>
+              </td>
+              <td>
+                <h6><b>Max</b></h6>
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                <a href=javascript:void(0); (click)="openModals3()"> Top Ten Passenger By Earning </a>
+              </td>
+              <td>
+                {{ topTenData?.topTenPassengerByRideSpentMoney[0]?.passengerEarning | round |number : '1.0-0' }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                <a href=javascript:void(0); (click)="openModals4()"> Top Ten Passenger By Ride </a>
+              </td>
+              <td>
+                {{ topTenData?.topTenPassengerByCompletedRide[0]?.totalCompletedRide }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                <a href=javascript:void(0); (click)="openModals5()"> Top Ten Passenger By Referral People Count </a>
+              </td>
+              <td>
+                {{ topTenData?.topTenPassengerByTotalInvited[0]?.totalInvitedCount }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+  <div class="col-sm-6">
+      <app-card cardTitle="Income Driver Top up" cardClass="Recent-Users" blockClass="px-0 py-3">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <tbody>
+              <tr class="unread">
+                <td>
+                  Driver Credit Today
+                </td>
+                <td>
+                  {{ IncomeData?.DriverCredit?.todays | round |number : '1.0-0'}}
+                </td>
+              </tr>
+              <tr class="unread">
+                <td>
+                  Driver Credit Yesterday
+                </td>
+                <td>
+                  {{ IncomeData?.DriverCredit?.yesterDays | round |number : '1.0-0'}}
+                </td>
+              </tr>
+              <tr class="unread">
+                <td>
+                  Driver Credit This month
+                </td>
+                <td>
+                  {{ IncomeData?.DriverCredit?.thisMonths | round |number : '1.0-0'}}
+                </td>
+              </tr>
+              <tr class="unread">
+                <td>
+                  Driver Credit Last month
+                </td>
+                <td>
+                  {{ IncomeData?.DriverCredit?.lastMonths | round |number : '1.0-0'}}
+                </td>
+              </tr>
+              <tr class="unread">
+                <td>
+                  Driver Credit This Year
+                </td>
+                <td>
+                  {{ IncomeData?.DriverCredit?.thisYears | round |number : '1.0-0'}}
+                </td>
+              </tr>
+              <tr class="unread">
+                <td>
+                  Driver Credit Last Year
+                </td>
+                <td>
+                  {{ IncomeData?.DriverCredit?.lastYears | round |number : '1.0-0'}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </app-card>
+      <button class="btn btn-success" type="button" (click)="exportAsXLSX_DriverTopup()"><i
+          class="fas fa-plus"></i>Export
+        Table
+        Income Driver Top up</button><br><br>
+    </div>
+    <div class="col-sm-6">
+        <app-card cardTitle="Driver Income" cardClass="Recent-Users" blockClass="px-0 py-3">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <tbody>
+                <tr class="unread">
+                  <td>
+                    Driver Income Today
+                  </td>
+                  <td>
+                    {{ IncomeData?.DriverIncome?.todays| round |number : '1.0-0' }}
+                  </td>
+                </tr>
+                <tr class="unread">
+                  <td>
+                    Driver Income Yesterday
+                  </td>
+                  <td>
+                    {{ IncomeData?.DriverIncome?.yesterDays| round |number : '1.0-0' }}
+                  </td>
+                </tr>
+                <tr class="unread">
+                  <td>
+                    Driver Income This month
+                  </td>
+                  <td>
+                    {{ IncomeData?.DriverIncome?.thisMonths | round |number : '1.0-0'}}
+                  </td>
+                </tr>
+                <tr class="unread">
+                  <td>
+                    Driver Income Last month
+                  </td>
+                  <td>
+                    {{ IncomeData?.DriverIncome?.lastMonths | round |number : '1.0-0'}}
+                  </td>
+                </tr>
+                <tr class="unread">
+                  <td>
+                    Driver Income This Year
+                  </td>
+                  <td>
+                    {{ IncomeData?.DriverIncome?.thisYears | round |number : '1.0-0'}}
+                  </td>
+                </tr>
+                <tr class="unread">
+                  <td>
+                    Driver Income Last Year
+                  </td>
+                  <td>
+                    {{ IncomeData?.DriverIncome?.lastYears | round |number : '1.0-0'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </app-card>
+        <button class="btn btn-success" type="button" (click)="exportAsXLSX_DriverIncome()"><i
+          class="fas fa-plus"></i>Export
+        Table
+        Driver Income</button><br><br>
+      </div>
+      <div class="col-sm-6">
+          <app-card cardTitle="Company Net Income" cardClass="Recent-Users" blockClass="px-0 py-3">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <tbody>
+                  <tr class="unread">
+                    <td>
+                      Company Net Income Today
+                    </td>
+                    <td>
+                      {{ IncomeData?.AdminIncome?.todays| round |number : '1.0-0' }}
+                    </td>
+                  </tr>
+                  <tr class="unread">
+                    <td>
+                      Company Net Income Yesterday
+                    </td>
+                    <td>
+                      {{ IncomeData?.AdminIncome?.yesterDays | round |number : '1.0-0'}}
+                    </td>
+                  </tr>
+                  <tr class="unread">
+                    <td>
+                      Company Net Income This month
+                    </td>
+                    <td>
+                      {{ IncomeData?.AdminIncome?.thisMonths | round |number : '1.0-0'}}
+                    </td>
+                  </tr>
+                  <tr class="unread">
+                    <td>
+                      Company Net Income Last month
+                    </td>
+                    <td>
+                      {{ IncomeData?.AdminIncome?.lastMonths | round |number : '1.0-0'}}
+                    </td>
+                  </tr>
+                  <tr class="unread">
+                    <td>
+                      Company Net Income This Year
+                    </td>
+                    <td>
+                      {{ IncomeData?.AdminIncome?.thisYears | round |number : '1.0-0'}}
+                    </td>
+                  </tr>
+                  <tr class="unread">
+                    <td>
+                      Company Net Income Last Year
+                    </td>
+                    <td>
+                      {{ IncomeData?.AdminIncome?.lastYears | round |number : '1.0-0'}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </app-card>
+          <button class="btn btn-success" type="button" (click)="exportAsXLSX_CompanyNetIncome()"><i
+            class="fas fa-plus"></i>Export
+          Table
+          Company Net Income</button><br><br>
+        </div>
+        <div class="col-sm-6">
+            <app-card cardTitle="Refer And Earn Expense" cardClass="Recent-Users" blockClass="px-0 py-3">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <tbody>
+                    <tr class="unread">
+                      <td>
+                        Refer And Earn Today
+                      </td>
+                      <td>
+                        {{ IncomeData?.DriverRefEarn?.todays| round |number : '1.0-0' }}
+                      </td>
+                    </tr>
+                    <tr class="unread">
+                      <td>
+                        Refer And Earn Yesterday
+                      </td>
+                      <td>
+                        {{ IncomeData?.DriverRefEarn?.yesterDays | round |number : '1.0-0'}}
+                      </td>
+                    </tr>
+                    <tr class="unread">
+                      <td>
+                        Refer And Earn This month
+                      </td>
+                      <td>
+                        {{ IncomeData?.DriverRefEarn?.thisMonths | round |number : '1.0-0'}}
+                      </td>
+                    </tr>
+                    <tr class="unread">
+                      <td>
+                        Refer And Earn Last month
+                      </td>
+                      <td>
+                        {{ IncomeData?.DriverRefEarn?.lastMonths | round |number : '1.0-0'}}
+                      </td>
+                    </tr>
+                    <tr class="unread">
+                      <td>
+                        Refer And Earn This Year
+                      </td>
+                      <td>
+                        {{ IncomeData?.DriverRefEarn?.thisYears | round |number : '1.0-0'}}
+                      </td>
+                    </tr>
+                    <tr class="unread">
+                      <td>
+                        Refer And Earn Last Year
+                      </td>
+                      <td>
+                        {{ IncomeData?.DriverRefEarn?.lastYears | round |number : '1.0-0'}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </app-card>
+            <button class="btn btn-success" type="button" (click)="exportAsXLSX_ReferAndEarnExpanse()"><i
+              class="fas fa-plus"></i>Export
+            Table
+            Refer And Earn Expense</button><br><br>
+          </div>
+  <app-ui-modal #modalDefault class="modal-dialog modal-xl app-modal-dialog app-modal-xl">
+    <div class="app-modal-header">
+      <h5 class="modal-title">Top Ten Driver Earning</h5>
+      <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+        (click)="modalDefault.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="app-modal-body">
+      <div class="col-sm-12">
+        <!-- <app-card cardTitle="Top Ten Driver Earning" cardClass="Recent-Users" blockClass="px-0 py-3"> -->
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <tbody>
+              <tr class="unread">
+                <td>
+                  <h6><b>Auto Id</b></h6>
+                </td>
+                <td>
+                  <h6><b>Vehicle Id</b></h6>
+                </td>
+                <td>
+                  <h6><b>Email</b></h6>
+                </td>
+                <td>
+                  <h6><b>Name</b></h6>
+                </td>
+                <td>
+                  <h6><b>Driver Earning</b></h6>
+                </td>
+                <td>
+                  <h6><b>Country Code</b></h6>
+                </td>
+                <td>
+                  <h6><b>Phone Number</b></h6>
+                </td>
+                <td>
+                  <h6><b>Ratting</b></h6>
+                </td>
+                <td>
+                  <h6><b>Credit(KHR)</b></h6>
+                </td>
+                <td>
+                  <h6><b>Date Of Birth</b></h6>
+                </td>
+                <td>
+                  <h6><b>Register Date</b></h6>
+                </td>
+              </tr>
+              <tr class="unread" *ngFor="let driverList of topTenData?.topTenDriverByDrivingMoney">
+                <td>{{ driverList?.autoIncrementID ? driverList?.autoIncrementID : "---"}}</td>
+                <td>{{ driverList.uniqueID }}</td>
+                <td *ngIf="driverList.email != ''">{{ driverList.email }}</td>
+                <td *ngIf="driverList.email == ''"> Not Available </td>
+                <td>{{ driverList.name }}</td>
+                <td>{{driverList?.driverEarning | round |number : '1.0-0'}}</td>
+                <td>{{ driverList.countryCode }}</td>
+                <td>{{ driverList.onlyPhoneNumber }}</td>
+                <td>{{ driverList?.avgRating }}</td>
+                <td><label
+                    [ngStyle]="{'color': driverList.isSame ? 'red' : '' }"><b>{{ driverList?.creditBalance  | round |number : '1.0-0'}}
+                    </b></label></td>
+                <td><label
+                    [ngStyle]="{'color': driverList.isSelected ? 'green' : '' }"><b>{{ driverList.dob | date:"dd/MM/yyyy" }}</b></label>
+                </td>
+                <td>{{ driverList?.createdAt | date: "dd/MM/yyyy  h:mm a"  }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br><br>
+        <!-- </app-card> -->
+        <button class="btn btn-success" type="button" (click)="exportAsXLSX_DriverEarning()"><i
+            class="fas fa-plus"></i>Export Table
+          Driver Earning</button><br><br>
+      </div>
+    </div>
+  </app-ui-modal>
+  <app-ui-modal #modalDefault1>
+    <div class="app-modal-header">
+      <h5 class="modal-title">Top Ten Driver Ride</h5>
+      <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+        (click)="modalDefault1.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="app-modal-body">
+      <div class="col-sm-12">
+        <!-- <app-card cardTitle="Top Ten Driver Ride" cardClass="Recent-Users" blockClass="px-0 py-3"> -->
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <tbody>
+              <tr class="unread">
+                <td>
+                  <h6><b>Auto Id</b></h6>
+                </td>
+                <td>
+                  <h6><b>Vehicle Id</b></h6>
+                </td>
+                <td>
+                  <h6><b>Email</b></h6>
+                </td>
+                <td>
+                  <h6><b>Name</b></h6>
+                </td>
+                <td>
+                  <h6><b>Driver Ride</b></h6>
+                </td>
+                <td>
+                  <h6><b>Country Code</b></h6>
+                </td>
+                <td>
+                  <h6><b>Phone Number</b></h6>
+                </td>
+                <td>
+                  <h6><b>Ratting</b></h6>
+                </td>
+                <td>
+                  <h6><b>Credit(KHR)</b></h6>
+                </td>
+                <td>
+                  <h6><b>Date Of Birth</b></h6>
+                </td>
+                <td>
+                  <h6><b>Register Date</b></h6>
+                </td>
+              </tr>
+              <tr class="unread" *ngFor="let driverList of topTenData?.topTenDriverByCompletedRide">
+                <td>{{ driverList?.autoIncrementID ? driverList?.autoIncrementID : "---"}}</td>
+                <td>{{ driverList.uniqueID }}</td>
+                <td *ngIf="driverList.email != ''">{{ driverList.email }}</td>
+                <td *ngIf="driverList.email == ''"> Not Available </td>
+                <td>{{ driverList.name }}</td>
+                <td>{{driverList?.totalCompletedRide}}</td>
+                <td>{{ driverList.countryCode }}</td>
+                <td>{{ driverList.onlyPhoneNumber }}</td>
+                <td>{{ driverList?.avgRating }}</td>
+                <td><label
+                    [ngStyle]="{'color': driverList.isSame ? 'red' : '' }"><b>{{ driverList?.creditBalance  | round |number : '1.0-0'}}
+                    </b></label></td>
+                <td><label
+                    [ngStyle]="{'color': driverList.isSelected ? 'green' : '' }"><b>{{ driverList.dob | date:"dd/MM/yyyy" }}</b></label>
+                </td>
+                <td>{{ driverList?.createdAt | date: "dd/MM/yyyy  h:mm a"  }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br><br>
+        <!-- </app-card> -->
+        <button class="btn btn-success" type="button" (click)="exportAsXLSX_DriverRide()"><i
+            class="fas fa-plus"></i>Export
+          Table
+          Driver Ride</button><br><br>
+      </div>
+    </div>
+  </app-ui-modal>
+  <app-ui-modal #modalDefault2>
+    <div class="app-modal-header">
+      <h5 class="modal-title">Top Ten Driver Referral People Count</h5>
+      <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+        (click)="modalDefault2.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="app-modal-body">
+      <div class="col-sm-12">
+        <!-- <app-card cardTitle="Top Ten Driver Referral People Count" cardClass="Recent-Users" blockClass="px-0 py-3"> -->
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <tbody>
+              <tr class="unread">
+                <td>
+                  <h6><b>Auto Id</b></h6>
+                </td>
+                <td>
+                  <h6><b>Vehicle Id</b></h6>
+                </td>
+                <td>
+                  <h6><b>Email</b></h6>
+                </td>
+                <td>
+                  <h6><b>Name</b></h6>
+                </td>
+                <td>
+                  <h6><b>Driver Referral Count</b></h6>
+                </td>
+                <td>
+                  <h6><b>Country Code</b></h6>
+                </td>
+                <td>
+                  <h6><b>Phone Number</b></h6>
+                </td>
+                <td>
+                  <h6><b>Ratting</b></h6>
+                </td>
+                <td>
+                  <h6><b>Credit(KHR)</b></h6>
+                </td>
+                <td>
+                  <h6><b>Date Of Birth</b></h6>
+                </td>
+                <td>
+                  <h6><b>Register Date</b></h6>
+                </td>
+              </tr>
+              <tr class="unread" *ngFor="let driverList of topTenData?.topTenDriverByTotalInvited">
+                <td>{{ driverList?.autoIncrementID ? driverList?.autoIncrementID : "---"}}</td>
+                <td>{{ driverList.uniqueID }}</td>
+                <td *ngIf="driverList.email != ''">{{ driverList.email }}</td>
+                <td *ngIf="driverList.email == ''"> Not Available </td>
+                <td>{{ driverList.name }}</td>
+                <td>{{driverList?.totalInvitedCount}}</td>
+                <td>{{ driverList.countryCode }}</td>
+                <td>{{ driverList.onlyPhoneNumber }}</td>
+                <td>{{ driverList?.avgRating }}</td>
+                <td><label
+                    [ngStyle]="{'color': driverList.isSame ? 'red' : '' }"><b>{{ driverList?.creditBalance  | round |number : '1.0-0'}}
+                    </b></label></td>
+                <td><label
+                    [ngStyle]="{'color': driverList.isSelected ? 'green' : '' }"><b>{{ driverList.dob | date:"dd/MM/yyyy" }}</b></label>
+                </td>
+                <td>{{ driverList?.createdAt | date: "dd/MM/yyyy  h:mm a"  }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br><br>
+        <!-- </app-card> -->
+        <button class="btn btn-success" type="button" (click)="exportAsXLSX_DriverReferralPeopleCount()"><i
+            class="fas fa-plus"></i>Export Table
+          Driver Referral People Count</button><br><br>
+      </div>
+    </div>
+  </app-ui-modal>
+  <app-ui-modal #modalDefault3>
+    <div class="app-modal-header">
+      <h5 class="modal-title">Top Ten Passenger Earning</h5>
+      <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+        (click)="modalDefault3.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="app-modal-body">
+      <div class="col-sm-12">
+        <!-- <app-card cardTitle="Top Ten Passenger Earning" cardClass="Recent-Users" blockClass="px-0 py-3"> -->
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <tbody>
+              <tr class="unread">
+                <td>
+                  <h6><b>Auto Id</b></h6>
+                </td>
+                <td>
+                  <h6><b>Passenger Id </b></h6>
+                </td>
+                <td>
+                  <h6><b>Email</b></h6>
+                </td>
+                <td>
+                  <h6><b>Name</b></h6>
+                </td>
+                <td>
+                  <h6><b>Passenger Earning</b></h6>
+                </td>
+                <td>
+                  <h6><b>Country Code</b></h6>
+                </td>
+                <td>
+                  <h6><b>Phone Number</b></h6>
+                </td>
+                <td>
+                  <h6><b>Date Of Birth</b></h6>
+                </td>
+                <td>
+                  <h6><b>Register Date</b></h6>
+                </td>
+              </tr>
+              <tr class="unread" *ngFor="let passengerList of topTenData?.topTenPassengerByRideSpentMoney">
+                <td>{{ passengerList?.autoIncrementID ? passengerList?.autoIncrementID : "---"}}</td>
+                <td>{{ passengerList.uniqueID }}</td>
+                <td *ngIf="passengerList.email != ''">{{ passengerList.email }}</td>
+                <td *ngIf="passengerList.email == ''"> Not Available </td>
+                <td>{{ passengerList.name }}</td>
+                <td> {{passengerList?.passengerEarning | round |number : '1.0-0'}} </td>
+                <td>{{ passengerList.countryCode }}</td>
+                <td>{{ passengerList.onlyPhoneNumber }}</td>
+                <td><label
+                    [ngStyle]="{'color': passengerList.isSelected ? 'green' : '' }"><b>{{ passengerList.dob | date:"dd/MM/yyyy" }}</b></label>
+                </td>
+                <td>{{ passengerList?.createdAt | date: "dd/MM/yyyy  h:mm a"  }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br><br>
+        <!-- </app-card> -->
+        <button class="btn btn-success" type="button" (click)="exportAsXLSX_PassengerEarning()"><i
+            class="fas fa-plus"></i>Export Table
+          Passenger Earning</button><br><br>
+      </div>
+    </div>
+  </app-ui-modal>
+  <app-ui-modal #modalDefault4>
+    <div class="app-modal-header">
+      <h5 class="modal-title">Top Ten Passenger Ride</h5>
+      <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+        (click)="modalDefault4.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="app-modal-body">
+      <div class="col-sm-12">
+        <!-- <app-card cardTitle="Top Ten Passenger Ride" cardClass="Recent-Users" blockClass="px-0 py-3"> -->
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <tbody>
+              <tr class="unread">
+                <td>
+                  <h6><b>Auto Id</b></h6>
+                </td>
+                <td>
+                  <h6><b>Passenger Id </b></h6>
+                </td>
+                <td>
+                  <h6><b>Email</b></h6>
+                </td>
+                <td>
+                  <h6><b>Name</b></h6>
+                </td>
+                <td>
+                  <h6><b>Passenger Ride</b></h6>
+                </td>
+                <td>
+                  <h6><b>Country Code</b></h6>
+                </td>
+                <td>
+                  <h6><b>Phone Number</b></h6>
+                </td>
+                <td>
+                  <h6><b>Date Of Birth</b></h6>
+                </td>
+                <td>
+                  <h6><b>Register Date</b></h6>
+                </td>
+              </tr>
+              <tr class="unread" *ngFor="let passengerList of topTenData?.topTenPassengerByCompletedRide">
+                <td>{{ passengerList?.autoIncrementID ? passengerList?.autoIncrementID : "---"}}</td>
+                <td>{{ passengerList.uniqueID }}</td>
+                <td *ngIf="passengerList.email != ''">{{ passengerList.email }}</td>
+                <td *ngIf="passengerList.email == ''"> Not Available </td>
+                <td>{{ passengerList.name }}</td>
+                <td> {{passengerList?.totalCompletedRide}} </td>
+                <td>{{ passengerList.countryCode }}</td>
+                <td>{{ passengerList.onlyPhoneNumber }}</td>
+                <td><label
+                    [ngStyle]="{'color': passengerList.isSelected ? 'green' : '' }"><b>{{ passengerList.dob | date:"dd/MM/yyyy" }}</b></label>
+                </td>
+                <td>{{ passengerList?.createdAt | date: "dd/MM/yyyy  h:mm a"  }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br><br>
+        <!-- </app-card> -->
+        <button class="btn btn-success" type="button" (click)="exportAsXLSX_PassengerRide()"><i
+            class="fas fa-plus"></i>Export Table
+          Passenger Ride</button><br><br>
+      </div>
+    </div>
+  </app-ui-modal>
+  <app-ui-modal #modalDefault5>
+    <div class="app-modal-header">
+      <h5 class="modal-title">Top Ten Passenger Referral People Count</h5>
+      <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+        (click)="modalDefault5.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="app-modal-body">
+      <div class="col-sm-12">
+        <!-- <app-card cardTitle="Top Ten Passenger Referral People Count" cardClass="Recent-Users" blockClass="px-0 py-3"> -->
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <tbody>
+              <tr class="unread">
+                <td>
+                  <h6><b>Auto Id</b></h6>
+                </td>
+                <td>
+                  <h6><b>Passenger Id </b></h6>
+                </td>
+                <td>
+                  <h6><b>Email</b></h6>
+                </td>
+                <td>
+                  <h6><b>Name</b></h6>
+                </td>
+                <td>
+                  <h6><b>Passenger Referral Count</b></h6>
+                </td>
+                <td>
+                  <h6><b>Country Code</b></h6>
+                </td>
+                <td>
+                  <h6><b>Phone Number</b></h6>
+                </td>
+                <td>
+                  <h6><b>Date Of Birth</b></h6>
+                </td>
+                <td>
+                  <h6><b>Register Date</b></h6>
+                </td>
+              </tr>
+              <tr class="unread" *ngFor="let passengerList of topTenData?.topTenPassengerByTotalInvited">
+                <td>{{ passengerList?.autoIncrementID ? passengerList?.autoIncrementID : "---"}}</td>
+                <td>{{ passengerList.uniqueID }}</td>
+                <td *ngIf="passengerList.email != ''">{{ passengerList.email }}</td>
+                <td *ngIf="passengerList.email == ''"> Not Available </td>
+                <td>{{ passengerList.name }}</td>
+                <td> {{passengerList?.totalInvitedCount}} </td>
+                <td>{{ passengerList.countryCode }}</td>
+                <td>{{ passengerList.onlyPhoneNumber }}</td>
+                <td><label
+                    [ngStyle]="{'color': passengerList.isSelected ? 'green' : '' }"><b>{{ passengerList.dob | date:"dd/MM/yyyy" }}</b></label>
+                </td>
+                <td>{{ passengerList?.createdAt | date: "dd/MM/yyyy  h:mm a"  }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br><br>
+        <!-- </app-card> -->
+        <button class="btn btn-success" type="button" (click)="exportAsXLSX_PassengerReferralPeopleCount()"><i
+            class="fas fa-plus"></i>Export Table
+          Passenger Referral People Count</button><br><br>
+      </div>
+    </div>
+  </app-ui-modal>
+  <!-- <div class="col-sm-6">
+    <app-card cardTitle="Daily Income">
+      <div id="line-area2" class="lineAreaDashboard" style="height:350px;"></div>
+    </app-card>
+    <button class="btn btn-success" type="button" (click)="exportAsXLSX_Daily()"><i class="fas fa-plus"></i>Export Graph
+      Daily
+      Income</button><br><br><br>
+  </div>
+  <div class="col-sm-6">
+
+    <app-card cardTitle="Monthly Income">
+      <br><br><br><br>
+      <div id="bar-chart3" class="bar-chart3" style="height:264px;"></div>
+    </app-card>
+    <button class="btn btn-success" type="button" (click)="exportAsXLSX_Monthly()"><i class="fas fa-plus"></i>Export
+      Graph Monthly
+      Income</button><br><br><br>
+  </div>
+  <div class="col-sm-6">
+
+    <app-card cardTitle="Yearly Income">
+      <br><br><br><br>
+      <div id="bar-chart4" class="bar-chart4" style="height:264px;"></div>
+    </app-card>
+    <button class="btn btn-success" type="button" (click)="exportAsXLSX_Yearly()"><i class="fas fa-plus"></i>Export
+      Graph Yearly
+      Income</button><br><br><br>
+
+  </div> -->
+  <div class="col-sm-6">
+
+    <app-card cardTitle="Vehicle Info">
+      <br><br><br><br>
+      <div id="bar-chart5" class="bar-chart5" style="height:264px;"></div>
+    </app-card>
+    <button class="btn btn-success" type="button" (click)="exportAsXLSX_Vehicle()"><i class="fas fa-plus"></i>Export
+      Graph Vehicle
+      Info</button><br><br><br>
+  </div>
+  <div class="col-sm-6">
+    <app-card cardTitle="Summary Vehicles" cardClass="Recent-Users" blockClass="px-0 py-3">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <tbody>
+            <tr class="unread">
+              <td>
+                <h6><b>Status</b></h6>
+              </td>
+              <td>
+                <h6><b>Number of Vehical</b></h6>
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                <h6 class="text-success">Active Trip</h6>
+              </td>
+              <td>
+                <h6 class="text-success">{{ dashboardData?.activeRideCount }}</h6>
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                <h6 class="text-primary">Online</h6>
+              </td>
+              <td>
+                <h6 class="text-primary">{{ dashboardData.onlineVehicles }}</h6>
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                <h6 class="text-warning">Offline</h6>
+              </td>
+              <td>
+                <h6 class="text-warning">{{ dashboardData.offlineVehicles }}</h6>
+              </td>
+            </tr>
+            <!-- <tr class="unread">
+                <td>
+                  <h6 class="text-danger">Inactive</h6>
+                </td>
+                <td>
+                  <h6 class="text-danger">0</h6>
+                </td>
+              </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+  
+  <div class="col-sm-6">
+    <app-card cardTitle="Summary Passenger" cardClass="Recent-Users" blockClass="px-0 py-3">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <tbody>
+            <tr class="unread">
+              <td>
+                New Passengers Today
+              </td>
+              <td>
+                {{ dashboardData?.todayPassengers }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                New Passengers Yesterday
+              </td>
+              <td>
+                {{ dashboardData?.yesterdayPassengers }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                New Passengers This month
+              </td>
+              <td>
+                {{ dashboardData.thisMonthPassengers }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                New Passengers Last month
+              </td>
+              <td>
+                {{ dashboardData.lastMonthPassengers }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                New Passengers This Year
+              </td>
+              <td>
+                {{ dashboardData.thisYearPassengers }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                New Passengers Last Year
+              </td>
+              <td>
+                {{ dashboardData.lastYearPassengers }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                <b class="text-success">Total Passengers</b>
+              </td>
+              <td>
+                <b class="text-success">{{dashboardData.totalPassengers}}</b>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+  <div class="col-sm-6">
+    <app-card cardTitle="Summary Driver" cardClass="Recent-Users" blockClass="px-0 py-3">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <tbody>
+            <tr class="unread">
+              <td>
+                New Drivers Today
+              </td>
+              <td>
+                {{ dashboardData.todayDrivers }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                New Drivers Yesterday
+              </td>
+              <td>
+                {{ dashboardData.yesterdayDrivers }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                New Drivers This month
+              </td>
+              <td>
+                {{ dashboardData.thisMonthDrivers }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                New Drivers Last month
+              </td>
+              <td>
+                {{ dashboardData.lastMonthDrivers }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                New Drivers This Year
+              </td>
+              <td>
+                {{ dashboardData.thisYearDrivers }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                New Drivers Last Year
+              </td>
+              <td>
+                {{ dashboardData.lastYearDrivers }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                New Drivers Unverified
+              </td>
+              <td>
+                {{ dashboardData.totalUnverifiedDrivers }}
+              </td>
+            </tr>
+            <tr class="unread">
+              <td>
+                <b class="text-success">Total Drivers</b>
+              </td>
+              <td>
+                <b class="text-success">{{dashboardData.totalDrivers}}</b>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+
+  <!-- map remove on date 5-11-2019  -->
+  
+  <!-- <div class="col-sm-12 col-xl-12">
+    <app-card cardTitle="Vehicles">
+      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="false">
+        <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)"
+          [latitude]="m.lat" [longitude]="m.lng" [markerDraggable]="false" (mouseOver)="onMouseOver(infoWindow, $event)"
+          (mouseOut)="onMouseOut(infoWindow, $event)" (dragEnd)="markerDragEnd(m, $event)" [iconUrl]="m.iconUrl">
+          <agm-info-window [disableAutoPan]="false" #infoWindow>
+            <div class="driver-hover-info">
+              <div class="driver-hotel-info">
+                <b>{{m.uniqueID}}</b>
+              </div>
+              <div class="driver-car-info">
+                <b>{{m.name}}</b> <span class="float-right"> {{m.vehicleType}}</span>
+              </div>
+            </div>
+          </agm-info-window>
+        </agm-marker>
+      </agm-map>
+    </app-card>
+  </div> -->
+
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

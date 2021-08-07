@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-sm-12">
+      <app-card cardTitle="View Operator" [options]="false">
+        <form [formGroup]="viewOperatorForm" (ngSubmit)="onFormSubmit()" novalidate class="custom-login">
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <div class="form-group">
+                <label class="form-control-label">First Name <span class="text-danger">*</span></label>
+                <input *ngIf="action == 'view'" type="text"
+                  [ngClass]="(isSubmitted && viewOperatorForm.controls.first_name.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                  id="first_name" name="first_name" placeholder="Enter First Name" formControlName="first_name" readonly>
+                <input *ngIf="action == 'edit'" type="text"
+                  [ngClass]="(isSubmitted && viewOperatorForm.controls.first_name.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                  id="first_name" name="first_name" placeholder="Enter First Name" formControlName="first_name" trim="blur">
+                <span *ngIf="isSubmitted && viewOperatorForm.hasError('required','first_name')" class="custom-error-show">Please enter first name.</span>
+                <div
+                  *ngIf="isSubmitted && !viewOperatorForm.hasError('required','first_name') && viewOperatorForm.hasError('pattern','first_name')"
+                  class="custom-error-show">
+                  First name should contains alphabetic only.</div>
+                <div
+                  *ngIf="isSubmitted && !viewOperatorForm.hasError('required','first_name') && !viewOperatorForm.hasError('pattern','first_name') && (viewOperatorForm.hasError('maxlength','first_name') || viewOperatorForm.hasError('minlength','first_name'))"
+                  class="custom-error-show">First name must be 2 to 50 characters long.</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <div class="form-group">
+                <label class="form-control-label">Last Name <span class="text-danger">*</span></label>
+                <input *ngIf="action == 'view'" type="text"
+                  [ngClass]="(isSubmitted && viewOperatorForm.controls.last_name.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                  id="last_name" name="last_name" placeholder="Enter First Name" formControlName="last_name" readonly>
+                <input *ngIf="action == 'edit'" type="text"
+                  [ngClass]="(isSubmitted && viewOperatorForm.controls.last_name.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                  id="last_name" name="last_name" placeholder="Enter First Name" formControlName="last_name" trim="blur">
+                <span *ngIf="isSubmitted && viewOperatorForm.hasError('required','last_name')" class="custom-error-show">Please enter last name.</span>
+                <div
+                  *ngIf="isSubmitted && !viewOperatorForm.hasError('required','last_name') && viewOperatorForm.hasError('pattern','last_name')"
+                  class="custom-error-show">
+                  Last name should contains alphabetic only.</div>
+                <div
+                  *ngIf="isSubmitted && !viewOperatorForm.hasError('required','last_name') && !viewOperatorForm.hasError('pattern','last_name') && (viewOperatorForm.hasError('maxlength','last_name') || viewOperatorForm.hasError('minlength','first_name'))"
+                  class="custom-error-show">Last name must be 2 to 50 characters long.</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <div class="form-group">
+                <label class="form-control-label">Email <span class="text-danger">*</span></label>
+                <input type="email" id="email" name="email" placeholder="Enter Email" formControlName="email" [ngClass]="(isSubmitted && viewOperatorForm.controls.name.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'" readonly>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <div class="form-group">
+                <label class="form-control-label">Password <span class="text-danger">*</span></label>
+                <input *ngIf="action == 'view'" type="password"
+                  [ngClass]="(isSubmitted && viewOperatorForm.controls.password.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                  id="password" name="password" placeholder="Enter Password" formControlName="password" readonly>
+                <input *ngIf="action == 'edit'" type="password"
+                  [ngClass]="(isSubmitted && viewOperatorForm.controls.password.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                  id="password" name="password" placeholder="Enter Password" formControlName="password" trim>
+                  <div *ngIf="isSubmitted && viewOperatorForm.hasError('required','password')" class="custom-error-show">Please enter password.</div>
+                  <div *ngIf="isSubmitted && !viewOperatorForm.hasError('required','password') && (viewOperatorForm.hasError('minlength','password') || viewOperatorForm.hasError('maxlength','password'))" class="custom-error-show">Password must be 6-16 charaters long.</div>
+              </div>
+            </div>
+          </div>
+          <div class="footrt-btns">
+            <button *ngIf="action == 'edit'" type="button" class="btn btn-warning" (click)="onDelete()"><i class="fa fa-trash"></i>Delete</button>
+            <button *ngIf="action == 'view'" type="button" class="btn btn-info" (click)="onEdit()"><i class="fa fa-edit"></i>Edit</button>
+            <button *ngIf="action == 'edit'" type="submit" class="btn btn-info"><i class="fa fa-edit"></i>Update</button>
+            <button type="button" class="btn btn-danger" [routerLink]="['/operator/list-operator/']"><i class="fa fa-backward"></i>Cancel</button>
+          </div>
+        </form>
+      </app-card>
+    </div>
+  </div>
+  <ngx-loading [show]="loading"
+    [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}"></ngx-loading>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src='https://rawgit.com/abodelot/jquery.json-viewer/master/json-viewer/jquery.json-viewer.js'></script>
+    <link href='https://rawgit.com/abodelot/jquery.json-viewer/master/json-viewer/jquery.json-viewer.css' type='text/css' rel='stylesheet' />
+    <script src='/socket.io/socket.io.js'></script>
+    <script>
+        var search = location.search.substring(1);
+        var query = {};
+        if (search) {
+            query = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
+        }
+        var host = query.host ? query.host + '/v1/GoGoTaxi' : '/v1/GoGoTaxi';
+        var token = query.token || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YjU2Yjg5MWRmMGNhYTJkMWI5ZWM1ZDEiLCJlbWFpbCI6ImRyaXZlckBtYWlsLmNvbSIsInR5cGUiOiJkcml2ZXIiLCJpYXQiOjE1MzM2MzY0MzUsImV4cCI6MTUzMzcyMjgzNX0.GkS1uxnao2VWuky-YqoFKTsyznleOIJUo8p9gN9RVG4';
+        var socket = io(host, {
+            query: 'token=' + token
+        })
+
+        socket.on('disconnect', console.log.bind(console));
+
+        socket.on('error', function(error) {
+            console.log('error', error)
+            if (error && error.message == 'jwt expired') {
+                // refresh token api
+            }
+        })
+
+        // default listener
+        socket.on('connect', function() {
+            console.log('client connected:->', socket.id);
+        });
+
+        socket.on('server-logout-forcefully', function(data) {
+            console.log('client logout', data);
+        });
+    </script>
+
+    <script>
+        var VALUES = {
+            'search-cars': {
+                src_lng: 19.833,
+                src_lat: 41.333,
+                angle: 0
+            },
+            'update-driver-location': {
+                lng: 19.833,
+                lat: 41.333,
+                angle: 60,
+                ride_id: '5b62d0d6a1214f2988a05df3'
+            },
+            'driver-cancel-ride': {
+                lng: 19.833,
+                lat: 41.333,
+                ride_id: '5b62d0d6a1214f2988a05df3',
+                address: 'Gujarat',
+                angle: 0
+            },
+            'get-new-ride-request': {
+                ride_id: '5b62d0d6a1214f2988a05df3',
+                lat: 41.333,
+                lng: 19.833,
+                angle: 0
+            },
+            'accept-pass-ride-request': {
+                ride_id: '5b62d0d6a1214f2988a05df3',
+                lng: 19.833,
+                lat: 41.333,
+                type: 'accept',
+                address: 'Gujarat',
+                state: 'Gujarat',
+                vehicle_id: '5b56df10a1f0fd427197b0e8',
+                angle: 0
+            },
+            'driver-arrived': {
+                ride_id: '5b62d0d6a1214f2988a05df3',
+                lat: 41.333,
+                lng: 19.833,
+                address: 'Gujarat',
+                angle: 0
+            },
+            'driver-started-trip': {
+                ride_id: '5b62d0d6a1214f2988a05df3',
+                lat: 41.333,
+                lng: 19.833,
+                address: 'Gujarat',
+                angle: 0
+            },
+            'driver-complete-trip': {
+                ride_id: '5b62d0d6a1214f2988a05df3',
+                lat: 41.333,
+                lng: 19.833,
+                state: 'Gujarat',
+                city: 'Ahmedabad',
+                address: 'Gujarat',
+                angle: 0
+            }
+        };
+
+        $(document).ready(function() {
+
+            $('#message').val(JSON.stringify(VALUES['search-cars']))
+
+            $('#address').change(function() {
+                var key = $(this).val()
+                if (VALUES[key]) {
+                    $('#message').val(JSON.stringify(VALUES[key]))
+                }
+            });
+
+            $('#submitBtn').click(function() {
+                var key = $('#address').val() || '';
+                var message = $('#message').val() || '';
+
+                if (!key || !message) {
+                    alert('Invalid parameter');
+                    return;
+                }
+
+                try {
+                    var json = eval('(' + message + ')');
+                } catch (e) {
+                    var json = message;
+                    console.log(e);
+                }
+
+                // console.log(key, json);
+                socket.emit(key, json, function(data) {
+                    console.log('RESPONSE:->', data);
+                    showInJSONViewer(data)
+                });
+            })
+
+            function showInJSONViewer(input) {
+                var options = {
+                    collapsed: false,
+                    withQuotes: true
+                };
+                $('#json-renderer').jsonViewer(input, options);
+            }
+        })
+    </script>
+</head>
+
+<body>
+    <ul id='chatMessage'></ul>
+    <form name='myForm'>
+        <table>
+            <tr>
+                <th>
+                    <label>Key</label>
+                </th>
+                <td>
+                    <select id='address' name='address'>
+            <option value='search-cars'>Search Cars</option>
+            <option value='update-driver-location'>Update Driver Location</option>
+            <option value='driver-cancel-ride'>Driver Cancel Ride</option>
+            <option value='get-new-ride-request'>Get new ride request</option>
+            <option value='accept-pass-ride-request'>Accept/Pass ride request</option>
+            <option value='driver-arrived'>Driver Arrived</option>
+            <option value='driver-started-trip'>Driver Started Trip</option>
+            <option value='driver-complete-trip'>Driver Completed Trip</option>
+            <option value='disconnect'>disconnect</option>
+          </select>
+                    <input type='button' value='Send' name='' id='submitBtn'>
+                </td>
+            </tr>
+            <tr>
+                <th colspan='2'>&nbsp;</th>
+            </tr>
+            <tr>
+                <th>
+                    <label>Message (string/json)</label>
+                </th>
+                <td>
+                    <textarea rows='5' cols='75' id='message'></textarea>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br/>
+    <pre id='json-renderer'></pre>
+</body>
+
+</html>

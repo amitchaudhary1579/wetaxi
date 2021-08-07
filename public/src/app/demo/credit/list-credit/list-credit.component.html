@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="List Of Verified Drivers" [options]="false">
+      <div class="datatable-top-btn-left">
+        <form class="row" [formGroup]="filterForm" (ngSubmit)="filterList()" novalidate>
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="fromDate" ngbDatepicker
+                #fd="ngbDatepicker">
+              <div class="input-group-append">
+                <span class="input-group-text" (click)="fd.toggle()">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+            </div>
+            <span *ngIf="submitted && filterForm.hasError('required','fromDate')" class="custom-error-show">
+              Please select start date.
+            </span>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="toDate" ngbDatepicker
+                #td="ngbDatepicker" [minDate]="filterForm.value.fromDate">
+              <div class="input-group-append">
+                <span class="input-group-text" (click)="td.toggle()">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+            </div>
+            <span *ngIf="submitted && filterForm.hasError('required','toDate')" class="custom-error-show">
+              Please select to date.
+            </span>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <button class="btn btn-primary" type="submit" title="Filter">
+                <i class="fas fa-filter"></i>
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <button class="btn btn-danger" type="button" (click)="resetFilter()" title="Reset">
+                  <i class="fas fa-times"></i>
+                </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="datatable-top-btn">
+      </div>
+      <div class="table-responsive custom-table-responsive">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+            <tr>
+              <th>Auto Id</th>
+              <th>Vehicle Id</th>
+              <th>Email</th>
+              <th>Name</th>
+              <th>Country Code</th>
+              <th>Phone Number</th>
+              <th>Ratting</th>
+              <th>Credit(KHR)</th>
+              <th>Register Date</th>
+              <th>Profile Photo</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="drivers?.length != 0">
+            <tr *ngFor="let driver of drivers">
+              <td>{{ driver?.autoIncrementID ? driver?.autoIncrementID : "---"}}</td>
+              <td>{{ driver.uniqueID }}</td>
+              <td *ngIf="driver.email != ''">{{ driver.email }}</td>
+              <td *ngIf="driver.email == ''">Not Available</td>
+              <td>{{ driver.name }}</td>
+              <td>{{ driver.countryCode }}</td>
+              <td>{{ driver.onlyPhoneNumber }}</td>
+              <td>{{ driver?.avgRating }}</td>
+              <td><label
+                  [ngStyle]="{'color': driver.isSame ? 'red' : '' }"><b>{{ driver?.creditBalance | round |number : '1.0-0'}}</b></label>
+              </td>
+              <td>{{ driver?.createdAt | date: "dd/MM/yyyy  h:mm a"  }}</td>
+              <td>
+                <div class="uploded-profile-pic datatable-profile-pic">
+                  <figure>
+                    <img src="{{profilePhotoUrl}}{{driver.profilePhoto}}" alt="profile-pic"
+                      (error)="imgErrorHandler($event)">
+                    <!-- <img *ngIf="driver.profilePhoto == ''" src="{{profilePhotoUrl}}default.png" alt="profile-pic"> -->
+                  </figure>
+                </div>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button"
+                  [routerLink]="['/credit/view-credit/', driver._id]" title="view"><i class="fas fa-eye"></i></button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="drivers?.length == 0">
+            <tr>
+              <td colspan="11" class="no-data-available">No data!</td>
+            </tr>
+          <tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

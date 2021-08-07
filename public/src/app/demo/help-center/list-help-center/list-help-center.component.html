@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Facebook Url" [options]="false">
+      <form [formGroup]="fbUrlForm" (ngSubmit)="onfbFormSubmit()" novalidate class="custom-login">
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label"><b>Facebook Url <span class="text-danger">*</span></b></label>
+              <input type="text"
+                [ngClass]="(isSubmitted && fbUrlForm.controls.fbUrl.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="fbUrl" name="fbUrl" placeholder="Enter Facebook Url" formControlName="fbUrl" trim="blur">
+              <div *ngIf="isSubmitted && fbUrlForm.hasError('required','fbUrl')" class="custom-error-show">
+                Please enter Facebook Url.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <input type="submit" class="btn btn-info" value="Update Facebook Url">
+          </div>
+        </div>
+      </form>
+    </app-card>
+
+    <app-card cardTitle="List Of Help Center" [options]="false">
+      <div class="datatable-top-btn">
+        <button class="btn btn-info" type="button" [routerLink]="['/help-center/add-help-center']"><i
+            class="fas fa-plus" title="Add Driver"></i>Add HelpCenter</button>
+      </div>
+      <div class="table-responsive custom-table-responsive">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="helpCenters?.length != 0">
+            <tr *ngFor="let helpCenter of helpCenters">
+              <td>{{ helpCenter.email }}</td>
+              <td>{{ helpCenter.phoneNumber }}</td>
+              <td>
+                <button *ngIf="this.operatorDisable" class="btn btn-primary btn-action" ngbtooltip="btn-primary"
+                  type="button" (click)="operatorPermission()" title="View"><i class="fas fa-edit"></i></button>
+                <button *ngIf="!this.operatorDisable" class="btn btn-primary btn-action" ngbtooltip="btn-primary"
+                  type="button" [routerLink]="['/help-center/view-help-center/', helpCenter._id]" title="View"><i
+                    class="fas fa-edit"></i></button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="helpCenters?.length == 0">
+            <tr>
+              <td colspan="3" class="no-data-available">No data!</td>
+            </tr>
+          <tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="List Of Vehicles" [options]="false">
+      <div class="datatable-top-btn">
+        <button class="btn btn-info" type="button" [routerLink]="['/vehicle/add-vehicle']"><i class="fas fa-plus"
+            title="Add Driver"></i>Add Vehicle</button>
+      </div>
+      <div class="table-responsive custom-table-responsive">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+            <tr>
+              <th>Auto Id</th>
+              <th>Name</th>
+              <th>Minimum Fare(KHR)</th>
+              <th>Per Kilometer Fare (KHR)</th>
+              <th>Image</th>
+              <!-- <th>Status</th> -->
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="vehicles?.length != 0">
+            <tr *ngFor="let vehicle of vehicles">
+              <td>{{ vehicle?.autoIncrementID ? vehicle?.autoIncrementID : "---"}}</td>
+              <td>{{ vehicle.type.en }}</td>
+              <td>{{ vehicle.minFare }}</td>
+              <td>{{ vehicle.feePerKM }}</td>
+              <td>
+                <div class="uploded-profile-pic datatable-profile-pic">
+                  <figure>
+                    <img *ngIf="vehicle.image != ''" src="{{vehicleTypeImageUrl}}{{vehicle.image}}" alt="profile-pic">
+                    <img *ngIf="vehicle.image == ''" src="{{vehicleTypeImageUrl}}default.png" alt="profile-pic">
+                  </figure>
+                </div>
+              </td>
+              <!-- <td>
+                <button *ngIf="!vehicle.isActive" class="btn btn-warning btn-verify" type="button" (click)="activeInactiveVehicle(vehicle)" title="InActive">InActive</button>
+                <button *ngIf="vehicle.isActive" class="btn btn-success btn-verify" type="button" (click)="activeInactiveVehicle(vehicle)" title="Active">Active</button>                
+              </td> -->
+              <td>
+                <button class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button"
+                  [routerLink]="['/vehicle/view-vehicle/', vehicle._id]" title="view"><i
+                    class="fas fa-edit"></i></button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="vehicles?.length == 0">
+            <tr>
+              <td colspan="9" class="no-data-available">No data!</td>
+            </tr>
+          <tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

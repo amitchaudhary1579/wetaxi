@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Node.js Framework</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src='https://rawgit.com/abodelot/jquery.json-viewer/master/json-viewer/jquery.json-viewer.js'></script>
+    <link href='https://rawgit.com/abodelot/jquery.json-viewer/master/json-viewer/jquery.json-viewer.css'
+        type='text/css' rel='stylesheet' />
+    <!-- <script src='/socket.io/socket.io.js'></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script>
+        var search = location.search.substring(1);
+        var query = {};
+        if (search) {
+            query = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
+        }
+        var socket = io('http://localhost:7025/admin_v1/gogoTaxi/');
+        console.log(socket)
+        console.log("query.host", query.host)
+        var host = query.host ? query.host + '/admin_v1/gogoTaxi/' : 'http://localhost:7025/admin_v1/gogoTaxi/';
+        console.log("host", host)
+        var driverToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Y2U2MmFmMmI5Njk2MjFhY2I4ZTUxZjgiLCJlbWFpbCI6InF5cG9uYUBtYWlsaW5hdG9yLm5ldCIsImRldmljZVRva2VuIjoiMTMyMTU0NjQ0NTY0OTg0NjE0OTQiLCJpYXQiOjE1NjAzMjQ4MDcsImV4cCI6MTU2MDQxMTIwN30.EvofZk3kDz38jzR-QQlWgtMSfakfQ182z28ictpMm5E';
+        var passengerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Y2Y1MGIzZDEyMjZiYjY2NzdhYzg4ZmQiLCJlbWFpbCI6InA5QG1haWxpbmF0b3IuY29tIiwiZGV2aWNlVG9rZW4iOiIxMzIxNTQ2NDQ1NjQ5ODQ2MTQ5NCIsImlhdCI6MTU2MDMyNDc2NSwiZXhwIjoxNTYwNDExMTY1fQ.EvazIIA5xhY2IKHnK0w83Za5KvrPYJJOQoT9V7iHIO0';
+        var token = query.token || passengerToken;
+        console.log('token ----->', token)
+        var socket = io(host, {
+            query: 'token=' + token
+        })
+
+        console.log(socket)
+        // default listener
+        socket.on('disconnect', function () {
+            console.log('client disconnect:->');
+        });
+
+        socket.on('error', function (error) {
+            console.log('error', error)
+            if (error && error.message == 'jwt expired') {
+                // refresh token api
+            }
+        })
+
+        // default listener
+        socket.on('connect', function () {
+            console.log('client connected:->', socket.id);
+        });
+
+        socket.on('server-receive-message', console.log.bind(console));
+        // socket.on('server-message-status', console.log.bind(console));
+
+        socket.on('server-connected', function (data) {
+            console.log('Socket connected: ', data);
+        });
+
+        socket.on('server_message', console.log.bind(console));
+    </script>
+
+    <script>
+        var VALUES = {
+            'search-cars': {
+                long: 72.521600,
+                lat: 23.021060,
+                language: 'en'
+            },
+            'update-driver-location': {
+                long: 72.521600,
+                lat: 23.021060
+            },
+            'update-passenger-location': {
+                long: 72.521600,
+                lat: 23.021060
+            },
+            'driver-cancel-ride': {
+                long: 19.8358144,
+                lat: 41.335943,
+                ride_id: '5b5ae6c5587506105cf9045e',
+                address: 'Gujarat'
+            },
+            'get-new-ride-request': {
+                ride_id: '5b5ae6c5587506105cf9045e'
+            },
+            'search-car-on-request-ride': {
+                long: 72.521600,
+                lat: 23.021060,
+                angle: 100,
+                vehicleId: '5ce3a4cc828bd928e5c5e19a'
+            },
+            'accept-ride': {
+                rideId: '5cfb651cd7f10a58a5ca38f8'
+            },
+            'reject-ride': {
+                rideId: '5cfb651cd7f10a58a5ca38f8'
+            },
+            'cancel-ride': {
+                rideId: '5cfb651cd7f10a58a5ca38f8'
+            },
+            'passenger-cancel-ride': {
+                rideId: '5cfb651cd7f10a58a5ca38f8',
+                cancelReason: '5d02492356d1fd0eb4dd4bbe'
+            },
+            'passenger-ride-rate': {
+                rideId: '5cfb651cd7f10a58a5ca38f8',
+                rate: 5
+            },
+            // 'get-new-ride-request': {
+            //     rideId: '5cfb651cd7f10a58a5ca38f8'
+            // },
+            'driver-arrive-ride': {
+                rideId: '5cfb651cd7f10a58a5ca38f8'
+            },
+            'start-ride': {
+                rideId: '5cfb651cd7f10a58a5ca38f8'
+            },
+            'complete-ride': {
+                long: 72.521600,
+                lat: 23.021060,
+                angle: 100,
+                rideId: '5cfb651cd7f10a58a5ca38f8'
+            },
+            'driver-get-receipt': {
+                rideId: '5cfb651cd7f10a58a5ca38f8'
+            },
+            'passenger-get-receipt': {
+                rideId: '5cfb651cd7f10a58a5ca38f8'
+            },
+            'driver-cash-paid': {
+                rideId: '5cfb651cd7f10a58a5ca38f8'
+            },
+        };
+
+        $(document).ready(function () {
+
+            $('#message').val(JSON.stringify(VALUES['search-cars']))
+
+            $('#address').change(function () {
+                var key = $(this).val()
+                if (VALUES[key]) {
+                    $('#message').val(JSON.stringify(VALUES[key]))
+                }
+            });
+
+            $('#submitBtn').click(function () {
+                var key = $('#address').val() || '';
+                var message = $('#message').val() || '';
+
+                if (!key || !message) {
+                    alert('Invalid parameter');
+                    return;
+                }
+
+                try {
+                    var json = eval('(' + message + ')');
+                } catch (e) {
+                    var json = message;
+                    console.log(e);
+                }
+
+                // console.log(key, json);
+                socket.emit(key, json, function (data) {
+                    console.log('RESPONSE:->', data);
+                    showInJSONViewer(data)
+                });
+            })
+
+            function showInJSONViewer(input) {
+                var options = {
+                    collapsed: false,
+                    withQuotes: true
+                };
+                $('#json-renderer').jsonViewer(input, options);
+            }
+        })
+    </script>
+</head>
+
+<body>
+    <ul id='chatMessage'></ul>
+    <form name='myForm'>
+        <table>
+            <tr>
+                <th>
+                    <label>Key</label>
+                </th>
+                <td>
+                    <select id='address' name='address'>
+                        <option value='search-cars'>Passenger - Search Cars</option>
+                        <option value='update-passenger-location'>Passenger - Update Passenger Location</option>
+                        <option value='search-car-on-request-ride'>Passenger - Search Car On Request Ride</option>
+                        <option value='passenger-cancel-ride'>Passenger - Cancel Ride</option>
+                        <option value='passenger-get-receipt'>Passenger - Get Ride Receipt</option>
+                        <option value='passenger-ride-rate'>Passenger - Ride Rate</option>
+
+                        <option value='update-driver-location'>Driver - Update Driver Location</option>
+                        <option value='accept-ride'>Driver - Accept Ride</option>
+                        <option value='reject-ride'>Driver - Reject Ride</option>
+                        <option value='cancel-ride'>Driver - Cancel Ride</option>
+                        <option value='arrive-ride'>Driver - Arrive Ride</option>
+                        <option value='start-ride'>Driver - Start Ride</option>
+                        <option value='complete-ride'>Driver - Complete Ride</option>
+                        <option value='driver-cash-paid'>Driver - Cash Paid</option>
+                        <option value='driver-get-receipt'>Driver - Get Ride Receipt</option>
+
+
+                        <!-- <option value='get-new-ride-request'>Driver - Get New Ride Request</option> -->
+
+
+                        <!-- <option value='driver-cancel-ride'>Driver Cancel Ride</option>
+                        <option value='get-new-ride-request'>Get new ride request</option> -->
+                        <option value='disconnect'>disconnect</option>
+                    </select>
+                    <input type='button' value='Send' name='' id='submitBtn'>
+                </td>
+            </tr>
+            <tr>
+                <th colspan='2'>&nbsp;</th>
+            </tr>
+            <tr>
+                <th>
+                    <label>Message (string/json)</label>
+                </th>
+                <td>
+                    <textarea rows='5' cols='75' id='message'></textarea>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br />
+    <pre id='json-renderer'></pre>
+</body>
+
+</html>

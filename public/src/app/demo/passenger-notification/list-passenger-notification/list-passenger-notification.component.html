@@ -1,0 +1,178 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="List Of Passengers" [options]="false">
+      <div class="datatable-top-btn">
+        <button class="btn btn-info" type="button" (click)="openModals()" [disabled]="this.statusList.length == 0"><i
+            class="fas fa-plus"></i>Send Notification</button>
+      </div>
+      <div class="datatable-top-btn">
+        <button class="btn btn-success" type="button" (click)="openModal()"><i class="fas fa-plus"></i>Send Notification
+          All Passenger </button>
+      </div>
+      <div class="table-responsive custom-table-responsive">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+            <tr>
+              <th>
+                <div class="checkbox checkbox-primary d-inline">
+                  <input [(ngModel)]="masterSelected" (change)="checkUncheckAll()" type="checkbox" id="checkbox-1">
+                  <label for="checkbox-1" class="cr"></label>
+                </div>
+                <!-- <input [(ngModel)]="masterSelected" (change)="checkUncheckAll()" class="large-checkbox"
+                  type="checkbox"> -->
+              </th>
+              <th>Auto Id</th>
+              <th>Passenger Id</th>
+              <th>Email</th>
+              <th>Name</th>
+              <th>Country Code</th>
+              <th>Phone Number</th>
+              <th>Date Of Birth</th>
+              <th>Register Date</th>
+              <th>Profile Photo</th>
+              <!-- <th>Actions</th> -->
+            </tr>
+          </thead>
+          <tbody *ngIf="passengers?.length != 0">
+            <tr *ngFor="let passenger of passengers">
+              <td>
+                <div class="checkbox checkbox-primary d-inline">
+                  <input [(ngModel)]="passenger.isCheck" (change)="isAllSelected()" type="checkbox"
+                    id="{{ passenger.uniqueID }}">
+                  <label for="{{ passenger.uniqueID }}" class="cr"></label>
+                </div>
+                <!-- <input [(ngModel)]="passenger.isCheck" (change)="isAllSelected()" class="large-checkbox" type="checkbox"> -->
+              </td>
+              <td>{{ passenger?.autoIncrementID ? passenger?.autoIncrementID : "---"}}</td>
+              <td>{{ passenger?.uniqueID }}</td>
+              <td *ngIf="passenger.email != ''">{{ passenger?.email }}</td>
+              <td *ngIf="passenger.email == ''"> Not Available </td>
+              <td>{{ passenger?.name }}</td>
+              <td>{{ passenger?.countryCode }}</td>
+              <td>{{ passenger?.onlyPhoneNumber }}</td>
+              <td><label
+                  [ngStyle]="{'color': passenger.isSelected ? 'green' : '' }"><b>{{ passenger?.dob | date:"dd/MM/yyyy" }}</b></label>
+              </td>
+              <td>{{ passenger?.createdAt | date: "dd/MM/yyyy  h:mm a"  }}</td>
+              <td>
+                <div class="uploded-profile-pic datatable-profile-pic">
+                  <figure>
+                    <img src="{{profilePhotoUrl}}{{passenger?.profilePhoto ? passenger?.profilePhoto : 'default.png'}}"
+                      (error)="imgErrorHandler($event)" alt="dashboard-user">
+                  </figure>
+                </div>
+              </td>
+              <!-- <td>
+                <button class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button"
+                  [routerLink]="['/refferals/view-passenger-refferal-earnings/', passenger._id]" title="view"><i
+                    class="fas fa-eye"></i></button>
+              </td> -->
+            </tr>
+          </tbody>
+          <tbody *ngIf="passengers?.length == 0">
+            <tr>
+              <td colspan="8" class="no-data-available">No data!</td>
+            </tr>
+          <tbody>
+        </table>
+      </div>
+    </app-card>
+    <app-ui-modal #modalDefault>
+      <div class="app-modal-header">
+        <h5 class="modal-title">Notification</h5>
+        <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+          (click)="modalDefault.hide()"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="app-modal-body">
+        <form [formGroup]="notificationForm" (ngSubmit)="onFormSubmit()" novalidate class="custom-login">
+          <div class="form-group">
+            <label class="form-control-label">Title <span class="text-danger">*</span></label>
+            <input type="text"
+              [ngClass]="(isSubmitted && notificationForm.controls.title.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+              id="title" name="title" placeholder="Enter title" formControlName="title" trim="blur">
+            <span *ngIf="isSubmitted && notificationForm.hasError('required','title')" class="custom-error-show">Please
+              enter Title.</span>
+            <!-- <div
+              *ngIf="isSubmitted && !notificationForm.hasError('required','title') && notificationForm.hasError('pattern','title')"
+              class="custom-error-show">
+              Title should not be enter special characters.</div> -->
+            <div
+              *ngIf="isSubmitted && !notificationForm.hasError('required','title') && (notificationForm.hasError('maxlength','title') || notificationForm.hasError('minlength','title'))"
+              class="custom-error-show">Title
+              must be 1 to 35 characters long.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label"><b>Meassage <span class="text-danger">*</span></b></label>
+            <textarea rows="6" cols="50"
+              [ngClass]="(isSubmitted && notificationForm.controls.message.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+              id="message" name="message" placeholder="Enter Notification" formControlName="message"
+              trim="blur"></textarea>
+            <div *ngIf="isSubmitted && notificationForm.hasError('required','message')" class="custom-error-show">
+              Please enter Meassage.
+            </div>
+            <!-- <div
+              *ngIf="isSubmitted &&  !notificationForm.hasError('required','message') && (notificationForm.hasError('minlength','message') || notificationForm.hasError('maxlength','message')) "
+              class="custom-error-show">
+              Notification must contain 1 to 80 digits.
+            </div> -->
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <input type="submit" class="btn btn-info" value="Send Notification">
+            </div>
+          </div>
+        </form>
+      </div>
+    </app-ui-modal>
+    <app-ui-modal #modalDefault1>
+      <div class="app-modal-header">
+        <h5 class="modal-title">Notification</h5>
+        <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+          (click)="modalDefault1.hide()"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="app-modal-body">
+        <form [formGroup]="notificationForms" (ngSubmit)="onNotificationFormSubmit()" novalidate class="custom-login">
+          <div class="form-group">
+            <label class="form-control-label">Title <span class="text-danger">*</span></label>
+            <input type="text"
+              [ngClass]="(isAllSubmitted && notificationForms.controls.title.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+              id="title" name="title" placeholder="Enter title" formControlName="title" trim="blur">
+            <span *ngIf="isAllSubmitted && notificationForms.hasError('required','title')" class="custom-error-show">Please
+              enter Title.</span>
+            <!-- <div
+              *ngIf="isAllSubmitted && !notificationForms.hasError('required','title') && notificationForms.hasError('pattern','title')"
+              class="custom-error-show">
+              Title should not be enter special characters.</div> -->
+            <div
+              *ngIf="isAllSubmitted && !notificationForms.hasError('required','title') && (notificationForms.hasError('maxlength','title') || notificationForms.hasError('minlength','title'))"
+              class="custom-error-show">Title
+              must be 1 to 45 characters long.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label"><b>Meassage <span class="text-danger">*</span></b></label>
+            <textarea rows="6" cols="50"
+              [ngClass]="(isAllSubmitted && notificationForms.controls.message.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+              id="message" name="message" placeholder="Enter Notification" formControlName="message"
+              trim="blur"></textarea>
+            <div *ngIf="isAllSubmitted && notificationForms.hasError('required','message')" class="custom-error-show">
+              Please enter Meassage.
+            </div>
+            <!-- <div
+              *ngIf="isAllSubmitted &&  !notificationForms.hasError('required','message') && (notificationForms.hasError('minlength','message') || notificationForms.hasError('maxlength','message')) "
+              class="custom-error-show">
+              Notification must contain 1 to 80 digits.
+            </div> -->
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <input type="submit" class="btn btn-info" value="Send Notification">
+            </div>
+          </div>
+        </form>
+      </div>
+    </app-ui-modal>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

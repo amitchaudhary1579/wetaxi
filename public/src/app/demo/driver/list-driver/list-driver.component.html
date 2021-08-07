@@ -1,0 +1,156 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="List Of Drivers" [options]="false">
+      <div class="datatable-top-btn-left">
+        <form class="row" [formGroup]="filterForm" (ngSubmit)="filterList()" novalidate>
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="fromDate" ngbDatepicker
+                #fd="ngbDatepicker">
+              <div class="input-group-append">
+                <span class="input-group-text" (click)="fd.toggle()">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+            </div>
+            <span *ngIf="submitted && filterForm.hasError('required','fromDate')" class="custom-error-show">
+              Please select start date.
+            </span>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="toDate" ngbDatepicker
+                #td="ngbDatepicker" [minDate]="filterForm.value.fromDate">
+              <div class="input-group-append">
+                <span class="input-group-text" (click)="td.toggle()">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+            </div>
+            <span *ngIf="submitted && filterForm.hasError('required','toDate')" class="custom-error-show">
+              Please select to date.
+            </span>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <button class="btn btn-primary" type="submit" title="Filter">
+                <i class="fas fa-filter"></i>
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <button class="btn btn-danger" type="button" (click)="resetFilter()" title="Reset">
+                  <i class="fas fa-times"></i>
+                </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="datatable-top-btn">
+        <button class="btn btn-success" type="button" (click)="exportAsXLSX_Driver()"><i class="fas fa-plus"></i>Export
+          Driver Details</button>
+        <button class="btn btn-info" type="button" [routerLink]="['/driver/add-driver']"><i class="fas fa-plus"
+            title="Add Driver"></i>Add Driver</button>
+      </div>
+      <div class="table-responsive custom-table-responsive">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+            <tr>
+              <th>Auto Id</th>
+              <th>Vehicle Id</th>
+              <th>Email</th>
+              <th>Name</th>
+              <th>Country Code</th>
+              <th>Phone Number</th>
+              <th>Ratting</th>
+              <th>Credit(KHR)</th>
+              <th>Date Of Birth</th>
+              <th>Register Date</th>
+              <th>Profile Photo</th>
+              <th>Status</th>
+              <th>Actions</th>
+              <th>Refferal Hierarchy Actions</th>
+              <th>Refferal Earning Actions</th>
+              <th>Ride Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="drivers?.length != 0">
+            <tr *ngFor="let driver of drivers">
+              <td>{{ driver?.autoIncrementID ? driver?.autoIncrementID : "---"}}</td>
+              <td>{{ driver.uniqueID }}</td>
+              <td *ngIf="driver.email != ''">{{ driver.email }}</td>
+              <td *ngIf="driver.email == ''"> Not Available </td>
+              <td>{{ driver.name }}</td>
+              <td>{{ driver.countryCode }}</td>
+              <td>{{ driver.onlyPhoneNumber }}</td>
+              <td>{{ driver?.avgRating }}</td>
+              <td><label
+                  [ngStyle]="{'color': driver.isSame ? 'red' : '' }"><b>{{ driver?.creditBalance  | round |number : '1.0-0'}}</b></label>
+              </td>
+              <td><label
+                  [ngStyle]="{'color': driver.isSelected ? 'green' : '' }"><b>{{ driver.dob | date:"dd/MM/yyyy" }}</b></label>
+              </td>
+              <td>{{ driver?.createdAt | date: "dd/MM/yyyy  h:mm a"  }}</td>
+              <td>
+                <div class="uploded-profile-pic datatable-profile-pic">
+                  <figure>
+                    <img src="{{profilePhotoUrl}}{{driver.profilePhoto}}" alt="profile-pic"
+                      (error)="imgErrorHandler($event)">
+                  </figure>
+                </div>
+              </td>
+              <td>
+                <button *ngIf="!driver.isVerified" class="btn btn-warning btn-verify" type="button"
+                  (click)="verifyUnverifyDriver(driver)" title="Unverify">Unverify</button>
+                <button *ngIf="driver.isVerified" class="btn btn-success btn-verify" type="button"
+                  (click)="verifyUnverifyDriver(driver)" title="verify">Verify</button><br>
+                {{driver?.verifiedBy?.first_name ? ("Verified By:"):'' }} <br>
+                {{driver?.verifiedBy?.first_name}} <br>
+                {{driver?.verifiedBy?.last_name}}
+              </td>
+              <td>
+                <button class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button"
+                  [routerLink]="['/driver/view-driver/', driver._id]" title="view"><i class="fas fa-edit"></i></button>
+                <button *ngIf="!driver.isBlocked" class="btn btn-warning btn-action" type="button"
+                  (click)="blockUnblockDriver(driver)" title="Unblock"><i class="fas fa-unlock"></i></button>
+                <button *ngIf="driver.isBlocked" class="btn btn-danger btn-action" type="button"
+                  (click)="blockUnblockDriver(driver)" title="block"><i class="fas fa-unlock-alt"></i></button>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button"
+                  title="view">{{driver?.totalInvitedCount }}</button>
+                <!-- <button *ngIf="driver.driverLevel == 3" class="btn btn-warning btn-action" ngbtooltip="btn-primary"
+                  type="button" (click)="levelnotfound()" title="Level"><i class="fas fa-level-down-alt"></i></button> -->
+                <button class="btn btn-warning btn-action" ngbtooltip="btn-primary" type="button"
+                  [routerLink]="['/hierarchy/one-driver-hierarchy/', driver._id]"
+                  [queryParams]="{LevelId:  driver.driverLevel}" title="Level"><i
+                    class="fas fa-level-down-alt"></i></button>
+              </td>
+              <td>
+                {{driver?.totalReferralEarning |number : '1.0-0'}} KHR <br>
+                <button class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button"
+                  [routerLink]="['/refferal/view-driver-refferal-earning/', driver._id]" title="view"><i
+                    class="fas fa-coins"></i></button>
+              </td>
+              <td>
+                {{driver?.totalRideEarning |number : '1.0-0'}} KHR <br>
+                <button class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button"
+                  [routerLink]="['/ride/view-driver-ride/', driver._id]" title="view"><i
+                    class="fas fa-car"></i></button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="drivers?.length == 0">
+            <tr>
+              <td colspan="16" class="no-data-available">No data!</td>
+            </tr>
+          <tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

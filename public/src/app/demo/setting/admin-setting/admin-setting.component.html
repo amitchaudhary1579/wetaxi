@@ -1,0 +1,232 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Admin Fee" [options]="false">
+      <form [formGroup]="adminFeeForm" (ngSubmit)="onFormSubmit()" novalidate class="custom-login">
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label"><b>Admin Fee <span class="text-danger">*</span></b></label>
+              <input type="text"
+                [ngClass]="(isSubmitted && adminFeeForm.controls.admin_fee.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="admin_fee" name="admin_fee" placeholder="Enter Admin Fee" formControlName="admin_fee" trim="blur">
+              <div *ngIf="isSubmitted && adminFeeForm.hasError('required','admin_fee')" class="custom-error-show">
+                Please enter Admin Fee.
+              </div>
+              <div
+                *ngIf="isSubmitted && !adminFeeForm.hasError('pattern','admin_fee') && !adminFeeForm.hasError('required','admin_fee') && (adminFeeForm.hasError('minlength','admin_fee') || adminFeeForm.hasError('maxlength','admin_fee')) "
+                class="custom-error-show">
+                Admin Fee must contain 1 to 8 digits.
+              </div>
+              <div
+                *ngIf="isSubmitted && !adminFeeForm.hasError('required','admin_fee') && adminFeeForm.hasError('pattern','admin_fee')"
+                class="custom-error-show">
+                Please enter valid Admin Fee.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <input type="submit" class="btn btn-info" value="Update Admin Fee">
+          </div>
+        </div>
+      </form>
+    </app-card>
+    <app-card cardTitle="Minimum Balance" [options]="false">
+      <form [formGroup]="adminMinBalanceForm" (ngSubmit)="onBalanceFormSubmit()" novalidate class="custom-login">
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label"><b>Minimum Balance For Drivers To Get Request <span class="text-danger">*</span></b></label>
+              <input type="text"
+                [ngClass]="(isSubmitted && adminMinBalanceForm.controls.minimum_balance.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="minimum_balance" name="minimum_balance" placeholder="Enter Minimum Balance"
+                formControlName="minimum_balance" trim="blur">
+              <div *ngIf="isSubmitted && adminMinBalanceForm.hasError('required','minimum_balance')"
+                class="custom-error-show">
+                Please enter Minimum Balance.
+              </div>
+              <div
+                *ngIf="isSubmitted && !adminMinBalanceForm.hasError('pattern','minimum_balance') && !adminMinBalanceForm.hasError('required','minimum_balance') && (adminMinBalanceForm.hasError('minlength','minimum_balance') || adminMinBalanceForm.hasError('maxlength','minimum_balance')) "
+                class="custom-error-show">
+                Minimum Balance must contain 1 to 8 digits.
+              </div>
+              <div
+                *ngIf="isSubmitted && !adminMinBalanceForm.hasError('required','minimum_balance') && adminMinBalanceForm.hasError('pattern','minimum_balance')"
+                class="custom-error-show">
+                Please enter valid Minimum Balance.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <input type="submit" class="btn btn-info" value="Update Minimum Balance For Drivers To Get Request">
+          </div>
+        </div>
+      </form>
+    </app-card>
+    <app-card cardTitle="Driver Force App Update" [options]="false">
+      <form [formGroup]="adminForceAppForm" (ngSubmit)="onForceAppFormSubmit()" novalidate class="custom-login">
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label"><b>Driver Android Version<span class="text-danger">*</span></b></label>
+              <input type="text"
+                [ngClass]="(isSubmitted && adminForceAppForm.controls.new_version_android.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="new_version_android" name="new_version_android" placeholder="Enter Android Version"
+                formControlName="new_version_android" trim="blur">
+              <div *ngIf="isSubmitted && adminForceAppForm.hasError('required','new_version_android')"
+                class="custom-error-show">
+                Please enter Android Version.
+              </div>
+              <div
+                *ngIf="isSubmitted && !adminForceAppForm.hasError('pattern','new_version_android') && !adminForceAppForm.hasError('required','new_version_android') && (adminForceAppForm.hasError('minlength','new_version_android') || adminForceAppForm.hasError('maxlength','new_version_android')) "
+                class="custom-error-show">
+                Android Version must contain 1 to 8 digits.
+              </div>
+              <div
+                *ngIf="isSubmitted && !adminForceAppForm.hasError('required','new_version_android') && adminForceAppForm.hasError('pattern','new_version_android')"
+                class="custom-error-show">
+                Please enter valid Android Version.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label"><b>Driver Ios Version <span class="text-danger">*</span></b></label>
+              <input type="text"
+                [ngClass]="(isSubmitted && adminForceAppForm.controls.new_version_ios.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="new_version_ios" name="new_version_ios" placeholder="Enter Ios Version"
+                formControlName="new_version_ios" trim="blur">
+              <div *ngIf="isSubmitted && adminForceAppForm.hasError('required','new_version_ios')"
+                class="custom-error-show">
+                Please enter Ios Version.
+              </div>
+              <div
+                *ngIf="isSubmitted && !adminForceAppForm.hasError('pattern','new_version_ios') && !adminForceAppForm.hasError('required','new_version_ios') && (adminForceAppForm.hasError('minlength','new_version_ios') || adminForceAppForm.hasError('maxlength','new_version_ios')) "
+                class="custom-error-show">
+                Ios Version must contain 1 to 8 digits.
+              </div>
+              <div
+                *ngIf="isSubmitted && !adminForceAppForm.hasError('required','new_version_ios') && adminForceAppForm.hasError('pattern','new_version_ios')"
+                class="custom-error-show">
+                Please enter valid Ios Version.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label"><b>ForceFully Update<span class="text-danger">*</span></b></label>
+              <div class="form-group">
+                <div class="radio d-inline">
+                  <input type="radio" value="true" name="force_update" formControlName="force_update" id="radio-1">
+                  <label for="radio-1" class="cr">Yes</label>
+                </div>
+                &#160;&#160;&#160;
+                <div class="radio d-inline">
+                  <input type="radio" value="false" name="force_update" formControlName="force_update" id="radio-2">
+                  <label for="radio-2" class="cr">No</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <input type="submit" class="btn btn-info" value="Force App Update">
+          </div>
+        </div>
+      </form>
+    </app-card>
+    <app-card cardTitle="Passenger Force App Update" [options]="false">
+        <form [formGroup]="adminForceAppForms" (ngSubmit)="onpassengerForceAppFormSubmit()" novalidate class="custom-login">
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <div class="form-group">
+                <label class="form-control-label"><b>Passenger Android Version<span class="text-danger">*</span></b></label>
+                <input type="text"
+                  [ngClass]="(isSubmitted && adminForceAppForms.controls.new_version_android.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                  id="new_version_android" name="new_version_android" placeholder="Enter Android Version"
+                  formControlName="new_version_android" trim="blur">
+                <div *ngIf="isSubmitted && adminForceAppForms.hasError('required','new_version_android')"
+                  class="custom-error-show">
+                  Please enter Android Version.
+                </div>
+                <div
+                  *ngIf="isSubmitted && !adminForceAppForms.hasError('pattern','new_version_android') && !adminForceAppForms.hasError('required','new_version_android') && (adminForceAppForms.hasError('minlength','new_version_android') || adminForceAppForms.hasError('maxlength','new_version_android')) "
+                  class="custom-error-show">
+                  Android Version must contain 1 to 8 digits.
+                </div>
+                <div
+                  *ngIf="isSubmitted && !adminForceAppForms.hasError('required','new_version_android') && adminForceAppForms.hasError('pattern','new_version_android')"
+                  class="custom-error-show">
+                  Please enter valid Android Version.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <div class="form-group">
+                <label class="form-control-label"><b>Passenger Ios Version <span class="text-danger">*</span></b></label>
+                <input type="text"
+                  [ngClass]="(isSubmitted && adminForceAppForms.controls.new_version_ios.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                  id="new_version_ios" name="new_version_ios" placeholder="Enter Ios Version"
+                  formControlName="new_version_ios" trim="blur">
+                <div *ngIf="isSubmitted && adminForceAppForms.hasError('required','new_version_ios')"
+                  class="custom-error-show">
+                  Please enter Ios Version.
+                </div>
+                <div
+                  *ngIf="isSubmitted && !adminForceAppForms.hasError('pattern','new_version_ios') && !adminForceAppForms.hasError('required','new_version_ios') && (adminForceAppForms.hasError('minlength','new_version_ios') || adminForceAppForms.hasError('maxlength','new_version_ios')) "
+                  class="custom-error-show">
+                  Ios Version must contain 1 to 8 digits.
+                </div>
+                <div
+                  *ngIf="isSubmitted && !adminForceAppForms.hasError('required','new_version_ios') && adminForceAppForms.hasError('pattern','new_version_ios')"
+                  class="custom-error-show">
+                  Please enter valid Ios Version.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <div class="form-group">
+                <label class="form-control-label"><b>ForceFully Update<span class="text-danger">*</span></b></label>
+                <div class="form-group">
+                  <div class="radio d-inline">
+                    <input type="radio" value="true" name="force_update" formControlName="force_update" id="radio-3">
+                    <label for="radio-3" class="cr">Yes</label>
+                  </div>
+                  &#160;&#160;&#160;
+                  <div class="radio d-inline">
+                    <input type="radio" value="false" name="force_update" formControlName="force_update" id="radio-4">
+                    <label for="radio-4" class="cr">No</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <input type="submit" class="btn btn-info" value="Force App Update">
+            </div>
+          </div>
+        </form>
+      </app-card>
+    <app-card cardTitle="Terms & Condition" [options]="false">
+      <app-tinymce [(ngModel)]='basicContent' #tinymce='tinymce'></app-tinymce>
+      <br>
+      <input type="submit" class="btn btn-info" value="Update Terms & Condition" (click)="updateTermAndConditionData()">
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

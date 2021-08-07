@@ -1,0 +1,24 @@
+# Api git ignore content
+
+
+
+uploads/tmp/
+uploads/profile_picture/
+uploads/vehicle_photos/
+package-lock.json
+
+# Admin panel git ignore content
+
+public/dist/
+
+uploads/vehicle_types/
+sh.exe.stackdump
+
+node_modules/*
+node_modules/.bin/
+combined.outerr-0.log
+ecosystem.config.js
+error-0.log
+out-0.log
+.vscode/
+node_modules

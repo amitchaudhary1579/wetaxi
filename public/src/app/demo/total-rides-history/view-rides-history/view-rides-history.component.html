@@ -1,0 +1,81 @@
+<div class="main-content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title"> Single Ride Detail
+            </h4>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped">
+              <tbody>
+                <tr>
+                  <th>Ride Id</th>
+                  <td width="width">{{get_ride_information?.rideId}}</td>
+                </tr>
+                <tr *ngIf="get_ride_information?.status != 'cancelled'">
+                  <th>Vehicle Id</th>
+                  <td width="width">{{get_ride_information?.driverId?.uniqueID}}</td>
+                </tr>
+                <tr *ngIf="get_ride_information?.status != 'cancelled'">
+                  <th>Driver Phone Number</th>
+                  <td width="width">{{get_ride_information?.driverId?.countryCode}} {{get_ride_information?.driverId?.onlyPhoneNumber}}</td>
+                </tr>
+                <tr *ngIf="get_ride_information?.status != 'cancelled'">
+                  <th>Driver Name</th>
+                  <td width="width">{{get_ride_information?.driverId?.name}}</td>
+                </tr>
+                <tr *ngIf="get_ride_information?.status != 'cancelled'">
+                  <th>Customer Name</th>
+                  <td width="width">{{get_ride_information?.passengerId?.name}}</td>
+                </tr>
+                <tr>
+                  <th>Source</th>
+                  <td width="width">{{get_ride_information?.pickupAddress}}</td>
+                </tr>
+                <tr *ngIf="get_ride_information?.status != 'cancelled'">
+                  <th>Destination</th>
+                  <td width="width">{{get_ride_information?.destinationAddress}}</td>
+                </tr>
+                <tr *ngIf="get_ride_information?.status == 'cancelled'">
+                  <th>Cancel By</th>
+                  <td width="width">{{get_ride_information?.cancelBy | titlecase}}</td>
+                </tr>
+                <tr *ngIf="get_ride_information?.status == 'cancelled'">
+                  <th>Cancel Reason</th>
+                  <td width="width">{{get_ride_information?.reasonText?.en}}</td>
+                </tr>
+                <tr>
+                  <th>Date</th>
+                  <td width="width">{{ get_ride_information?.paymentAt ? (get_ride_information?.paymentAt | date: "d MMM y, h:mm:ss a") : (get_ride_information?.updatedAt | date: "d MMM y, h:mm:ss a") }}</td>
+                </tr>
+                <tr>
+                  <th>Distance</th>
+                  <td width="width">{{get_ride_information?.toatlDistance | round |number : '1.0-0' }} Km</td>
+                </tr>
+                <tr>
+                  <th>Time</th>
+                  <td width="width">{{get_ride_information?.totalTime ? (get_ride_information?.totalTime/60 | number: '1.0-0') : 0 }} Min</td>
+                </tr>
+                <tr>
+                  <th>Ride Rate</th>
+                  <td width="width">{{get_ride_information?.rate  }}</td>
+                </tr>
+                <tr>
+                  <th>Status</th>
+                  <td width="width">{{get_ride_information?.status | titlecase}}</td>
+                </tr>
+                <tr>
+                  <th>Total Fee</th>
+                  <td width="width">KHR {{get_ride_information?.toatlFare | round |number : '1.0-0' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel-footer text-center">
+            <button type="button" class="btn btn-primary" [routerLink]="['/history/ride-history/']"><i
+              class="fa fa-backward"></i>Back</button>
+        </div>
+      </div>
+    </div>

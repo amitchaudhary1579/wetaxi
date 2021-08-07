@@ -1,0 +1,118 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Add Passenger" [options]="false">
+      <form [formGroup]="addPassengerForm" (ngSubmit)="onFormSubmit()" novalidate class="custom-login">
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">Name <span class="text-danger">*</span></label>
+              <input type="text"
+                [ngClass]="(isSubmitted && addPassengerForm.controls.name.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="name" name="name" placeholder="Enter Name" formControlName="name" trim="blur">
+              <span *ngIf="isSubmitted && addPassengerForm.hasError('required','name')" class="custom-error-show">Please
+                enter name.</span>
+              <div
+                *ngIf="isSubmitted && !addPassengerForm.hasError('required','name') && addPassengerForm.hasError('pattern','name')"
+                class="custom-error-show">
+                Name should contains alphabetic only.</div>
+              <div
+                *ngIf="isSubmitted && !addPassengerForm.hasError('required','name') && !addPassengerForm.hasError('pattern','name') && (addPassengerForm.hasError('maxlength','name') || addPassengerForm.hasError('minlength','name'))"
+                class="custom-error-show">Name
+                must be 2 to 50 characters long.</div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">Email </label>
+              <input type="email"
+                [ngClass]="(isSubmitted && addPassengerForm.controls.email.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                id="email" name="email" placeholder="Enter Email" formControlName="email" trim="blur">
+              <span *ngIf="isSubmitted && addPassengerForm.hasError('required','email')"
+                class="custom-error-show">Please enter email.</span>
+              <span
+                *ngIf="isSubmitted && !addPassengerForm.hasError('required','email') && addPassengerForm.hasError('pattern','email')"
+                class="custom-error-show">Please enter valid email.</span>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">Date Of Birth <span class="text-danger">*</span></label>
+              <div class="input-group">
+                <input class="form-control"
+                  [ngClass]="(isSubmitted && addPassengerForm.controls.dob.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                  autocomplete="off" placeholder="yyyy-mm-dd" name="dob" ngbDatepicker #d="ngbDatepicker"
+                  formControlName="dob" readonly>
+                <div class="input-group-append">
+                  <span class="input-group-text" (click)="d.toggle()">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </div>
+                <span *ngIf="isSubmitted && addPassengerForm.hasError('required','dob')"
+                  class="custom-error-show">Please enter date of birth.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">Mobile Number <span class="text-danger">*</span></label>
+              <div class="row">
+                <div class="col-sm-4 col-md-4 col-xl-4">
+                  <select class="form-control" formControlName="countryCode"
+                    [ngClass]="(isSubmitted && addPassengerForm.controls.countryCode.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'">
+                    <option *ngFor="let country of countries" [value]="country.phoneCode">
+                      {{country.phoneCode}} - {{country.code}}
+                    </option>
+                  </select>
+                  <div *ngIf="isSubmitted && addPassengerForm.hasError('required','countryCode')"
+                    class="custom-error-show">
+                    Please select country.
+                  </div>
+                </div>
+                <div class="col-sm-8 col-md-8 col-xl-8">
+                  <input type="text"
+                    [ngClass]="(isSubmitted && addPassengerForm.controls.phoneNumber.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                    id="phoneNumber" name="phoneNumber" placeholder="Enter Mobile Number" formControlName="phoneNumber"
+                    trim="blur" (input)="onChangeMobileNumber()">
+                  <div *ngIf="isSubmitted && addPassengerForm.hasError('required','phoneNumber')"
+                    class="custom-error-show">
+                    Please enter mobile number.
+                  </div>
+                  <div
+                    *ngIf="isSubmitted && !addPassengerForm.hasError('pattern','phoneNumber') && !addPassengerForm.hasError('required','phoneNumber') && (addPassengerForm.hasError('minlength','phoneNumber') || addPassengerForm.hasError('maxlength','phoneNumber')) "
+                    class="custom-error-show">
+                    Mobile number must contain 8 to 16 digits.
+                  </div>
+                  <div
+                    *ngIf="isSubmitted && !addPassengerForm.hasError('required','phoneNumber') && addPassengerForm.hasError('pattern','phoneNumber')"
+                    class="custom-error-show">
+                    Please enter valid mobile number.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-xl-6">
+            <div class="form-group">
+              <label class="form-control-label">Upload Profile Pic</label>
+              <div class="profile-upload-wrap">
+                <div class="custom-file-upload">
+                  <input id="file-upload" type="file" name="profilePhoto" formControlName="profilePhoto"
+                    (change)="onImageChange($event)" placeholder="Upload file" accept=".png,.jpg,.jpeg" />
+                    <span *ngIf="isSubmitted && isImageExtensionError"
+                    class="custom-error-show">Only JPG, JPEG and PNG format allow.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footrt-btns">
+          <button type="submit" class="btn btn-info"><i class="fa fa-check"></i>Submit</button>
+          <button type="button" class="btn btn-danger" [routerLink]="['/passenger/list-passenger/']"><i
+              class="fa fa-backward"></i>Cancel</button>
+        </div>
+      </form>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}"></ngx-loading>

@@ -1,0 +1,130 @@
+<div class="row">
+  <div class="col-sm-12">
+    <!-- <button type="button" class="btn btn-primary" [routerLink]="['/refferal/list-driver-refferal-earning/']"><i
+        class="fa fa-backward"></i>Back</button> -->
+    <button type="button" class="btn btn-primary" (click)="backHierarchy()"><i class="fa fa-backward"></i>Back</button>
+    <br>
+    <br>
+    <app-card cardTitle="Driver Details" [options]="false">
+      <div class="col-sm-12 col-md-12 col-xl-12">
+        <div class="card-block text-center">
+          <h5>{{ driverName }}</h5>
+          <img class="img-fluid rounded-circle" style="width:100px;height:100px;"
+            src="{{profileImageUrl}}{{driverData?.profilePhoto ? driverData?.profilePhoto : 'default.png'}}"
+            (error)="imgErrorHandler($event)" alt="dashboard-user">
+          <div class="row m-t-30">
+            <div class="col-md-4 col-6">
+              <h5 *ngIf="driverData?.email != ''">{{driverData?.email}}</h5>
+              <h5 *ngIf="driverData?.email == ''">Not Available</h5>
+              <span class="text-muted">Email</span>
+            </div>
+            <div class="col-md-4 col-12">
+              <h5>KHR
+                {{diver_ride_earning_balance?.totalReferralCollectedAmount ? (diver_ride_earning_balance?.totalReferralCollectedAmount| round |number : '1.0-0') : "0.00"}}
+              </h5>
+              <span class="text-muted">Amount to be Collected</span>
+            </div>
+            <div class="col-md-4 col-6">
+              <h5>KHR
+                {{diver_ride_earning_balance?.totalReferralRemainingAmount ? (diver_ride_earning_balance?.totalReferralRemainingAmount| round |number : '1.0-0'):"0.00"}}
+              </h5>
+              <span class="text-muted">Amount to be Remaining</span><br><br>
+              <button
+                *ngIf="diver_ride_earning?.length != 0 && diver_ride_earning_balance?.totalReferralRemainingAmount != 0"
+                (click)="all_withdraw_earning(diver_ride_earning_balance?.totalReferralRemainingAmount)"
+                class="btn btn-warning btn-action" ngbtooltip="btn-primary" type="button">Withdraw All Amount</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-card>
+    <app-card cardTitle="View Driver Refferal Earning" [options]="false">
+        <div class="datatable-top-btn-left">
+            <form class="row" [formGroup]="filterForm" (ngSubmit)="filterList()" novalidate>
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="fromDate" ngbDatepicker
+                    #fd="ngbDatepicker">
+                  <div class="input-group-append">
+                    <span class="input-group-text" (click)="fd.toggle()">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                </div>
+                <span *ngIf="submitted && filterForm.hasError('required','fromDate')" class="custom-error-show">
+                  Please select start date.
+                </span>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="toDate" ngbDatepicker
+                    #td="ngbDatepicker" [minDate]="filterForm.value.fromDate">
+                  <div class="input-group-append">
+                    <span class="input-group-text" (click)="td.toggle()">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                </div>
+                <span *ngIf="submitted && filterForm.hasError('required','toDate')" class="custom-error-show">
+                  Please select to date.
+                </span>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <button class="btn btn-primary" type="submit" title="Filter">
+                    <i class="fas fa-filter"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <button class="btn btn-danger" type="button" (click)="resetFilter()" title="Reset">
+                      <i class="fas fa-times"></i>
+                    </button>
+                </div>
+              </div>
+            </form>
+          </div>
+      <div class="table-responsive custom-table-responsive">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+        <thead>
+          <tr>
+            <th>Auto Id</th>
+            <th>Ride Id</th>
+            <th>Date</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Referral Amount</th>
+            <th>is Withdrawed</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="diver_ride_earning && diver_ride_earning?.length > 0">
+          <tr *ngFor="let ride_earning_list of diver_ride_earning">
+            <td>{{ ride_earning_list?.autoIncrementID ? ride_earning_list?.autoIncrementID : "---"}}</td>
+            <td>{{ ride_earning_list?.rideId?.rideId ?  ride_earning_list?.rideId?.rideId : "---"}}</td>
+            <td>{{ ride_earning_list?.createdAt | date: "d MMM y, h:mm:ss a"}}</td>
+            <td>{{ ride_earning_list?.rideId?.pickupAddress | titlecase }}</td>
+            <td>{{ ride_earning_list?.rideId?.destinationAddress | titlecase }}</td>
+            <td>KHR
+              {{ ride_earning_list?.referralAmount ? (ride_earning_list?.referralAmount| round |number : '1.0-0') : "---" }}
+            </td>
+            <td>
+              <span *ngIf="ride_earning_list?.isWithdrawed" class="btn btn-success btn-verify">Withdrawn</span>
+              <button *ngIf="!ride_earning_list?.isWithdrawed" (click)="withdraw_earning(ride_earning_list)"
+                class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button">Withdraw</button>
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="diver_ride_earning?.length == 0">
+          <tr>
+            <td colspan="8" class="no-data-available">No data!</td>
+          </tr>
+        <tbody>
+      </table>
+      </div>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

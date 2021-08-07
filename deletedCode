@@ -1,0 +1,5133 @@
+// stage 1
+          // aggregateQuery.push({
+          //     $lookup: {
+          //         "from": "driver_referrals",
+          //         "localField": "_id",
+          //         "foreignField": "parentDriver",
+          //         "as": "parentDriverReferrals"
+          //     }
+          // })
+          // // stage 2
+          // aggregateQuery.push({
+          //     $unwind: {
+          //         path: "$parentDriverReferrals",
+          //         preserveNullAndEmptyArrays: true
+          //     }
+          // })
+          // // stage 3
+          // aggregateQuery.push({
+          //     $group: {
+          //         '_id': "$_id",
+          //         'parentDriverReferralsCount': {
+          //             $sum: {
+          //                 $cond: {
+          //                     if: {
+          //                         $gt: ["$parentDriverReferrals.driverLevel", 0]
+          //                     },
+          //                     then: 1,
+          //                     else: 0
+          //                 }
+          //             },
+          //         },
+          //         'name': {
+          //             $first: '$name'
+          //         },
+          //         'autoIncrementID': {
+          //             $first: '$autoIncrementID'
+          //         },
+          //         'avgRating': {
+          //             $first: '$avgRating'
+          //         },
+          //         'countryCode': {
+          //             $first: '$countryCode'
+          //         },
+          //         'createdAt': {
+          //             $first: '$createdAt'
+          //         },
+          //         'creditBalance': {
+          //             $first: '$creditBalance'
+          //         },
+          //         'dob': {
+          //             $first: '$dob'
+          //         },
+          //         'driverLevel': {
+          //             $first: '$driverLevel'
+          //         },
+          //         'email': {
+          //             $first: '$email'
+          //         },
+          //         'isBlocked': {
+          //             $first: '$isBlocked'
+          //         },
+          //         'isVerified': {
+          //             $first: '$isVerified'
+          //         },
+          //         'onlyPhoneNumber': {
+          //             $first: '$onlyPhoneNumber'
+          //         },
+          //         'phoneNumber': {
+          //             $first: '$phoneNumber'
+          //         },
+          //         'profilePhoto': {
+          //             $first: '$profilePhoto'
+          //         },
+          //         'uniqueID': {
+          //             $first: '$uniqueID'
+          //         }
+          //     }
+          // })
+          // // stage 4
+          // aggregateQuery.push({
+          //     $lookup: {
+          //         "from": "driver_referrals",
+          //         "localField": "_id",
+          //         "foreignField": "grandParentDriver",
+          //         "as": "grandParentReferrals"
+          //     }
+          // })
+          // // stage 5
+          // aggregateQuery.push({
+          //     $unwind: {
+          //         path: "$grandParentReferrals",
+          //         preserveNullAndEmptyArrays: true
+          //     }
+          // })
+          // // stage 6
+          // aggregateQuery.push({
+          //     $group: {
+          //         '_id': "$_id",
+          //         'parentDriverReferralsCount': {
+          //             $first: "$parentDriverReferralsCount"
+          //         },
+          //         'grandParentReferralsCount': {
+          //             $sum: {
+          //                 $cond: {
+          //                     if: {
+          //                         $gt: ["$grandParentReferrals.driverLevel", 0]
+          //                     },
+          //                     then: 1,
+          //                     else: 0
+          //                 }
+          //             },
+          //         },
+          //         'name': {
+          //             $first: '$name'
+          //         },
+          //         'autoIncrementID': {
+          //             $first: '$autoIncrementID'
+          //         },
+          //         'avgRating': {
+          //             $first: '$avgRating'
+          //         },
+          //         'countryCode': {
+          //             $first: '$countryCode'
+          //         },
+          //         'createdAt': {
+          //             $first: '$createdAt'
+          //         },
+          //         'creditBalance': {
+          //             $first: '$creditBalance'
+          //         },
+          //         'dob': {
+          //             $first: '$dob'
+          //         },
+          //         'driverLevel': {
+          //             $first: '$driverLevel'
+          //         },
+          //         'email': {
+          //             $first: '$email'
+          //         },
+          //         'isBlocked': {
+          //             $first: '$isBlocked'
+          //         },
+          //         'isVerified': {
+          //             $first: '$isVerified'
+          //         },
+          //         'onlyPhoneNumber': {
+          //             $first: '$onlyPhoneNumber'
+          //         },
+          //         'phoneNumber': {
+          //             $first: '$phoneNumber'
+          //         },
+          //         'profilePhoto': {
+          //             $first: '$profilePhoto'
+          //         },
+          //         'uniqueID': {
+          //             $first: '$uniqueID'
+          //         }
+          //     }
+          // })
+          // // stage 7
+          // aggregateQuery.push({
+          //     $lookup: {
+          //         "from": "driver_referrals",
+          //         "localField": "_id",
+          //         "foreignField": "greatGrandParentDriver",
+          //         "as": "greatGrandParentDriverReferrals"
+          //     }
+          // })
+          // // stage 8
+          // aggregateQuery.push({
+          //     $unwind: {
+          //         path: "$greatGrandParentDriverReferrals",
+          //         preserveNullAndEmptyArrays: true
+          //     }
+          // })
+          // aggregateQuery.push({
+          //     $group: {
+          //         '_id': "$_id",
+          //         'parentDriverReferralsCount': {
+          //             $first: "$parentDriverReferralsCount"
+          //         },
+          //         'grandParentReferralsCount': {
+          //             $first: "$grandParentReferralsCount"
+          //         },
+          //         'greatGrandParentDriverReferralsCount': {
+          //             $sum: {
+          //                 $cond: {
+          //                     if: {
+          //                         $gt: ["$greatGrandParentDriverReferrals.driverLevel", 0]
+          //                     },
+          //                     then: 1,
+          //                     else: 0
+          //                 }
+          //             },
+          //         },
+          //         'name': {
+          //             $first: '$name'
+          //         },
+          //         'autoIncrementID': {
+          //             $first: '$autoIncrementID'
+          //         },
+          //         'avgRating': {
+          //             $first: '$avgRating'
+          //         },
+          //         'countryCode': {
+          //             $first: '$countryCode'
+          //         },
+          //         'createdAt': {
+          //             $first: '$createdAt'
+          //         },
+          //         'creditBalance': {
+          //             $first: '$creditBalance'
+          //         },
+          //         'dob': {
+          //             $first: '$dob'
+          //         },
+          //         'driverLevel': {
+          //             $first: '$driverLevel'
+          //         },
+          //         'email': {
+          //             $first: '$email'
+          //         },
+          //         'isBlocked': {
+          //             $first: '$isBlocked'
+          //         },
+          //         'isVerified': {
+          //             $first: '$isVerified'
+          //         },
+          //         'onlyPhoneNumber': {
+          //             $first: '$onlyPhoneNumber'
+          //         },
+          //         'phoneNumber': {
+          //             $first: '$phoneNumber'
+          //         },
+          //         'profilePhoto': {
+          //             $first: '$profilePhoto'
+          //         },
+          //         'uniqueID': {
+          //             $first: '$uniqueID'
+          //         }
+          //     }
+          // })
+          // stage 9
+
+  // // stage 1
+          // aggregateQuery.push({
+          //     $lookup: {
+          //         "from": "passenger_referrals",
+          //         "localField": "_id",
+          //         "foreignField": "level1Passenger",
+          //         "as": "level1PassengerReferrals"
+          //     }
+          // })
+          // // stage 2
+          // aggregateQuery.push({
+          //     $unwind: {
+          //         path: "$level1PassengerReferrals",
+          //         preserveNullAndEmptyArrays: true
+          //     }
+          // })
+          // // stage 3
+          // aggregateQuery.push({
+          //     $group: {
+          //         '_id': "$_id",
+          //         'level1PassengerReferralsCount': {
+          //             $sum: {
+          //                 $cond: {
+          //                     if: {
+          //                         $gt: ["$level1PassengerReferrals.passengerLevel", 0]
+          //                     },
+          //                     then: 1,
+          //                     else: 0
+          //                 }
+          //             },
+          //         },
+          //         'name': {
+          //             $first: '$name'
+          //         },
+          //         'autoIncrementID': {
+          //             $first: '$autoIncrementID'
+          //         },
+          //         'countryCode': {
+          //             $first: '$countryCode'
+          //         },
+          //         'createdAt': {
+          //             $first: '$createdAt'
+          //         },
+          //         'dob': {
+          //             $first: '$dob'
+          //         },
+          //         'name': {
+          //             $first: '$name'
+          //         },
+          //         'email': {
+          //             $first: '$email'
+          //         },
+          //         'isBlocked': {
+          //             $first: '$isBlocked'
+          //         },
+          //         'onlyPhoneNumber': {
+          //             $first: '$onlyPhoneNumber'
+          //         },
+          //         'passengerLevel': {
+          //             $first: '$passengerLevel'
+          //         },
+          //         'phoneNumber': {
+          //             $first: '$phoneNumber'
+          //         },
+          //         'profilePhoto': {
+          //             $first: '$profilePhoto'
+          //         },
+          //         'uniqueID': {
+          //             $first: '$uniqueID'
+          //         }
+          //     }
+          // })
+          // // stage 4
+          // aggregateQuery.push({
+          //     $lookup: {
+          //         "from": "passenger_referrals",
+          //         "localField": "_id",
+          //         "foreignField": "level2Passenger",
+          //         "as": "level2PassengerReferrals"
+          //     }
+          // })
+          // // stage 5
+          // aggregateQuery.push({
+          //     $unwind: {
+          //         path: "$level2PassengerReferrals",
+          //         preserveNullAndEmptyArrays: true
+          //     }
+          // })
+          // // stage 6
+          // aggregateQuery.push({
+          //     $group: {
+          //         '_id': "$_id",
+          //         "level1PassengerReferralsCount": {
+          //             $first: "$level1PassengerReferralsCount"
+          //         },
+          //         'level2PassengerReferralsCount': {
+          //             $sum: {
+          //                 $cond: {
+          //                     if: {
+          //                         $gt: ["$level2PassengerReferrals.passengerLevel", 0]
+          //                     },
+          //                     then: 1,
+          //                     else: 0
+          //                 }
+          //             },
+          //         },
+          //         'name': {
+          //             $first: '$name'
+          //         },
+          //         'autoIncrementID': {
+          //             $first: '$autoIncrementID'
+          //         },
+          //         'countryCode': {
+          //             $first: '$countryCode'
+          //         },
+          //         'createdAt': {
+          //             $first: '$createdAt'
+          //         },
+          //         'dob': {
+          //             $first: '$dob'
+          //         },
+          //         'name': {
+          //             $first: '$name'
+          //         },
+          //         'email': {
+          //             $first: '$email'
+          //         },
+          //         'isBlocked': {
+          //             $first: '$isBlocked'
+          //         },
+          //         'onlyPhoneNumber': {
+          //             $first: '$onlyPhoneNumber'
+          //         },
+          //         'passengerLevel': {
+          //             $first: '$passengerLevel'
+          //         },
+          //         'phoneNumber': {
+          //             $first: '$phoneNumber'
+          //         },
+          //         'profilePhoto': {
+          //             $first: '$profilePhoto'
+          //         },
+          //         'uniqueID': {
+          //             $first: '$uniqueID'
+          //         }
+          //     }
+          // })
+          // // stage 7
+          // aggregateQuery.push({
+          //     $lookup: {
+          //         "from": "passenger_referrals",
+          //         "localField": "_id",
+          //         "foreignField": "level3Passenger",
+          //         "as": "level3PassengerReferrals"
+          //     }
+          // })
+          // // stage 8
+          // aggregateQuery.push({
+          //     $unwind: {
+          //         path: "$level3PassengerReferrals",
+          //         preserveNullAndEmptyArrays: true
+          //     }
+          // })
+          // // stage 9
+          // aggregateQuery.push({
+          //     $group: {
+          //         '_id': "$_id",
+          //         "level1PassengerReferralsCount": {
+          //             $first: "$level1PassengerReferralsCount"
+          //         },
+          //         "level2PassengerReferralsCount": {
+          //             $first: "$level2PassengerReferralsCount"
+          //         },
+          //         'level3PassengerReferralsCount': {
+          //             $sum: {
+          //                 $cond: {
+          //                     if: {
+          //                         $gt: ["$level3PassengerReferrals.passengerLevel", 0]
+          //                     },
+          //                     then: 1,
+          //                     else: 0
+          //                 }
+          //             },
+          //         },
+          //         'name': {
+          //             $first: '$name'
+          //         },
+          //         'autoIncrementID': {
+          //             $first: '$autoIncrementID'
+          //         },
+          //         'countryCode': {
+          //             $first: '$countryCode'
+          //         },
+          //         'createdAt': {
+          //             $first: '$createdAt'
+          //         },
+          //         'dob': {
+          //             $first: '$dob'
+          //         },
+          //         'name': {
+          //             $first: '$name'
+          //         },
+          //         'email': {
+          //             $first: '$email'
+          //         },
+          //         'isBlocked': {
+          //             $first: '$isBlocked'
+          //         },
+          //         'onlyPhoneNumber': {
+          //             $first: '$onlyPhoneNumber'
+          //         },
+          //         'passengerLevel': {
+          //             $first: '$passengerLevel'
+          //         },
+          //         'phoneNumber': {
+          //             $first: '$phoneNumber'
+          //         },
+          //         'profilePhoto': {
+          //             $first: '$profilePhoto'
+          //         },
+          //         'uniqueID': {
+          //             $first: '$uniqueID'
+          //         }
+          //     }
+          // })
+          // // stage 10
+          // aggregateQuery.push({
+          //     $lookup: {
+          //         "from": "passenger_referrals",
+          //         "localField": "_id",
+          //         "foreignField": "level4Passenger",
+          //         "as": "level4PassengerReferrals"
+          //     }
+          // })
+          // // stage 11
+          // aggregateQuery.push({
+          //     $unwind: {
+          //         path: "$level4PassengerReferrals",
+          //         preserveNullAndEmptyArrays: true
+          //     }
+          // })
+          // // stage 12
+          // aggregateQuery.push({
+          //     $group: {
+          //         '_id': "$_id",
+          //         "level1PassengerReferralsCount": {
+          //             $first: "$level1PassengerReferralsCount"
+          //         },
+          //         "level2PassengerReferralsCount": {
+          //             $first: "$level2PassengerReferralsCount"
+          //         },
+          //         "level3PassengerReferralsCount": {
+          //             $first: "$level3PassengerReferralsCount"
+          //         },
+          //         'level4PassengerReferralsCount': {
+          //             $sum: {
+          //                 $cond: {
+          //                     if: {
+          //                         $gt: ["$level4PassengerReferrals.passengerLevel", 0]
+          //                     },
+          //                     then: 1,
+          //                     else: 0
+          //                 }
+          //             },
+          //         },
+          //         'name': {
+          //             $first: '$name'
+          //         },
+          //         'autoIncrementID': {
+          //             $first: '$autoIncrementID'
+          //         },
+          //         'countryCode': {
+          //             $first: '$countryCode'
+          //         },
+          //         'createdAt': {
+          //             $first: '$createdAt'
+          //         },
+          //         'dob': {
+          //             $first: '$dob'
+          //         },
+          //         'name': {
+          //             $first: '$name'
+          //         },
+          //         'email': {
+          //             $first: '$email'
+          //         },
+          //         'isBlocked': {
+          //             $first: '$isBlocked'
+          //         },
+          //         'onlyPhoneNumber': {
+          //             $first: '$onlyPhoneNumber'
+          //         },
+          //         'passengerLevel': {
+          //             $first: '$passengerLevel'
+          //         },
+          //         'phoneNumber': {
+          //             $first: '$phoneNumber'
+          //         },
+          //         'profilePhoto': {
+          //             $first: '$profilePhoto'
+          //         },
+          //         'uniqueID': {
+          //             $first: '$uniqueID'
+          //         }
+          //     }
+          // })
+          // // stage 13
+          // aggregateQuery.push({
+          //     $lookup: {
+          //         "from": "passenger_referrals",
+          //         "localField": "_id",
+          //         "foreignField": "level5Passenger",
+          //         "as": "level5PassengerReferrals"
+          //     }
+          // })
+          // // stage 14
+          // aggregateQuery.push({
+          //     $unwind: {
+          //         path: "$level5PassengerReferrals",
+          //         preserveNullAndEmptyArrays: true
+          //     }
+          // })
+          // // stage 15
+          // aggregateQuery.push({
+          //     $group: {
+          //         '_id': "$_id",
+          //         "level1PassengerReferralsCount": {
+          //             $first: "$level1PassengerReferralsCount"
+          //         },
+          //         "level2PassengerReferralsCount": {
+          //             $first: "$level2PassengerReferralsCount"
+          //         },
+          //         "level3PassengerReferralsCount": {
+          //             $first: "$level3PassengerReferralsCount"
+          //         },
+          //         "level4PassengerReferralsCount": {
+          //             $first: "$level4PassengerReferralsCount"
+          //         },
+          //         'level5PassengerReferralsCount': {
+          //             $sum: {
+          //                 $cond: {
+          //                     if: {
+          //                         $gt: ["$level5PassengerReferrals.passengerLevel", 0]
+          //                     },
+          //                     then: 1,
+          //                     else: 0
+          //                 }
+          //             },
+          //         },
+          //         'name': {
+          //             $first: '$name'
+          //         },
+          //         'autoIncrementID': {
+          //             $first: '$autoIncrementID'
+          //         },
+          //         'countryCode': {
+          //             $first: '$countryCode'
+          //         },
+          //         'createdAt': {
+          //             $first: '$createdAt'
+          //         },
+          //         'dob': {
+          //             $first: '$dob'
+          //         },
+          //         'name': {
+          //             $first: '$name'
+          //         },
+          //         'email': {
+          //             $first: '$email'
+          //         },
+          //         'isBlocked': {
+          //             $first: '$isBlocked'
+          //         },
+          //         'onlyPhoneNumber': {
+          //             $first: '$onlyPhoneNumber'
+          //         },
+          //         'passengerLevel': {
+          //             $first: '$passengerLevel'
+          //         },
+          //         'phoneNumber': {
+          //             $first: '$phoneNumber'
+          //         },
+          //         'profilePhoto': {
+          //             $first: '$profilePhoto'
+          //         },
+          //         'uniqueID': {
+          //             $first: '$uniqueID'
+          //         }
+          //     }
+          // })
+          // stage 16
+
+
+
+// UserGroup API Start
+router.get("/api/getAllUserGroups", AdminController.getAllUserGroups);
+router.get("/api/getUserGroupById", AdminController.getUserGroupById);
+router.post(
+  "/api/changeUserGroupsStatus",
+  AdminController.changeUserGroupsStatus
+);
+router.post("/api/saveUserGroups", AdminController.saveUserGroups);
+router.post("/api/editUserGroups", AdminController.editUserGroups);
+router.delete("/api/deleteUserGroups", AdminController.deleteUserGroups);
+// UserGroup API END
+
+// User API Start
+router.get("/api/getUserById", AdminController.getUserById);
+router.get("/api/getAllUsers", AdminController.getAllUsers);
+router.get("/api/getAllUsersCSV", AdminController.getAllUsersCSV);
+router.get("/api/getAllUsersPDF", AdminController.getAllUsersPDF);
+router.post("/api/editUser", AdminController.editUser);
+router.post("/api/saveUser", AdminController.saveUser);
+router.post("/api/changeUserStatus", AdminController.changeUserStatus);
+router.delete("/api/deleteUser", AdminController.deleteUser);
+
+getAllUserGroups: function (req, res) {
+    async.waterfall(
+      [
+        /** get All User Group*/
+        function (nextCall) {
+          let aggregateQuery = [];
+
+          aggregateQuery.push({ $match: { isDeleted: false } });
+
+          if (
+            req.query.startDate !== "" &&
+            req.query.startDate !== null &&
+            req.query.startDate !== undefined
+          ) {
+            var tempDate = req.query.startDate.split("-").reverse().join("-");
+            aggregateQuery.push({
+              $match: {
+                createdAt: { $gte: new Date(tempDate) },
+              },
+            });
+          }
+
+          if (
+            req.query.endDate !== "" &&
+            req.query.endDate !== null &&
+            req.query.endDate !== undefined
+          ) {
+            var tempDate = req.query.endDate.split("-").reverse().join("-");
+            aggregateQuery.push({
+              $match: {
+                createdAt: { $lt: new Date(tempDate) },
+              },
+            });
+          }
+
+          if (req.query.search !== undefined && req.query.search.length > 0) {
+            const re = new RegExp(`${req.query.search}`, "i");
+            aggregateQuery.push({
+              $match: {
+                $or: [{ name: re }, { description: re }],
+              },
+            });
+          }
+
+          var columnName = req.query.columnName ? req.query.columnName : "_id";
+          var orderBy = req.query.orderBy == "asc" ? 1 : -1;
+
+          aggregateQuery.push({
+            $sort: { [columnName]: orderBy },
+          });
+
+          aggregateQuery.push({
+            $skip: Number(req.query.skip) || 0,
+          });
+
+          aggregateQuery.push({
+            $limit: Number(req.query.limit) || 10,
+          });
+
+          UserGroupSchema.aggregate(aggregateQuery, (err, AllUserGroup) => {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            } else {
+              let responseData = {};
+              responseData.AllUserGroup = AllUserGroup;
+              responseData.recordsTotal = AllUserGroup.length;
+              responseData.recordsFiltered = AllUserGroup.length;
+              nextCall(null, responseData);
+            }
+          });
+        },
+      ],
+      function (err, response) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+
+        return res.sendToEncode({
+          status_code: 200,
+          message: message.GET_USER_GROUP_SUCC,
+          data: response,
+        });
+      }
+    );
+  },
+  saveUserGroups: function (req, res) {
+    async.waterfall(
+      [
+        function (nextCall) {
+          req.checkBody("name", message.USER_GROUP_NAME_SUCC).notEmpty();
+
+          var error = req.validationErrors();
+          if (error && error.length) {
+            return nextCall({
+              message: error[0].msg,
+            });
+          }
+          nextCall(null, req.body);
+        },
+        function (body, nextCall) {
+          let newData = {};
+          let saveNewUserGroup = {
+            name: body.name,
+            description: body.description,
+            pageAccess: body.pageAccess,
+            status: body.status,
+          };
+
+          let saveNewUserGroupData = new UserGroupSchema(saveNewUserGroup);
+          saveNewUserGroupData.save(function (err, insertedData) {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            }
+            // Add Action
+            _self.addActionLog(
+              req.user,
+              log_message.SECTION.USER_GROUP,
+              log_message.ACTION.ADD_USER_GROUP +
+                ", User Group Name : " +
+                body.name
+            );
+            // Action end
+            newData = {
+              data: insertedData,
+            };
+            nextCall(null, newData);
+          });
+        },
+      ],
+      function (err, response) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+        return res.sendToEncode({
+          status_code: 200,
+          data: response,
+          message: message.USER_GROUP_SAVE_SUCC,
+        });
+      }
+    );
+  },
+  editUserGroups: function (req, res) {
+    async.waterfall(
+      [
+        function (nextCall) {
+          req.checkBody("id", message.USER_GROUP_ID_SUCC).notEmpty();
+          req.checkBody("name", message.USER_GROUP_NAME_SUCC).notEmpty();
+
+          var error = req.validationErrors();
+          if (error && error.length) {
+            return nextCall({
+              message: error[0].msg,
+            });
+          }
+          nextCall(null, req.body);
+        },
+        function (body, nextCall) {
+          var newData = {};
+          UserGroupSchema.findOneAndUpdate(
+            { _id: mongoose.Types.ObjectId(body.id) },
+            {
+              name: body.name,
+              description: body.description,
+              pageAccess: body.pageAccess,
+              status: body.status,
+            },
+            { new: true }
+          ).exec(function (err, updateUserGroup) {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            }
+            // Add Action
+            _self.addActionLog(
+              req.user,
+              log_message.SECTION.USER_GROUP,
+              log_message.ACTION.EDIT_USER_GROUP +
+                ", User Group Name : " +
+                body.name
+            );
+            // Action end
+            newData = {
+              status_code: 200,
+              message: message.USER_GROUP_UPDATED_SUCC,
+              data: updateUserGroup,
+            };
+            return nextCall(null, newData);
+          });
+        },
+      ],
+      function (err, response) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+        return res.sendToEncode({
+          status_code: 200,
+          data: response,
+          message: message.USER_GROUP_UPDATED_SUCC,
+        });
+      }
+    );
+  },
+  changeUserGroupsStatus: function (req, res) {
+    async.waterfall(
+      [
+        function (nextCall) {
+          req.checkBody("id", message.USER_GROUP_ID_REQUIRED).notEmpty();
+          req
+            .checkBody("status", message.USER_GROUP_STATUS_REQUIRED)
+            .notEmpty();
+          var error = req.validationErrors();
+          if (error && error.length) {
+            return nextCall({ message: error[0].msg });
+          } else {
+            nextCall(null, req.body);
+          }
+        },
+        function (body, nextCall) {
+          UserGroupSchema.update(
+            { _id: body.id },
+            { $set: { status: body.status } },
+            function (error, results) {
+              if (error) {
+                nextCall({ message: message.SOMETHING_WENT_WRONG });
+              } else {
+                // Add Action
+                _self.addActionLog(
+                  req.user,
+                  log_message.SECTION.USER_GROUP,
+                  log_message.ACTION.USER_GROUP_STATUS_CHANGE +
+                    ", User Id : " +
+                    body.id
+                );
+                // Action end
+
+                nextCall(null, {
+                  status: 200,
+                  message: message.USER_GROUP_STATUS_UPDATE_SUCC,
+                });
+              }
+            }
+          );
+        },
+      ],
+      function (err, response) {
+        if (err) {
+          return res.status(400).sendToEncode({
+            status: 400,
+            message: (err && err.message) || "Oops! You could not be update.",
+          });
+        }
+        res.status(200).sendToEncode(response);
+      }
+    );
+  },
+  deleteUserGroups: function (req, res) {
+    async.waterfall(
+      [
+        function (nextCall) {
+          req.checkBody("id", message.USER_GROUP_ID_REQUIRED).notEmpty();
+
+          var error = req.validationErrors();
+          if (error && error.length) {
+            return nextCall({
+              message: error[0].msg,
+            });
+          }
+          nextCall(null, req.body);
+        },
+        function (body, nextCall) {
+          UserGroupSchema.updateOne(
+            { _id: mongoose.Types.ObjectId(body.id) },
+            { isDeleted: true },
+            { new: true }
+          ).exec(function (err, data) {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            }
+
+            UserGroupSchema.findOne({
+              _id: mongoose.Types.ObjectId(body.id),
+            }).exec(function (err, data) {
+              if (err) {
+                return nextCall({
+                  message: message.SOMETHING_WENT_WRONG,
+                });
+              }
+
+              // Add Action
+              _self.addActionLog(
+                req.user,
+                log_message.SECTION.USER_GROUP,
+                log_message.ACTION.DELETE_USER_GROUP +
+                  ", User Group Name : " +
+                  data._doc.name
+              );
+              // Action end
+
+              // saveRecycle(subject, token, tableName, recordId)
+              saveRecycle(
+                "Delete: User Group, Name : " + data._doc.name,
+                req.headers["authorization"],
+                "userGroup",
+                data._doc._id
+              );
+            });
+
+            return nextCall(null, data);
+          });
+        },
+      ],
+      function (err, response) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+        return res.sendToEncode({
+          status_code: 200,
+          data: response,
+          message: message.USER_GROUP_DELETE_SUCC,
+        });
+      }
+    );
+  },
+  getUserGroupById: function (req, res) {
+    async.waterfall(
+      [
+        function (nextCall) {
+          nextCall(null, req.query);
+        },
+        function (body, nextCall) {
+          UserGroupSchema.findOne({
+            _id: mongoose.Types.ObjectId(body.id),
+          }).exec(function (err, data) {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            }
+            // Add Action
+            _self.addActionLog(
+              req.user,
+              log_message.SECTION.USER_GROUP,
+              log_message.ACTION.VIEW_USER_GROUP +
+                ", User Group Id  : " +
+                body.id
+            );
+            // Action end
+            return nextCall(null, data);
+          });
+        },
+      ],
+      function (err, response) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+        return res.sendToEncode({
+          status_code: 200,
+          data: response,
+          message: message.GET_USER_GROUP_DETAIL_SUCC,
+        });
+      }
+    );
+  },
+
+  getAllUsers: function (req, res) {
+    async.waterfall(
+      [
+        /** get All User */
+        function (nextCall) {
+          let aggregateQuery = [];
+
+          aggregateQuery.push({
+            $match: { type: "user", isDeleted: false },
+          });
+
+          if (
+            req.query.startDate !== "" &&
+            req.query.startDate !== null &&
+            req.query.startDate !== undefined
+          ) {
+            var tempDate = req.query.startDate.split("-").reverse().join("-");
+            aggregateQuery.push({
+              $match: {
+                createdAt: { $gte: new Date(tempDate) },
+              },
+            });
+          }
+
+          if (
+            req.query.endDate !== "" &&
+            req.query.endDate !== null &&
+            req.query.endDate !== undefined
+          ) {
+            var tempDate = req.query.endDate.split("-").reverse().join("-");
+            aggregateQuery.push({
+              $match: {
+                createdAt: { $lt: new Date(tempDate) },
+              },
+            });
+          }
+
+          aggregateQuery.push({
+            $project: {
+              password: 0,
+              updatedAt: 0,
+              isDeleted: 0,
+              phone: 0,
+              email: 0,
+            },
+          });
+
+          aggregateQuery.push({
+            $lookup: {
+              from: "userGroup",
+              localField: "groupId",
+              foreignField: "_id",
+              as: "userGroupData",
+            },
+          });
+
+          aggregateQuery.push({
+            $unwind: {
+              path: "$userGroupData",
+              preserveNullAndEmptyArrays: true,
+            },
+          });
+
+          aggregateQuery.push({
+            $project: {
+              _id: 1,
+              createdAt: 1,
+              userName: 1,
+              isActive: 1,
+              positionId: 1,
+              "userGroupData.name": 1,
+            },
+          });
+
+          aggregateQuery.push({
+            $addFields: {
+              group: "$userGroupData.name",
+            },
+          });
+
+          aggregateQuery.push({
+            $project: {
+              userGroupData: 0,
+            },
+          });
+
+          aggregateQuery.push({
+            $lookup: {
+              from: "positionNew",
+              localField: "positionId",
+              foreignField: "_id",
+              as: "positionData",
+            },
+          });
+
+          aggregateQuery.push({
+            $unwind: {
+              path: "$positionData",
+              preserveNullAndEmptyArrays: true,
+            },
+          });
+
+          aggregateQuery.push({
+            $project: {
+              _id: 1,
+              createdAt: 1,
+              userName: 1,
+              isActive: 1,
+              group: 1,
+              "positionData.name": 1,
+            },
+          });
+
+          aggregateQuery.push({
+            $addFields: {
+              position: "$positionData.name",
+            },
+          });
+
+          aggregateQuery.push({
+            $project: {
+              positionData: 0,
+            },
+          });
+
+          if (req.query.search !== undefined && req.query.search.length > 0) {
+            const re = new RegExp(`${req.query.search}`, "i");
+            aggregateQuery.push({
+              $match: {
+                $or: [
+                  { userName: re },
+                  { phone: re },
+                  { email: re },
+                  { group: re },
+                  { position: re },
+                ],
+              },
+            });
+          }
+
+          var columnName = req.query.columnName ? req.query.columnName : "_id";
+          var orderBy = req.query.orderBy == "asc" ? 1 : -1;
+
+          aggregateQuery.push({
+            $sort: { [columnName]: orderBy },
+          });
+
+          aggregateQuery.push({
+            $skip: Number(req.query.skip) || 0,
+          });
+
+          aggregateQuery.push({
+            $limit: Number(req.query.limit) || 10,
+          });
+
+          AdminSchema.aggregate(aggregateQuery, (err, AllUsers) => {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            } else {
+              let responseData = {};
+              responseData.AllUsers = AllUsers;
+              responseData.recordsTotal = AllUsers.length;
+              responseData.recordsFiltered = AllUsers.length;
+              nextCall(null, responseData);
+            }
+          });
+        },
+      ],
+      function (err, response) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+
+        return res.sendToEncode({
+          status_code: 200,
+          message: message.GET_USER_SUCC,
+          data: response,
+        });
+      }
+    );
+  },
+  saveUser: function (req, res) {
+    async.waterfall(
+      [
+        function (nextCall) {
+          req.checkBody("userName", message.USERNAME_REQUIRED).notEmpty();
+          req.checkBody("phone", message.PHONE_REQUIRED).notEmpty();
+          req.checkBody("password", message.PASSWORD_REQUIRED).notEmpty();
+          req.checkBody("email", message.EMAIL_REQUIRED).notEmpty();
+          req.checkBody("groupId", message.GROUP_REQUIRED).notEmpty();
+          req.checkBody("positionId", message.POSITION_REQUIRED).notEmpty();
+
+          var error = req.validationErrors();
+          if (error && error.length) {
+            return nextCall({
+              message: error[0].msg,
+            });
+          }
+          nextCall(null, req.body);
+        },
+        function (body, nextCall) {
+          _self.getOperatorAutoIncrement(function (err, response) {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            }
+
+            body.autoIncrementID = response.operatorAutoIncrement;
+            nextCall(null, body);
+          });
+        },
+        function (body, nextCall) {
+          let newData = {};
+          let saveNewUser = {
+            userName: body.userName,
+            phone: body.phone,
+            email: body.email,
+            groupId: body.groupId,
+            positionId: body.positionId,
+            password: ED.encrypt(body.password),
+            type: "user",
+            isActive: body.isActive,
+            autoIncrementID: body.autoIncrementID,
+          };
+
+          let saveUser = new AdminSchema(saveNewUser);
+          saveUser.save(function (err, insertedData) {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            }
+            // Add Action
+            _self.addActionLog(
+              req.user,
+              log_message.SECTION.USER,
+              log_message.ACTION.ADD_USER +
+                ", userName : " +
+                saveNewUser.userName
+            );
+            // Action end
+            newData = {
+              data: insertedData,
+            };
+            nextCall(null, newData);
+          });
+        },
+      ],
+      function (err, response) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+        return res.sendToEncode({
+          status_code: 200,
+          data: response.saveUser,
+          message: message.USER_SAVE_SUCC,
+        });
+      }
+    );
+  },
+  editUser: function (req, res) {
+    async.waterfall(
+      [
+        function (nextCall) {
+          req.checkBody("id", message.USER_ID_REQUIRED).notEmpty();
+          req.checkBody("userName", message.USERNAME_REQUIRED).notEmpty();
+          req.checkBody("phone", message.PHONE_REQUIRED).notEmpty();
+          req.checkBody("password", message.PASSWORD_REQUIRED).notEmpty();
+          req.checkBody("email", message.EMAIL_REQUIRED).notEmpty();
+          req.checkBody("groupId", message.GROUP_REQUIRED).notEmpty();
+          req.checkBody("positionId", message.POSITION_REQUIRED).notEmpty();
+
+          var error = req.validationErrors();
+          if (error && error.length) {
+            return nextCall({
+              message: error[0].msg,
+            });
+          }
+          nextCall(null, req.body);
+        },
+        function (body, nextCall) {
+          var newData = {};
+          AdminSchema.findOneAndUpdate(
+            { _id: mongoose.Types.ObjectId(body.id) },
+            {
+              userName: body.userName,
+              phone: body.phone,
+              email: body.email,
+              groupId: body.groupId,
+              positionId: body.positionId,
+              isActive: body.isActive,
+              password: ED.encrypt(body.password),
+              type: "user",
+            },
+            { new: true }
+          ).exec(function (err, updateUser) {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            }
+            newData = {
+              data: updateUser,
+            };
+            // Add Action
+            _self.addActionLog(
+              req.user,
+              log_message.SECTION.USER,
+              log_message.ACTION.EDIT_USER + ", UserName : " + body.userName
+            );
+            // Action end
+            return nextCall(null, newData);
+          });
+        },
+      ],
+      function (err, response) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+        return res.sendToEncode({
+          status_code: 200,
+          data: response,
+          message: message.USER_UPDATED_SUCC,
+        });
+      }
+    );
+  },
+  changeUserStatus: function (req, res) {
+    async.waterfall(
+      [
+        function (nextCall) {
+          req.checkBody("id", message.USER_ID_REQUIRED).notEmpty();
+          req.checkBody("isActive", message.USER_STATUS_REQUIRED).notEmpty();
+          var error = req.validationErrors();
+          if (error && error.length) {
+            return nextCall({ message: error[0].msg });
+          } else {
+            nextCall(null, req.body);
+          }
+        },
+        function (body, nextCall) {
+          AdminSchema.update(
+            { _id: body.id, type: "user" },
+            { $set: { isActive: body.isActive } },
+            function (error, results) {
+              if (error) {
+                nextCall({ message: message.SOMETHING_WENT_WRONG });
+              } else {
+                // Add Action
+                _self.addActionLog(
+                  req.user,
+                  log_message.SECTION.USER,
+                  log_message.ACTION.STATUS_CHANGE + ", User Id : " + body.id
+                );
+                // Action end
+                nextCall(null, {
+                  status: 200,
+                  message: message.USER_STATUS_UPDATED_SUCC,
+                });
+              }
+            }
+          );
+        },
+      ],
+      function (err, response) {
+        if (err) {
+          return res.status(400).sendToEncode({
+            status: 400,
+            message: (err && err.message) || "Oops! You could not be update.",
+          });
+        }
+        res.status(200).sendToEncode(response);
+      }
+    );
+  },
+
+
+/** Help Center Module */
+router.post("/api/listAllHelpCenters", AdminController.ListOfAllHelpCenters);
+router.post("/api/getHelpCenterDetails", AdminController.getHelpCenterDetails);
+router.post("/api/editHelpCenter", AdminController.editHelpCenter);
+router.post("/api/addHelpCenter", AdminController.addHelpCenter);
+router.post("/api/deleteHelpCenter", AdminController.deleteHelpCenter);
+
+    ListOfAllHelpCenters: function (req, res) {
+    var response = {
+      draw: req.body.draw,
+      recordsTotal: 0,
+      recordsFiltered: 0,
+      data: [],
+    };
+    async.waterfall(
+      [
+        function (nextCall) {
+          var matchObj = {};
+          var sort = {};
+          if (req.body.order && req.body.order.length > 0) {
+            req.body.order = req.body.order[0];
+            sort[req.body.columns[req.body.order.column].data] =
+              req.body.order.dir === "asc" ? 1 : -1;
+          }
+          if (req.body.search && req.body.search.value) {
+            var search_value = req.body.search.value;
+            var regex = new RegExp(search_value, "i");
+            var or = [
+              {
+                email: regex,
+              },
+              {
+                phoneNumber: regex,
+              },
+            ];
+            matchObj.$or = or;
+          }
+          nextCall(null, matchObj, sort);
+        },
+        function (matchObj, sort, nextCall) {
+          HelpCenterSchema.count(matchObj, function (err, count) {
+            if (err) {
+              return nextCall({
+                code: 400,
+                status: 0,
+                message: message.NO_DATA_FOUND,
+              });
+            }
+            response.recordsTotal = count;
+            response.recordsFiltered = count;
+            nextCall(null, matchObj, sort);
+          });
+        },
+        function (matchObj, sort, nextCall) {
+          HelpCenterSchema.find(
+            matchObj,
+            {
+              _id: 1,
+              email: 1,
+              phoneNumber: 1,
+              autoIncrementID: 1,
+            },
+            {
+              limit: Number(req.body.length),
+              skip: Number(req.body.start),
+            }
+          )
+            .sort(sort)
+            .lean()
+            .exec(function (err, poiUsers) {
+              if (err) {
+                return nextCall({
+                  error: err,
+                  status_code: 0,
+                  message: message.SOMETHING_WENT_WRONG,
+                  error: err,
+                });
+              } else if (poiUsers.length > 0) {
+                response.data = poiUsers;
+                nextCall();
+              } else {
+                nextCall();
+              }
+            });
+        },
+      ],
+      function (err) {
+        if (err) {
+          return res.sendToEncode(err);
+        }
+        res.sendToEncode(response);
+      }
+    );
+  },
+
+  getHelpCenterDetails: function (req, res) {
+    async.waterfall(
+      [
+        /** chek required parameters */
+        function (nextCall) {
+          req
+            .checkBody("help_center_id", message.HELP_CENTER_ID_REQUIRED)
+            .notEmpty();
+          var error = req.validationErrors();
+          if (error && error.length) {
+            return nextCall({
+              message: error[0].msg,
+            });
+          }
+          nextCall(null, req.body);
+        },
+        /** check help center exist or not */
+        function (body, nextCall) {
+          HelpCenterSchema.findOne({
+            _id: body.help_center_id,
+          }).exec(function (err, helpCenter) {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            } else if (!helpCenter) {
+              return nextCall({
+                message: message.HELP_CENTER_NOT_FOUND,
+              });
+            } else {
+              _self.addActionLog(
+                req.user,
+                log_message.SECTION.HELP_CENTER,
+                log_message.ACTION.VIEW_HELP_CENTER + helpCenter.email
+              );
+              nextCall(null, helpCenter);
+            }
+          });
+        },
+      ],
+      function (err, response) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+        return res.sendToEncode({
+          status_code: 200,
+          message: message.GET_HELP_CENTER_SUCC,
+          data: response,
+        });
+      }
+    );
+  },
+
+  addHelpCenter: function (req, res) {
+    async.waterfall(
+      [
+        /** chek required parameters */
+        function (nextCall) {
+          req.checkBody("phoneNumber", message.PHONE_REQUIRED).notEmpty();
+          var error = req.validationErrors();
+          if (error && error.length) {
+            return nextCall({
+              message: error[0].msg,
+            });
+          }
+          nextCall(null, req.body);
+        },
+        // /** check phone number is already exist or not */
+        // function (body, nextCall) {
+        //     HelpCenterSchema.findOne({
+        //         phoneNumber: body.phoneNumber
+        //     }).lean().exec(function (err, emergency) {
+        //         if (err) {
+        //             return nextCall({
+        //                 "message": message.OOPS_SOMETHING_WRONG
+        //             })
+        //         } else if (emergency) {
+        //             return nextCall({
+        //                 "message": message.HELP_CENTER_ALREADY_REGISTERED
+        //             })
+        //         } else {
+        //             nextCall(null, body)
+        //         }
+        //     });
+        // },
+        /** get emergency auto increment id */
+        function (body, nextCall) {
+          _self.getHelpCenterAutoIncrement(function (err, response) {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            }
+            body.autoIncrementID = response.helpCenterAutoIncrement;
+            nextCall(null, body);
+          });
+        },
+        /** register helpCenter */
+        function (body, nextCall) {
+          let helpCenter = new HelpCenterSchema(body);
+          helpCenter.save(function (err, insertData) {
+            if (err) {
+              return nextCall({
+                message: message.OOPS_SOMETHING_WRONG,
+              });
+            }
+            _self.addActionLog(
+              req.user,
+              log_message.SECTION.HELP_CENTER,
+              log_message.ACTION.ADD_HELP_CENTER +
+                ", HelpCenterId: " +
+                insertData.autoIncrementID +
+                ", Number: " +
+                insertData.phoneNumber
+            );
+            nextCall(null);
+          });
+        },
+      ],
+      function (err) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+
+        return res.sendToEncode({
+          status_code: 200,
+          message: message.HELP_CENTER_ADD_SUCC,
+          data: {},
+        });
+      }
+    );
+  },
+
+  editHelpCenter: function (req, res) {
+    async.waterfall(
+      [
+        /** chek required parameters */
+        function (nextCall) {
+          req
+            .checkBody("help_center_id", message.HELP_CENTER_ID_REQUIRED)
+            .notEmpty();
+          var error = req.validationErrors();
+          if (error && error.length) {
+            return nextCall({
+              message: error[0].msg,
+            });
+          }
+          nextCall(null, req.body);
+        },
+        /** get help center details */
+        function (body, nextCall) {
+          HelpCenterSchema.findOne({
+            _id: body.help_center_id,
+          }).exec(function (err, helpCenter) {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            } else if (!helpCenter) {
+              return nextCall({
+                message: message.HELP_CENTER_NOT_FOUND,
+              });
+            } else {
+              nextCall(null, body, helpCenter);
+            }
+          });
+        },
+        /** update help center data */
+        function (body, helpCenter, nextCall) {
+          let updateData = {
+            email: body.email ? body.email : helpCenter.email,
+            phoneNumber: body.phoneNumber
+              ? body.phoneNumber
+              : helpCenter.phoneNumber,
+          };
+          HelpCenterSchema.findOneAndUpdate(
+            {
+              _id: mongoose.Types.ObjectId(body.help_center_id),
+            },
+            {
+              $set: updateData,
+            },
+            {
+              new: true,
+            },
+            function (err, updateData) {
+              if (err) {
+                return nextCall({
+                  message: message.SOMETHING_WENT_WRONG,
+                });
+              }
+              _self.addActionLog(
+                req.user,
+                log_message.SECTION.HELP_CENTER,
+                log_message.ACTION.UPDATE_HELP_CENTER + updateData.email
+              );
+              nextCall(null);
+            }
+          );
+        },
+      ],
+      function (err) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+
+        return res.sendToEncode({
+          status_code: 200,
+          message: message.HELP_CENTER_UPDATE_SUCC,
+          data: {},
+        });
+      }
+    );
+  },
+
+  deleteHelpCenter: function (req, res) {
+    async.waterfall(
+      [
+        /** chek required parameters */
+        function (nextCall) {
+          req
+            .checkBody("help_center_id", message.HELP_CENTER_ID_REQUIRED)
+            .notEmpty();
+          var error = req.validationErrors();
+          if (error && error.length) {
+            return nextCall({
+              message: error[0].msg,
+            });
+          }
+          nextCall(null, req.body);
+        },
+        /** get help center details */
+        function (body, nextCall) {
+          HelpCenterSchema.findOne({
+            _id: body.help_center_id,
+          }).exec(function (err, helpCenter) {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            } else if (!helpCenter) {
+              return nextCall({
+                message: message.HELP_CENTER_NOT_FOUND,
+              });
+            } else {
+              nextCall(null, body, helpCenter);
+            }
+          });
+        },
+        /** delete help center */
+        function (body, helpCenter, nextCall) {
+          HelpCenterSchema.remove(
+            {
+              _id: mongoose.Types.ObjectId(body.help_center_id),
+            },
+            function (err, deleteData) {
+              if (err) {
+                return nextCall({
+                  message: message.SOMETHING_WENT_WRONG,
+                });
+              }
+              _self.addActionLog(
+                req.user,
+                log_message.SECTION.HELP_CENTER,
+                log_message.ACTION.DELETE_HELP_CENTER + helpCenter.phoneNumber
+              );
+              nextCall(null);
+            }
+          );
+        },
+      ],
+      function (err) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+
+        return res.sendToEncode({
+          status_code: 200,
+          message: message.HELP_CENTER_DELETE_SUCC,
+          data: {},
+        });
+      }
+    );
+  },
+
+
+// emergency module 
+router.post("/api/ListOfAllEmergencies", AdminController.ListOfAllEmergencies);
+router.post("/api/addEmergency", AdminController.addEmergency);
+router.post("/api/getEmergencyDetails", AdminController.getEmergencyDetails);
+router.post("/api/editEmergency", AdminController.editEmergency);
+router.post("/api/deleteEmergency", AdminController.deleteEmergency);
+
+
+  ListOfAllEmergencies: function (req, res) {
+    var response = {
+      draw: req.body.draw,
+      recordsTotal: 0,
+      recordsFiltered: 0,
+      data: [],
+    };
+    async.waterfall(
+      [
+        function (nextCall) {
+          var matchObj = {};
+          var sort = {};
+          if (req.body.order && req.body.order.length > 0) {
+            req.body.order = req.body.order[0];
+            sort[req.body.columns[req.body.order.column].data] =
+              req.body.order.dir === "asc" ? 1 : -1;
+          }
+          if (req.body.search && req.body.search.value) {
+            var search_value = req.body.search.value;
+            var regex = new RegExp(search_value, "i");
+            var or = [
+              {
+                phoneNumber: regex,
+              },
+            ];
+            matchObj.$or = or;
+          }
+          nextCall(null, matchObj, sort);
+        },
+        function (matchObj, sort, nextCall) {
+          EmergencySchema.count(matchObj, function (err, count) {
+            if (err) {
+              return nextCall({
+                code: 400,
+                status: 0,
+                message: message.NO_DATA_FOUND,
+              });
+            }
+            response.recordsTotal = count;
+            response.recordsFiltered = count;
+            nextCall(null, matchObj, sort);
+          });
+        },
+        function (matchObj, sort, nextCall) {
+          EmergencySchema.find(
+            matchObj,
+            {
+              _id: 1,
+              phoneNumber: 1,
+              autoIncrementID: 1,
+            },
+            {
+              limit: Number(req.body.length),
+              skip: Number(req.body.start),
+            }
+          )
+            .sort(sort)
+            .lean()
+            .exec(function (err, poiUsers) {
+              if (err) {
+                return nextCall({
+                  error: err,
+                  status_code: 0,
+                  message: message.SOMETHING_WENT_WRONG,
+                  error: err,
+                });
+              } else if (poiUsers.length > 0) {
+                response.data = poiUsers;
+                nextCall();
+              } else {
+                nextCall();
+              }
+            });
+        },
+      ],
+      function (err) {
+        if (err) {
+          return res.sendToEncode(err);
+        }
+        res.sendToEncode(response);
+      }
+    );
+  },
+
+  addEmergency: function (req, res) {
+    async.waterfall(
+      [
+        /** chek required parameters */
+        function (nextCall) {
+          req.checkBody("phoneNumber", message.PHONE_REQUIRED).notEmpty();
+          var error = req.validationErrors();
+          if (error && error.length) {
+            return nextCall({
+              message: error[0].msg,
+            });
+          }
+          nextCall(null, req.body);
+        },
+        /** check phone number is already exist or not */
+        // function (body, nextCall) {
+        //     EmergencySchema.findOne({
+        //         phoneNumber: body.phoneNumber
+        //     }).lean().exec(function (err, emergency) {
+        //         if (err) {
+        //             return nextCall({
+        //                 "message": message.OOPS_SOMETHING_WRONG
+        //             })
+        //         } else if (emergency) {
+        //             return nextCall({
+        //                 "message": message.EMERGENCY_ALREADY_EXIST
+        //             })
+        //         } else {
+        //             nextCall(null, body)
+        //         }
+        //     });
+        // },
+        /** get emergency auto increment id */
+        function (body, nextCall) {
+          _self.getEmergencyAutoIncrement(function (err, response) {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            }
+            body.autoIncrementID = response.emergencyAutoIncrement;
+            nextCall(null, body);
+          });
+        },
+        /** register emergency */
+        function (body, nextCall) {
+          body.location = {};
+          body.location.index = "2dsphere";
+          body.location.type = "Point";
+          body.location.coordinates = [
+            Number(body.longitude),
+            Number(body.latitude),
+          ];
+          let emergency = new EmergencySchema(body);
+          emergency.save(function (err, insertData) {
+            if (err) {
+              return nextCall({
+                message: message.OOPS_SOMETHING_WRONG,
+              });
+            }
+            _self.addActionLog(
+              req.user,
+              log_message.SECTION.EMERGENCY,
+              log_message.ACTION.ADD_EMERGENCY +
+                ", EmergencyId: " +
+                insertData.autoIncrementID +
+                ", Number: " +
+                insertData.phoneNumber
+            );
+            nextCall(null);
+          });
+        },
+      ],
+      function (err) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+
+        return res.sendToEncode({
+          status_code: 200,
+          message: message.EMERGENCY_CREATE_SUCCESS,
+          data: {},
+        });
+      }
+    );
+  },
+
+  getEmergencyDetails: function (req, res) {
+    async.waterfall(
+      [
+        /** chek required parameters */
+        function (nextCall) {
+          req
+            .checkBody("emergency_id", message.EMERGENCY_ID_REQUIRED)
+            .notEmpty();
+          var error = req.validationErrors();
+          if (error && error.length) {
+            return nextCall({
+              message: error[0].msg,
+            });
+          }
+          nextCall(null, req.body);
+        },
+        /** check emergency exist or not */
+        function (body, nextCall) {
+          EmergencySchema.findOne({
+            _id: body.emergency_id,
+          }).exec(function (err, emergency) {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            } else if (!emergency) {
+              return nextCall({
+                message: message.EMERGENCY_NOT_FOUND,
+              });
+            } else {
+              _self.addActionLog(
+                req.user,
+                log_message.SECTION.EMERGENCY,
+                log_message.ACTION.VIEW_EMERGENCY +
+                  ", EmergencyId: " +
+                  emergency.autoIncrementID +
+                  ", Number: " +
+                  emergency.phoneNumber
+              );
+              nextCall(null, emergency);
+            }
+          });
+        },
+      ],
+      function (err, response) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+        return res.sendToEncode({
+          status_code: 200,
+          message: message.GET_EMERGENCY_SUCC,
+          data: response,
+        });
+      }
+    );
+  },
+
+  editEmergency: function (req, res) {
+    async.waterfall(
+      [
+        /** chek required parameters */
+        function (nextCall) {
+          req
+            .checkBody("emergency_id", message.EMERGENCY_ID_REQUIRED)
+            .notEmpty();
+          var error = req.validationErrors();
+          if (error && error.length) {
+            return nextCall({
+              message: error[0].msg,
+            });
+          }
+          nextCall(null, req.body);
+        },
+        // /** check mobile no already registered or not */
+        // function (body, nextCall) {
+        //     EmergencySchema.findOne({
+        //         _id: {
+        //             $ne: body.emergency_id
+        //         },
+        //         phoneNumber: body.phoneNumber
+        //     }).exec(function (err, emergencyData) {
+        //         if (err) {
+        //             return nextCall({
+        //                 "message": message.SOMETHING_WENT_WRONG
+        //             })
+        //         } else if (emergencyData) {
+        //             return nextCall({
+        //                 "message": message.EMERGENCY_ALREADY_EXIST
+        //             })
+        //         } else {
+        //             nextCall(null, body)
+        //         }
+        //     })
+        // },
+        /** get emergency details */
+        function (body, nextCall) {
+          EmergencySchema.findOne({
+            _id: body.emergency_id,
+          }).exec(function (err, emergency) {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            } else if (!emergency) {
+              return nextCall({
+                message: message.EMERGENCY_NOT_FOUND,
+              });
+            } else {
+              nextCall(null, body, emergency);
+            }
+          });
+        },
+        /** update emergency data */
+        function (body, emergency, nextCall) {
+          let updateData = {
+            phoneNumber: body.phoneNumber
+              ? body.phoneNumber
+              : emergency.phoneNumber,
+          };
+
+          if (body.latitude && body.longitude) {
+            updateData.location = {};
+            updateData.location.index = "2dsphere";
+            updateData.location.type = "Point";
+            updateData.location.coordinates = [
+              Number(body.longitude) || Number(emergency.longitude),
+              Number(body.latitude) || Number(emergency.latitude),
+            ];
+          }
+          EmergencySchema.findOneAndUpdate(
+            {
+              _id: mongoose.Types.ObjectId(body.emergency_id),
+            },
+            {
+              $set: updateData,
+            },
+            {
+              new: true,
+            },
+            function (err, updateData) {
+              if (err) {
+                return nextCall({
+                  message: message.SOMETHING_WENT_WRONG,
+                });
+              }
+              _self.addActionLog(
+                req.user,
+                log_message.SECTION.EMERGENCY,
+                log_message.ACTION.UPDATE_EMERGENCY +
+                  ", EmergencyId: " +
+                  updateData.autoIncrementID +
+                  ", Number: " +
+                  updateData.phoneNumber
+              );
+              nextCall(null);
+            }
+          );
+        },
+      ],
+      function (err) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+
+        return res.sendToEncode({
+          status_code: 200,
+          message: message.EMERGENCY_UPDATE_SUCC,
+          data: {},
+        });
+      }
+    );
+  },
+
+  deleteEmergency: function (req, res) {
+    async.waterfall(
+      [
+        /** check required paremeters */
+        function (nextCall) {
+          req
+            .checkBody("emergency_id", message.EMERGENCY_ID_REQUIRED)
+            .notEmpty();
+          var error = req.validationErrors();
+          if (error && error.length) {
+            return nextCall({
+              message: error[0].msg,
+            });
+          }
+          nextCall(null, req.body);
+        },
+        /** get emergency details */
+        function (body, nextCall) {
+          EmergencySchema.findOne({
+            _id: body.emergency_id,
+          }).exec(function (err, emergency) {
+            if (err) {
+              return nextCall({
+                message: message.SOMETHING_WENT_WRONG,
+              });
+            } else if (!emergency) {
+              return nextCall({
+                message: message.EMERGENCY_NOT_FOUND,
+              });
+            } else {
+              nextCall(null, body, emergency);
+            }
+          });
+        },
+        /** remove emergency */
+        function (body, emergency, nextCall) {
+          EmergencySchema.remove(
+            {
+              _id: mongoose.Types.ObjectId(body.emergency_id),
+            },
+            function (err, deleteData) {
+              if (err) {
+                return nextCall({
+                  message: message.SOMETHING_WENT_WRONG,
+                });
+              }
+              _self.addActionLog(
+                req.user,
+                log_message.SECTION.EMERGENCY,
+                log_message.ACTION.DELETE_EMERGENCY +
+                  ", EmergencyId: " +
+                  emergency.autoIncrementID +
+                  ", Number: " +
+                  emergency.phoneNumber
+              );
+              nextCall(null);
+            }
+          );
+        },
+      ],
+      function (err) {
+        if (err) {
+          return res.sendToEncode({
+            status: 400,
+            message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+          });
+        }
+        return res.sendToEncode({
+          status_code: 200,
+          message: message.EMERGENCY_DELETE_SUCC,
+          data: {},
+        });
+      }
+    );
+  },
+
+
+whole dispacher delete from admin and added to dispacherController
+// getDispacterDetailsById: function (req, res) {
+  //   async.waterfall(
+  //     [
+  //       /** get Dispacter details by id */
+  //       function (nextCall) {
+  //         let aggregateQuery = [];
+
+  //         aggregateQuery.push({
+  //           $match: {
+  //             _id: ObjectId(req.body.id),
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $lookup: {
+  //             from: "passenger",
+  //             localField: "passengerId",
+  //             foreignField: "_id",
+  //             as: "passengerData",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $unwind: {
+  //             path: "$passengerData",
+  //             preserveNullAndEmptyArrays: true,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $lookup: {
+  //             from: "vehicle_type",
+  //             localField: "requestedVehicleTypeId",
+  //             foreignField: "_id",
+  //             as: "vehicleTypeData",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $unwind: {
+  //             path: "$vehicleTypeData",
+  //             preserveNullAndEmptyArrays: true,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $lookup: {
+  //             from: "driver",
+  //             localField: "driverId",
+  //             foreignField: "_id",
+  //             as: "driverData",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $unwind: {
+  //             path: "$driverData",
+  //             preserveNullAndEmptyArrays: true,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $lookup: {
+  //             from: "reason",
+  //             localField: "cancelReason",
+  //             foreignField: "_id",
+  //             as: "reasonData",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $unwind: {
+  //             path: "$reasonData",
+  //             preserveNullAndEmptyArrays: true,
+  //           },
+  //         });
+
+  //         RideSchema.aggregate(aggregateQuery, (err, RideDetail) => {
+  //           if (err) {
+  //             return nextCall({
+  //               message: message.SOMETHING_WENT_WRONG,
+  //             });
+  //           } else {
+  //             let responseData = {};
+  //             responseData.RideDetail = RideDetail;
+  //             nextCall(null, responseData);
+  //           }
+  //         });
+  //       },
+  //     ],
+  //     function (err, response) {
+  //       if (err) {
+  //         return res.sendToEncode({
+  //           status: 400,
+  //           message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+  //         });
+  //       }
+
+  //       return res.sendToEncode({
+  //         status_code: 200,
+  //         message: message.GET_RIDE_DETAILS_SUCC,
+  //         data: response,
+  //       });
+  //     }
+  //   );
+  // },
+  // getAllReceivedBookingsDispacter: function (req, res) {
+  //   async.waterfall(
+  //     [
+  //       /** get All Received Bookings Dispacter*/
+  //       function (nextCall) {
+  //         let aggregateQuery = [];
+
+  //         aggregateQuery.push({ $match: { status: "received" } });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             _id: 1,
+  //             rideId: 1,
+  //             passengerId: 1,
+  //             pickupAddress: 1,
+  //             createdAt: 1,
+  //             toatlFare: 1,
+  //             driverId: 1,
+  //             destinationAddress: 1,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $lookup: {
+  //             from: "driver",
+  //             localField: "driverId",
+  //             foreignField: "_id",
+  //             as: "driverData",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $unwind: {
+  //             path: "$driverData",
+  //             preserveNullAndEmptyArrays: true,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             _id: 1,
+  //             rideId: 1,
+  //             passengerId: 1,
+  //             pickupAddress: 1,
+  //             createdAt: 1,
+  //             toatlFare: 1,
+  //             destinationAddress: 1,
+  //             "driverData.phoneNumber": 1,
+  //             "driverData.name": 1,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $addFields: {
+  //             driverName: "$driverData.name",
+  //             driverPhone: "$driverData.phoneNumber",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             driverData: 0,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $lookup: {
+  //             from: "passenger",
+  //             localField: "passengerId",
+  //             foreignField: "_id",
+  //             as: "passengerData",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $unwind: {
+  //             path: "$passengerData",
+  //             preserveNullAndEmptyArrays: true,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             _id: 1,
+  //             rideId: 1,
+  //             passengerId: 1,
+  //             pickupAddress: 1,
+  //             createdAt: 1,
+  //             toatlFare: 1,
+  //             destinationAddress: 1,
+  //             driverName: 1,
+  //             driverPhone: 1,
+  //             "passengerData.phoneNumber": 1,
+  //             "passengerData.name": 1,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $addFields: {
+  //             passengerName: "$passengerData.name",
+  //             passengerPhone: "$passengerData.phoneNumber",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             passengerData: 0,
+  //             passengerId: 0,
+  //           },
+  //         });
+
+  //         var columnName = req.query.columnName ? req.query.columnName : "_id";
+  //         var orderBy = req.query.orderBy == "asc" ? 1 : -1;
+
+  //         aggregateQuery.push({
+  //           $sort: { [columnName]: orderBy },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $skip: Number(req.query.skip) || 0,
+  //         });
+
+  //         aggregateQuery.push({
+  //           $limit: Number(req.query.limit) || 10,
+  //         });
+
+  //         RideSchema.aggregate(
+  //           aggregateQuery,
+  //           (err, AllReceivedBookingsDispacter) => {
+  //             if (err) {
+  //               return nextCall({
+  //                 message: message.SOMETHING_WENT_WRONG,
+  //               });
+  //             } else {
+  //               let responseData = {};
+  //               responseData.AllReceivedBookingsDispacter = AllReceivedBookingsDispacter;
+  //               responseData.recordsTotal = AllReceivedBookingsDispacter.length;
+  //               responseData.recordsFiltered =
+  //                 AllReceivedBookingsDispacter.length;
+  //               nextCall(null, responseData);
+  //             }
+  //           }
+  //         );
+  //       },
+  //       function (response, nextCall) {
+  //         RideSchema.count({ status: "received" }, function (err, count) {
+  //           if (err) {
+  //             return nextCall({
+  //               code: 400,
+  //               status: 0,
+  //               message: message.NO_DATA_FOUND,
+  //             });
+  //           }
+  //           response.recordsTotal = count;
+  //           response.recordsFiltered = count;
+  //           nextCall(null, response);
+  //         });
+  //       },
+  //     ],
+  //     function (err, response) {
+  //       if (err) {
+  //         return res.sendToEncode({
+  //           status: 400,
+  //           message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+  //         });
+  //       }
+
+  //       return res.sendToEncode({
+  //         status_code: 200,
+  //         message: message.GET_RECEIVED_BOOKING_DISPACTER_DATA_SUCC,
+  //         data: response,
+  //       });
+  //     }
+  //   );
+  // },
+
+  // getMonthlyReceivedBookingsCount: function (req, res) {
+  //   async.waterfall(
+  //     [
+  //       /** get Monthly Received Bookings Count*/
+  //       function (nextCall) {
+  //         let aggregateQuery = [];
+
+  //         aggregateQuery.push({ $match: { status: "received" } });
+
+  //         aggregateQuery.push({
+  //           $match: {
+  //             createdAt: {
+  //               $gte: new Date(
+  //                 moment()
+  //                   .startOf("year")
+  //                   .hours(0)
+  //                   .minutes(0)
+  //                   .seconds(0)
+  //                   .milliseconds(0)
+  //                   .format()
+  //               ),
+  //               $lt: new Date(
+  //                 moment()
+  //                   .endOf("year")
+  //                   .hours(23)
+  //                   .minutes(59)
+  //                   .seconds(0)
+  //                   .milliseconds(0)
+  //                   .format()
+  //               ),
+  //             },
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             createdAt: 1,
+  //           },
+  //         });
+  //         aggregateQuery.push({
+  //           $group: {
+  //             _id: {
+  //               month: { $substr: ["$createdAt", 5, 2] },
+  //             },
+  //             count: { $sum: 1 },
+  //           },
+  //         });
+
+  //         RideSchema.aggregate(
+  //           aggregateQuery,
+  //           (err, MonthlyReceivedBookingsCount) => {
+  //             if (err) {
+  //               return nextCall({
+  //                 message: message.SOMETHING_WENT_WRONG,
+  //               });
+  //             } else {
+  //               let responseData = {};
+  //               responseData.MonthlyReceivedBookingsCount = MonthlyReceivedBookingsCount;
+  //               nextCall(null, responseData);
+  //             }
+  //           }
+  //         );
+  //       },
+  //     ],
+  //     function (err, response) {
+  //       if (err) {
+  //         return res.sendToEncode({
+  //           status: 400,
+  //           message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+  //         });
+  //       }
+
+  //       return res.sendToEncode({
+  //         status_code: 200,
+  //         message: message.GET_MONTHLY_RECEIVED_BOOKING_COUNT_DATA_SUCC,
+  //         data: response,
+  //       });
+  //     }
+  //   );
+  // },
+
+  
+
+  // getAllAcceptedBookingdDispacter: function (req, res) {
+  //   async.waterfall(
+  //     [
+  //       /** get All Accepted Bookingd Dispacter*/
+  //       function (nextCall) {
+  //         let aggregateQuery = [];
+
+  //         aggregateQuery.push({ $match: { status: "accepted" } });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             _id: 1,
+  //             rideId: 1,
+  //             passengerId: 1,
+  //             pickupAddress: 1,
+  //             createdAt: 1,
+  //             toatlFare: 1,
+  //             driverId: 1,
+  //             destinationAddress: 1,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $lookup: {
+  //             from: "driver",
+  //             localField: "driverId",
+  //             foreignField: "_id",
+  //             as: "driverData",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $unwind: {
+  //             path: "$driverData",
+  //             preserveNullAndEmptyArrays: true,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             _id: 1,
+  //             rideId: 1,
+  //             passengerId: 1,
+  //             pickupAddress: 1,
+  //             createdAt: 1,
+  //             toatlFare: 1,
+  //             destinationAddress: 1,
+  //             "driverData.phoneNumber": 1,
+  //             "driverData.name": 1,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $addFields: {
+  //             driverName: "$driverData.name",
+  //             driverPhone: "$driverData.phoneNumber",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             driverData: 0,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $lookup: {
+  //             from: "passenger",
+  //             localField: "passengerId",
+  //             foreignField: "_id",
+  //             as: "passengerData",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $unwind: {
+  //             path: "$passengerData",
+  //             preserveNullAndEmptyArrays: true,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             _id: 1,
+  //             rideId: 1,
+  //             passengerId: 1,
+  //             pickupAddress: 1,
+  //             createdAt: 1,
+  //             toatlFare: 1,
+  //             destinationAddress: 1,
+  //             driverName: 1,
+  //             driverPhone: 1,
+  //             "passengerData.phoneNumber": 1,
+  //             "passengerData.name": 1,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $addFields: {
+  //             passengerName: "$passengerData.name",
+  //             passengerPhone: "$passengerData.phoneNumber",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             passengerData: 0,
+  //             passengerId: 0,
+  //           },
+  //         });
+
+  //         var columnName = req.query.columnName ? req.query.columnName : "_id";
+  //         var orderBy = req.query.orderBy == "asc" ? 1 : -1;
+
+  //         aggregateQuery.push({
+  //           $sort: { [columnName]: orderBy },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $skip: Number(req.query.skip) || 0,
+  //         });
+
+  //         aggregateQuery.push({
+  //           $limit: Number(req.query.limit) || 10,
+  //         });
+
+  //         RideSchema.aggregate(
+  //           aggregateQuery,
+  //           (err, AllAcceptedBookingdDispacter) => {
+  //             if (err) {
+  //               return nextCall({
+  //                 message: message.SOMETHING_WENT_WRONG,
+  //               });
+  //             } else {
+  //               let responseData = {};
+  //               responseData.AllAcceptedBookingdDispacter = AllAcceptedBookingdDispacter;
+  //               nextCall(null, responseData);
+  //             }
+  //           }
+  //         );
+  //       },
+  //       function (response, nextCall) {
+  //         RideSchema.count({ status: "accepted" }, function (err, count) {
+  //           if (err) {
+  //             return nextCall({
+  //               code: 400,
+  //               status: 0,
+  //               message: message.NO_DATA_FOUND,
+  //             });
+  //           }
+  //           response.recordsTotal = count;
+  //           response.recordsFiltered = count;
+  //           nextCall(null, response);
+  //         });
+  //       },
+  //     ],
+  //     function (err, response) {
+  //       if (err) {
+  //         return res.sendToEncode({
+  //           status: 400,
+  //           message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+  //         });
+  //       }
+
+  //       return res.sendToEncode({
+  //         status_code: 200,
+  //         message: message.GET_ACCEPTED_BOOKING_DISPACTER_DATA_SUCC,
+  //         data: response,
+  //       });
+  //     }
+  //   );
+  // },
+
+ 
+
+  // getAllOnRideDispacter: function (req, res) {
+  //   async.waterfall(
+  //     [
+  //       /** get All OnRide Dispacter*/
+  //       function (nextCall) {
+  //         let aggregateQuery = [];
+
+  //         aggregateQuery.push({ $match: { status: "onRide" } });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             _id: 1,
+  //             rideId: 1,
+  //             passengerId: 1,
+  //             pickupAddress: 1,
+  //             createdAt: 1,
+  //             toatlFare: 1,
+  //             driverId: 1,
+  //             destinationAddress: 1,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $lookup: {
+  //             from: "driver",
+  //             localField: "driverId",
+  //             foreignField: "_id",
+  //             as: "driverData",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $unwind: {
+  //             path: "$driverData",
+  //             preserveNullAndEmptyArrays: true,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             _id: 1,
+  //             rideId: 1,
+  //             passengerId: 1,
+  //             pickupAddress: 1,
+  //             createdAt: 1,
+  //             toatlFare: 1,
+  //             destinationAddress: 1,
+  //             "driverData.phoneNumber": 1,
+  //             "driverData.name": 1,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $addFields: {
+  //             driverName: "$driverData.name",
+  //             driverPhone: "$driverData.phoneNumber",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             driverData: 0,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $lookup: {
+  //             from: "passenger",
+  //             localField: "passengerId",
+  //             foreignField: "_id",
+  //             as: "passengerData",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $unwind: {
+  //             path: "$passengerData",
+  //             preserveNullAndEmptyArrays: true,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             _id: 1,
+  //             rideId: 1,
+  //             passengerId: 1,
+  //             pickupAddress: 1,
+  //             createdAt: 1,
+  //             toatlFare: 1,
+  //             destinationAddress: 1,
+  //             driverName: 1,
+  //             driverPhone: 1,
+  //             "passengerData.phoneNumber": 1,
+  //             "passengerData.name": 1,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $addFields: {
+  //             passengerName: "$passengerData.name",
+  //             passengerPhone: "$passengerData.phoneNumber",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             passengerData: 0,
+  //             passengerId: 0,
+  //           },
+  //         });
+
+  //         var columnName = req.query.columnName ? req.query.columnName : "_id";
+  //         var orderBy = req.query.orderBy == "asc" ? 1 : -1;
+
+  //         aggregateQuery.push({
+  //           $sort: { [columnName]: orderBy },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $skip: Number(req.query.skip) || 0,
+  //         });
+
+  //         aggregateQuery.push({
+  //           $limit: Number(req.query.limit) || 10,
+  //         });
+
+  //         RideSchema.aggregate(aggregateQuery, (err, AllOnRideDispacter) => {
+  //           if (err) {
+  //             return nextCall({
+  //               message: message.SOMETHING_WENT_WRONG,
+  //             });
+  //           } else {
+  //             let responseData = {};
+  //             responseData.AllOnRideDispacter = AllOnRideDispacter;
+  //             responseData.recordsTotal = AllOnRideDispacter.length;
+  //             responseData.recordsFiltered = AllOnRideDispacter.length;
+  //             nextCall(null, responseData);
+  //           }
+  //         });
+  //       },
+  //       function (response, nextCall) {
+  //         RideSchema.count({ status: "onRide" }, function (err, count) {
+  //           if (err) {
+  //             return nextCall({
+  //               code: 400,
+  //               status: 0,
+  //               message: message.NO_DATA_FOUND,
+  //             });
+  //           }
+  //           response.recordsTotal = count;
+  //           response.recordsFiltered = count;
+  //           nextCall(null, response);
+  //         });
+  //       },
+  //     ],
+  //     function (err, response) {
+  //       if (err) {
+  //         return res.sendToEncode({
+  //           status: 400,
+  //           message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+  //         });
+  //       }
+
+  //       return res.sendToEncode({
+  //         status_code: 200,
+  //         message: message.GET_ON_RIDE_DISPACTER_DATA_SUCC,
+  //         data: response,
+  //       });
+  //     }
+  //   );
+  // },
+
+  // getMonthlyAcceptedOnRideDispacterCount: function (req, res) {
+  //   async.waterfall(
+  //     [
+  //       /** get Monthly Accepted OnRide Dispacter Count*/
+  //       function (nextCall) {
+  //         let aggregateQuery = [];
+
+  //         aggregateQuery.push({ $match: { status: "onRide" } });
+
+  //         aggregateQuery.push({
+  //           $match: {
+  //             createdAt: {
+  //               $gte: new Date(
+  //                 moment()
+  //                   .startOf("year")
+  //                   .hours(0)
+  //                   .minutes(0)
+  //                   .seconds(0)
+  //                   .milliseconds(0)
+  //                   .format()
+  //               ),
+  //               $lt: new Date(
+  //                 moment()
+  //                   .endOf("year")
+  //                   .hours(23)
+  //                   .minutes(59)
+  //                   .seconds(0)
+  //                   .milliseconds(0)
+  //                   .format()
+  //               ),
+  //             },
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             createdAt: 1,
+  //           },
+  //         });
+  //         aggregateQuery.push({
+  //           $group: {
+  //             _id: {
+  //               month: { $substr: ["$createdAt", 5, 2] },
+  //             },
+  //             count: { $sum: 1 },
+  //           },
+  //         });
+
+  //         RideSchema.aggregate(
+  //           aggregateQuery,
+  //           (err, MonthlyAcceptedOnRideDispacterCount) => {
+  //             if (err) {
+  //               return nextCall({
+  //                 message: message.SOMETHING_WENT_WRONG,
+  //               });
+  //             } else {
+  //               let responseData = {};
+  //               responseData.MonthlyAcceptedOnRideDispacterCount = MonthlyAcceptedOnRideDispacterCount;
+  //               nextCall(null, responseData);
+  //             }
+  //           }
+  //         );
+  //       },
+  //     ],
+  //     function (err, response) {
+  //       if (err) {
+  //         return res.sendToEncode({
+  //           status: 400,
+  //           message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+  //         });
+  //       }
+
+  //       return res.sendToEncode({
+  //         status_code: 200,
+  //         message: message.GET_MONTHLY_ON_RIDE_COUNT_DATA_SUCC,
+  //         data: response,
+  //       });
+  //     }
+  //   );
+  // },
+
+  // getWeeklyAcceptedOnRideDispacterCount: function (req, res) {
+  //   async.waterfall(
+  //     [
+  //       /** get Weekly Accepted OnRide Dispacter Count */
+  //       function (nextCall) {
+  //         let aggregateQuery = [];
+
+  //         aggregateQuery.push({ $match: { status: "onRide" } });
+
+  //         aggregateQuery.push({
+  //           $match: {
+  //             createdAt: {
+  //               $gte: new Date(
+  //                 moment()
+  //                   .startOf("month")
+  //                   .hours(0)
+  //                   .minutes(0)
+  //                   .seconds(0)
+  //                   .milliseconds(0)
+  //                   .format()
+  //               ),
+  //               $lt: new Date(
+  //                 moment()
+  //                   .endOf("month")
+  //                   .hours(23)
+  //                   .minutes(59)
+  //                   .seconds(0)
+  //                   .milliseconds(0)
+  //                   .format()
+  //               ),
+  //             },
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             createdAt: 1,
+  //           },
+  //         });
+  //         aggregateQuery.push({
+  //           $group: {
+  //             _id: { $week: "$createdAt" },
+  //             count: { $sum: 1 },
+  //           },
+  //         });
+
+  //         RideSchema.aggregate(
+  //           aggregateQuery,
+  //           (err, WeeklyAcceptedOnRideDispacterCount) => {
+  //             if (err) {
+  //               return nextCall({
+  //                 message: message.SOMETHING_WENT_WRONG,
+  //               });
+  //             } else {
+  //               let responseData = {};
+  //               // first week of current month
+  //               var firstWeekOfMonth = moment(
+  //                 moment()
+  //                   .startOf("month")
+  //                   .hours(0)
+  //                   .minutes(0)
+  //                   .seconds(0)
+  //                   .milliseconds(0)
+  //                   .format()
+  //               ).week();
+  //               var lastWeekOfMonth = moment(
+  //                 moment()
+  //                   .endOf("month")
+  //                   .hours(23)
+  //                   .minutes(23)
+  //                   .seconds(0)
+  //                   .milliseconds(0)
+  //                   .format()
+  //               ).week();
+
+  //               var perWeek = [];
+  //               for (var i = firstWeekOfMonth; i <= lastWeekOfMonth; i++) {
+  //                 perWeek.push({ week: i, count: 0 });
+  //               }
+
+  //               for (
+  //                 var i = 0;
+  //                 i < WeeklyAcceptedOnRideDispacterCount.length;
+  //                 i++
+  //               ) {
+  //                 for (var j = 0; j < perWeek.length; j++) {
+  //                   if (
+  //                     perWeek[j].week ==
+  //                     WeeklyAcceptedOnRideDispacterCount[i]._id
+  //                   ) {
+  //                     perWeek[j].count =
+  //                       WeeklyAcceptedOnRideDispacterCount[i].count;
+  //                   }
+  //                 }
+  //               }
+
+  //               var weeks = [];
+  //               for (var i = 0; i < perWeek.length; i++) {
+  //                 weeks.push({ week: i + 1, count: perWeek[i].count });
+  //               }
+  //               responseData.WeeklyAcceptedOnRideDispacterCount = weeks;
+  //               nextCall(null, responseData);
+  //             }
+  //           }
+  //         );
+  //       },
+  //     ],
+  //     function (err, response) {
+  //       if (err) {
+  //         return res.sendToEncode({
+  //           status: 400,
+  //           message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+  //         });
+  //       }
+
+  //       return res.sendToEncode({
+  //         status_code: 200,
+  //         message: message.GET_WEEKLY_ON_RIDE_COUNT_DATA_SUCC,
+  //         data: response,
+  //       });
+  //     }
+  //   );
+  // },
+
+  // getAllSuccessfulTripsDispacter: function (req, res) {
+  //   async.waterfall(
+  //     [
+  //       /** get All Successful Trips Dispacter*/
+  //       function (nextCall) {
+  //         let aggregateQuery = [];
+
+  //         aggregateQuery.push({ $match: { status: "completed" } });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             _id: 1,
+  //             rideId: 1,
+  //             passengerId: 1,
+  //             pickupAddress: 1,
+  //             createdAt: 1,
+  //             toatlFare: 1,
+  //             driverId: 1,
+  //             destinationAddress: 1,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $lookup: {
+  //             from: "driver",
+  //             localField: "driverId",
+  //             foreignField: "_id",
+  //             as: "driverData",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $unwind: {
+  //             path: "$driverData",
+  //             preserveNullAndEmptyArrays: true,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             _id: 1,
+  //             rideId: 1,
+  //             passengerId: 1,
+  //             pickupAddress: 1,
+  //             createdAt: 1,
+  //             toatlFare: 1,
+  //             destinationAddress: 1,
+  //             "driverData.phoneNumber": 1,
+  //             "driverData.name": 1,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $addFields: {
+  //             driverName: "$driverData.name",
+  //             driverPhone: "$driverData.phoneNumber",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             driverData: 0,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $lookup: {
+  //             from: "passenger",
+  //             localField: "passengerId",
+  //             foreignField: "_id",
+  //             as: "passengerData",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $unwind: {
+  //             path: "$passengerData",
+  //             preserveNullAndEmptyArrays: true,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             _id: 1,
+  //             rideId: 1,
+  //             passengerId: 1,
+  //             pickupAddress: 1,
+  //             createdAt: 1,
+  //             toatlFare: 1,
+  //             destinationAddress: 1,
+  //             driverName: 1,
+  //             driverPhone: 1,
+  //             "passengerData.phoneNumber": 1,
+  //             "passengerData.name": 1,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $addFields: {
+  //             passengerName: "$passengerData.name",
+  //             passengerPhone: "$passengerData.phoneNumber",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             passengerData: 0,
+  //             passengerId: 0,
+  //           },
+  //         });
+
+  //         var columnName = req.query.columnName ? req.query.columnName : "_id";
+  //         var orderBy = req.query.orderBy == "asc" ? 1 : -1;
+
+  //         aggregateQuery.push({
+  //           $sort: { [columnName]: orderBy },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $skip: Number(req.query.skip) || 0,
+  //         });
+
+  //         aggregateQuery.push({
+  //           $limit: Number(req.query.limit) || 10,
+  //         });
+
+  //         RideSchema.aggregate(
+  //           aggregateQuery,
+  //           (err, AllSuccessfulTripsDispacter) => {
+  //             if (err) {
+  //               return nextCall({
+  //                 message: message.SOMETHING_WENT_WRONG,
+  //               });
+  //             } else {
+  //               let responseData = {};
+  //               responseData.AllSuccessfulTripsDispacter = AllSuccessfulTripsDispacter;
+  //               responseData.recordsTotal = AllSuccessfulTripsDispacter.length;
+  //               responseData.recordsFiltered =
+  //                 AllSuccessfulTripsDispacter.length;
+  //               nextCall(null, responseData);
+  //             }
+  //           }
+  //         );
+  //       },
+  //       function (response, nextCall) {
+  //         RideSchema.count({ status: "completed" }, function (err, count) {
+  //           if (err) {
+  //             return nextCall({
+  //               code: 400,
+  //               status: 0,
+  //               message: message.NO_DATA_FOUND,
+  //             });
+  //           }
+  //           response.recordsTotal = count;
+  //           response.recordsFiltered = count;
+  //           nextCall(null, response);
+  //         });
+  //       },
+  //     ],
+  //     function (err, response) {
+  //       if (err) {
+  //         return res.sendToEncode({
+  //           status: 400,
+  //           message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+  //         });
+  //       }
+
+  //       return res.sendToEncode({
+  //         status_code: 200,
+  //         message: message.GET_SUCCESSFUL_TRIP_DISPACTER_DATA_SUCC,
+  //         data: response,
+  //       });
+  //     }
+  //   );
+  // },
+
+  
+  // getAllCancleBookingsDispacter: function (req, res) {
+  //   async.waterfall(
+  //     [
+  //       /** get All Cancle Bookings Dispacter*/
+  //       function (nextCall) {
+  //         let aggregateQuery = [];
+
+  //         aggregateQuery.push({ $match: { status: "cancelled" } });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             _id: 1,
+  //             rideId: 1,
+  //             passengerId: 1,
+  //             pickupAddress: 1,
+  //             createdAt: 1,
+  //             toatlFare: 1,
+  //             driverId: 1,
+  //             destinationAddress: 1,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $lookup: {
+  //             from: "driver",
+  //             localField: "driverId",
+  //             foreignField: "_id",
+  //             as: "driverData",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $unwind: {
+  //             path: "$driverData",
+  //             preserveNullAndEmptyArrays: true,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             _id: 1,
+  //             rideId: 1,
+  //             passengerId: 1,
+  //             pickupAddress: 1,
+  //             createdAt: 1,
+  //             toatlFare: 1,
+  //             destinationAddress: 1,
+  //             "driverData.phoneNumber": 1,
+  //             "driverData.name": 1,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $addFields: {
+  //             driverName: "$driverData.name",
+  //             driverPhone: "$driverData.phoneNumber",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             driverData: 0,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $lookup: {
+  //             from: "passenger",
+  //             localField: "passengerId",
+  //             foreignField: "_id",
+  //             as: "passengerData",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $unwind: {
+  //             path: "$passengerData",
+  //             preserveNullAndEmptyArrays: true,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             _id: 1,
+  //             rideId: 1,
+  //             passengerId: 1,
+  //             pickupAddress: 1,
+  //             createdAt: 1,
+  //             toatlFare: 1,
+  //             destinationAddress: 1,
+  //             driverName: 1,
+  //             driverPhone: 1,
+  //             "passengerData.phoneNumber": 1,
+  //             "passengerData.name": 1,
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $addFields: {
+  //             passengerName: "$passengerData.name",
+  //             passengerPhone: "$passengerData.phoneNumber",
+  //           },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $project: {
+  //             passengerData: 0,
+  //           },
+  //         });
+
+  //         var columnName = req.query.columnName ? req.query.columnName : "_id";
+  //         var orderBy = req.query.orderBy == "asc" ? 1 : -1;
+
+  //         aggregateQuery.push({
+  //           $sort: { [columnName]: orderBy },
+  //         });
+
+  //         aggregateQuery.push({
+  //           $skip: Number(req.query.skip) || 0,
+  //         });
+
+  //         aggregateQuery.push({
+  //           $limit: Number(req.query.limit) || 10,
+  //         });
+
+  //         RideSchema.aggregate(
+  //           aggregateQuery,
+  //           (err, AllCancleBookingsDispacter) => {
+  //             if (err) {
+  //               return nextCall({
+  //                 message: message.SOMETHING_WENT_WRONG,
+  //               });
+  //             } else {
+  //               let responseData = {};
+  //               responseData.AllCancleBookingsDispacter = AllCancleBookingsDispacter;
+  //               responseData.recordsTotal = AllCancleBookingsDispacter.length;
+  //               responseData.recordsFiltered =
+  //                 AllCancleBookingsDispacter.length;
+  //               nextCall(null, responseData);
+  //             }
+  //           }
+  //         );
+  //       },
+  //       function (response, nextCall) {
+  //         RideSchema.count({ status: "cancelled" }, function (err, count) {
+  //           if (err) {
+  //             return nextCall({
+  //               code: 400,
+  //               status: 0,
+  //               message: message.NO_DATA_FOUND,
+  //             });
+  //           }
+  //           response.recordsTotal = count;
+  //           response.recordsFiltered = count;
+  //           nextCall(null, response);
+  //         });
+  //       },
+  //     ],
+  //     function (err, response) {
+  //       if (err) {
+  //         return res.sendToEncode({
+  //           status: 400,
+  //           message: (err && err.message) || message.SOMETHING_WENT_WRONG,
+  //         });
+  //       }
+
+  //       return res.sendToEncode({
+  //         status_code: 200,
+  //         message: message.GET_CANCLE_BOOKING_DISPACTER_DATA_SUCC,
+  //         data: response,
+  //       });
+  //     }
+  //   );
+  // },
+
+   /** old api */
+  // getTopTenDriverAndPassengerData: function (req, res) {
+  //     async.waterfall([
+  //         //  /** get top ten driver by referral money and ride money */
+  //         // function (nextCall) {
+  //         //     let aggregateQuery = [];
+
+  //         //     aggregateQuery.push({
+  //         //         $lookup: {
+  //         //             "from": "ride",
+  //         //             "localField": "_id",
+  //         //             "foreignField": "driverId",
+  //         //             "as": "rideRef"
+  //         //         }
+  //         //     })
+  //         //     aggregateQuery.push({
+  //         //         $unwind: {
+  //         //             path: "$rideRef"
+  //         //         }
+  //         //     })
+  //         //     // aggregateQuery.push({
+  //         //     //     $match: {
+  //         //     //         'rideRef.createdAt': {
+  //         //     //             $gte: new Date(moment().utc().startOf('month').hours(00).minutes(00).seconds(0).milliseconds(0).format()),
+  //         //     //             $lte: new Date(moment().utc().endOf('month').hours(23).minutes(57).seconds(0).milliseconds(0).format())
+  //         //     //         }
+  //         //     //     }
+  //         //     // })
+  //         //     aggregateQuery.push({
+  //         //         $group: {
+  //         //             '_id': "$_id",
+  //         //             'driverEarning': {
+  //         //                 $sum: '$rideRef.driverEarning'
+  //         //             },
+  //         //             'name': {
+  //         //                 $first: '$name'
+  //         //             },
+  //         //             'autoIncrementID': {
+  //         //                 $first: '$autoIncrementID'
+  //         //             },
+  //         //             'avgRating': {
+  //         //                 $first: '$avgRating'
+  //         //             },
+  //         //             'countryCode': {
+  //         //                 $first: '$countryCode'
+  //         //             },
+  //         //             'createdAt': {
+  //         //                 $first: '$createdAt'
+  //         //             },
+  //         //             'creditBalance': {
+  //         //                 $first: '$creditBalance'
+  //         //             },
+  //         //             'dob': {
+  //         //                 $first: '$dob'
+  //         //             },
+  //         //             'driverLevel': {
+  //         //                 $first: '$driverLevel'
+  //         //             },
+  //         //             'email': {
+  //         //                 $first: '$email'
+  //         //             },
+  //         //             'isBlocked': {
+  //         //                 $first: '$isBlocked'
+  //         //             },
+  //         //             'isVerified': {
+  //         //                 $first: '$isVerified'
+  //         //             },
+  //         //             'onlyPhoneNumber': {
+  //         //                 $first: '$onlyPhoneNumber'
+  //         //             },
+  //         //             'phoneNumber': {
+  //         //                 $first: '$phoneNumber'
+  //         //             },
+  //         //             'profilePhoto': {
+  //         //                 $first: '$profilePhoto'
+  //         //             },
+  //         //             'uniqueID': {
+  //         //                 $first: '$uniqueID'
+  //         //             }
+  //         //         }
+  //         //     })
+
+  //         //     aggregateQuery.push({
+  //         //         $lookup: {
+  //         //             "from": "driver_referral_earning_logs",
+  //         //             "localField": "_id",
+  //         //             "foreignField": "beneficiaryDriverId",
+  //         //             "as": "driverReferral"
+  //         //         }
+  //         //     })
+  //         //     aggregateQuery.push({
+  //         //         $unwind: {
+  //         //             path: "$driverReferral",
+  //         //             preserveNullAndEmptyArrays: true
+  //         //         }
+  //         //     })
+  //         //     // aggregateQuery.push({
+  //         //     //     $match: {
+  //         //     //         'driverReferral.createdAt': {
+  //         //     //             $exists: false
+  //         //     //         }
+  //         //     //     }
+  //         //     //     // 'driverReferral.createdAt': {
+  //         //     //     //     $gte: new Date(moment().utc().startOf('month').hours(00).minutes(00).seconds(0).milliseconds(0).format()),
+  //         //     //     //     $lte: new Date(moment().utc().endOf('month').hours(23).minutes(57).seconds(0).milliseconds(0).format())
+  //         //     //     // }
+  //         //     //     // }
+  //         //     // })
+
+  //         //     // Sum
+  //         //     aggregateQuery.push({
+  //         //         $group: {
+  //         //             '_id': "$_id",
+  //         //             'referralAmount': {
+  //         //                 $sum: '$driverReferral.referralAmount'
+  //         //             },
+  //         //             'driverEarning': {
+  //         //                 $first: '$driverEarning'
+  //         //             },
+  //         //             'name': {
+  //         //                 $first: '$name'
+  //         //             },
+  //         //             'autoIncrementID': {
+  //         //                 $first: '$autoIncrementID'
+  //         //             },
+  //         //             'avgRating': {
+  //         //                 $first: '$avgRating'
+  //         //             },
+  //         //             'countryCode': {
+  //         //                 $first: '$countryCode'
+  //         //             },
+  //         //             'createdAt': {
+  //         //                 $first: '$createdAt'
+  //         //             },
+  //         //             'creditBalance': {
+  //         //                 $first: '$creditBalance'
+  //         //             },
+  //         //             'dob': {
+  //         //                 $first: '$dob'
+  //         //             },
+  //         //             'driverLevel': {
+  //         //                 $first: '$driverLevel'
+  //         //             },
+  //         //             'email': {
+  //         //                 $first: '$email'
+  //         //             },
+  //         //             'isBlocked': {
+  //         //                 $first: '$isBlocked'
+  //         //             },
+  //         //             'isVerified': {
+  //         //                 $first: '$isVerified'
+  //         //             },
+  //         //             'onlyPhoneNumber': {
+  //         //                 $first: '$onlyPhoneNumber'
+  //         //             },
+  //         //             'phoneNumber': {
+  //         //                 $first: '$phoneNumber'
+  //         //             },
+  //         //             'profilePhoto': {
+  //         //                 $first: '$profilePhoto'
+  //         //             },
+  //         //             'uniqueID': {
+  //         //                 $first: '$uniqueID'
+  //         //             }
+  //         //         }
+  //         //     })
+
+  //         //     aggregateQuery.push({
+  //         //         $project: {
+  //         //             "_id": "$_id",
+  //         //             "name": "$name",
+  //         //             "autoIncrementID": 1,
+  //         //             "avgRating": 1,
+  //         //             "countryCode": 1,
+  //         //             "createdAt": 1,
+  //         //             "creditBalance": 1,
+  //         //             "dob": 1,
+  //         //             "driverLevel": 1,
+  //         //             "email": 1,
+  //         //             "isBlocked": 1,
+  //         //             "isVerified": 1,
+  //         //             "onlyPhoneNumber": 1,
+  //         //             "phoneNumber": 1,
+  //         //             "profilePhoto": 1,
+  //         //             "uniqueID": 1,
+  //         //             'driverEarning': {
+  //         //                 $divide: [{
+  //         //                         $subtract: [{
+  //         //                                 $multiply: [{
+  //         //                                     '$add': ['$driverEarning', '$referralAmount']
+  //         //                                 }, 100]
+  //         //                             },
+  //         //                             {
+  //         //                                 $mod: [{
+  //         //                                     $multiply: [{
+  //         //                                         '$add': ['$driverEarning', '$referralAmount']
+  //         //                                     }, 100]
+  //         //                                 }, 1]
+  //         //                             }
+  //         //                         ]
+  //         //                     },
+  //         //                     100
+  //         //                 ]
+  //         //             }
+  //         //         }
+  //         //     })
+  //         //     aggregateQuery.push({
+  //         //         $sort: {
+  //         //             "driverEarning": -1
+  //         //         }
+  //         //     })
+  //         //     aggregateQuery.push({
+  //         //         $limit: 10
+  //         //     })
+
+  //         //     DriverSchema.aggregate(aggregateQuery, (err, driverEarning) => {
+  //         //         if (err) {
+  //         //             return nextCall({
+  //         //                 "message": message.SOMETHING_WENT_WRONG,
+  //         //             });
+  //         //         } else {
+  //         //             let responseData = {};
+  //         //             responseData.topTenDriver = driverEarning;
+  //         //             nextCall(null, responseData)
+  //         //         }
+  //         //     })
+  //         // },
+  //         // /** get top ten passenger by referral money */
+  //         // function (responseData, nextCall) {
+  //         //     let aggregateQuery = [];
+
+  //         //     aggregateQuery.push({
+  //         //         $lookup: {
+  //         //             "from": "passenger_referral_earning_logs",
+  //         //             "localField": "_id",
+  //         //             "foreignField": "beneficiaryPassengerId",
+  //         //             "as": "passengerReferral"
+  //         //         }
+  //         //     })
+  //         //     aggregateQuery.push({
+  //         //         $unwind: {
+  //         //             path: "$passengerReferral"
+  //         //         }
+  //         //     })
+
+  //         //     aggregateQuery.push({
+  //         //         $group: {
+  //         //             '_id': "$_id",
+  //         //             'passengerEarning': {
+  //         //                 $sum: '$passengerReferral.referralAmount'
+  //         //             },
+  //         //             'name': {
+  //         //                 $first: '$name'
+  //         //             },
+  //         //             'autoIncrementID': {
+  //         //                 $first: '$autoIncrementID'
+  //         //             },
+  //         //             'countryCode': {
+  //         //                 $first: '$countryCode'
+  //         //             },
+  //         //             'createdAt': {
+  //         //                 $first: '$createdAt'
+  //         //             },
+  //         //             'dob': {
+  //         //                 $first: '$dob'
+  //         //             },
+  //         //             'name': {
+  //         //                 $first: '$name'
+  //         //             },
+  //         //             'email': {
+  //         //                 $first: '$email'
+  //         //             },
+  //         //             'isBlocked': {
+  //         //                 $first: '$isBlocked'
+  //         //             },
+  //         //             'onlyPhoneNumber': {
+  //         //                 $first: '$onlyPhoneNumber'
+  //         //             },
+  //         //             'passengerLevel': {
+  //         //                 $first: '$passengerLevel'
+  //         //             },
+  //         //             'phoneNumber': {
+  //         //                 $first: '$phoneNumber'
+  //         //             },
+  //         //             'profilePhoto': {
+  //         //                 $first: '$profilePhoto'
+  //         //             },
+  //         //             'uniqueID': {
+  //         //                 $first: '$uniqueID'
+  //         //             }
+  //         //         }
+  //         //     })
+  //         //     aggregateQuery.push({
+  //         //         $project: {
+  //         //             "_id": "$_id",
+  //         //             "name": 1,
+  //         //             'autoIncrementID': 1,
+  //         //             'countryCode': 1,
+  //         //             'createdAt': 1,
+  //         //             'dob': 1,
+  //         //             'name': 1,
+  //         //             'email': 1,
+  //         //             'isBlocked': 1,
+  //         //             'onlyPhoneNumber': 1,
+  //         //             'passengerLevel': 1,
+  //         //             'phoneNumber': 1,
+  //         //             'profilePhoto': 1,
+  //         //             'uniqueID':1,
+  //         //             'passengerEarning': {
+  //         //                 $divide: [{
+  //         //                         $subtract: [{
+  //         //                                 $multiply: ['$passengerEarning', 100]
+  //         //                             },
+  //         //                             {
+  //         //                                 $mod: [{
+  //         //                                     $multiply: ['$passengerEarning', 100]
+  //         //                                 }, 1]
+  //         //                             }
+  //         //                         ]
+  //         //                     },
+  //         //                     100
+  //         //                 ]
+  //         //             }
+  //         //         }
+  //         //     })
+  //         //     aggregateQuery.push({
+  //         //         $sort: {
+  //         //             "passengerEarning": -1
+  //         //         }
+  //         //     })
+  //         //     aggregateQuery.push({
+  //         //         $limit: 10
+  //         //     })
+
+  //         //     PassengerSchema.aggregate(aggregateQuery, (err, passengerEarning) => {
+  //         //         if (err) {
+  //         //             return nextCall({
+  //         //                 "message": message.SOMETHING_WENT_WRONG,
+  //         //             });
+  //         //         } else {
+  //         //             responseData.topTenPassenger = passengerEarning;
+  //         //             nextCall(null, responseData)
+  //         //         }
+  //         //     })
+  //         // },
+  //         /** get top ten driver by driver earning in ride */
+  //         function (nextCall) {
+  //             let aggregateQuery = [];
+  //             aggregateQuery.push({
+  //                 $match: {
+  //                     "isDeleted": false
+  //                 }
+  //             })
+  //             // stage 1
+  //             aggregateQuery.push({
+  //                 $lookup: {
+  //                     "from": "ride",
+  //                     "localField": "_id",
+  //                     "foreignField": "driverId",
+  //                     "as": "rideRef"
+  //                 }
+  //             })
+  //             // stage 2
+  //             aggregateQuery.push({
+  //                 $unwind: {
+  //                     path: "$rideRef",
+  //                     preserveNullAndEmptyArrays: true
+  //                 }
+  //             })
+  //             // stage 3
+  //             aggregateQuery.push({
+  //                 $match: {
+  //                     "rideRef.status": "completed",
+  //                     "rideRef.paymentStatus": true
+  //                 }
+  //             })
+  //             // stage 4
+  //             aggregateQuery.push({
+  //                 $group: {
+  //                     '_id': "$_id",
+  //                     'driverEarning': {
+  //                         $sum: '$rideRef.driverEarning'
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'autoIncrementID': {
+  //                         $first: '$autoIncrementID'
+  //                     },
+  //                     'avgRating': {
+  //                         $first: '$avgRating'
+  //                     },
+  //                     'countryCode': {
+  //                         $first: '$countryCode'
+  //                     },
+  //                     'createdAt': {
+  //                         $first: '$createdAt'
+  //                     },
+  //                     'creditBalance': {
+  //                         $first: '$creditBalance'
+  //                     },
+  //                     'dob': {
+  //                         $first: '$dob'
+  //                     },
+  //                     'driverLevel': {
+  //                         $first: '$driverLevel'
+  //                     },
+  //                     'email': {
+  //                         $first: '$email'
+  //                     },
+  //                     'isBlocked': {
+  //                         $first: '$isBlocked'
+  //                     },
+  //                     'isVerified': {
+  //                         $first: '$isVerified'
+  //                     },
+  //                     'onlyPhoneNumber': {
+  //                         $first: '$onlyPhoneNumber'
+  //                     },
+  //                     'phoneNumber': {
+  //                         $first: '$phoneNumber'
+  //                     },
+  //                     'profilePhoto': {
+  //                         $first: '$profilePhoto'
+  //                     },
+  //                     'uniqueID': {
+  //                         $first: '$uniqueID'
+  //                     }
+  //                 }
+  //             })
+  //             // stage 5
+  //             aggregateQuery.push({
+  //                 $project: {
+  //                     "_id": "$_id",
+  //                     "name": "$name",
+  //                     "autoIncrementID": 1,
+  //                     "avgRating": 1,
+  //                     "countryCode": 1,
+  //                     "createdAt": 1,
+  //                     "creditBalance": 1,
+  //                     "dob": 1,
+  //                     "driverLevel": 1,
+  //                     "email": 1,
+  //                     "isBlocked": 1,
+  //                     "isVerified": 1,
+  //                     "onlyPhoneNumber": 1,
+  //                     "phoneNumber": 1,
+  //                     "profilePhoto": 1,
+  //                     "uniqueID": 1,
+  //                     'driverEarning': 1
+  //                 }
+  //             })
+  //             // stage 6
+  //             aggregateQuery.push({
+  //                 $sort: {
+  //                     "driverEarning": -1
+  //                 }
+  //             })
+  //             // stage 7
+  //             aggregateQuery.push({
+  //                 $limit: 10
+  //             })
+
+  //             DriverSchema.aggregate(aggregateQuery, (err, driverEarning) => {
+  //                 if (err) {
+  //                     return nextCall({
+  //                         "message": message.SOMETHING_WENT_WRONG,
+  //                     });
+  //                 } else {
+  //                     let responseData = {};
+  //                     responseData.topTenDriverByDrivingMoney = driverEarning;
+  //                     nextCall(null, responseData)
+  //                 }
+  //             })
+  //         },
+  //         /** get top ten passenger by spent total ride amount */
+  //         function (responseData, nextCall) {
+  //             let aggregateQuery = [];
+  //             aggregateQuery.push({
+  //                 $match: {
+  //                     "isDeleted": false
+  //                 }
+  //             })
+  //             // stage 1
+  //             aggregateQuery.push({
+  //                 $lookup: {
+  //                     "from": "ride",
+  //                     "localField": "_id",
+  //                     "foreignField": "passengerId",
+  //                     "as": "rideRef"
+  //                 }
+  //             })
+  //             // stage 2
+  //             aggregateQuery.push({
+  //                 $unwind: {
+  //                     path: "$rideRef"
+  //                 }
+  //             })
+  //             // stage 3
+  //             aggregateQuery.push({
+  //                 $match: {
+  //                     "rideRef.status": "completed",
+  //                     "rideRef.paymentStatus": true
+  //                 }
+  //             })
+  //             // stage 4
+  //             aggregateQuery.push({
+  //                 $group: {
+  //                     '_id': "$_id",
+  //                     'passengerEarning': {
+  //                         $sum: '$rideRef.toatlFare'
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'autoIncrementID': {
+  //                         $first: '$autoIncrementID'
+  //                     },
+  //                     'countryCode': {
+  //                         $first: '$countryCode'
+  //                     },
+  //                     'createdAt': {
+  //                         $first: '$createdAt'
+  //                     },
+  //                     'dob': {
+  //                         $first: '$dob'
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'email': {
+  //                         $first: '$email'
+  //                     },
+  //                     'isBlocked': {
+  //                         $first: '$isBlocked'
+  //                     },
+  //                     'onlyPhoneNumber': {
+  //                         $first: '$onlyPhoneNumber'
+  //                     },
+  //                     'passengerLevel': {
+  //                         $first: '$passengerLevel'
+  //                     },
+  //                     'phoneNumber': {
+  //                         $first: '$phoneNumber'
+  //                     },
+  //                     'profilePhoto': {
+  //                         $first: '$profilePhoto'
+  //                     },
+  //                     'uniqueID': {
+  //                         $first: '$uniqueID'
+  //                     }
+  //                 }
+  //             })
+  //             // stage 5
+  //             aggregateQuery.push({
+  //                 $project: {
+  //                     "_id": "$_id",
+  //                     "name": 1,
+  //                     'autoIncrementID': 1,
+  //                     'countryCode': 1,
+  //                     'createdAt': 1,
+  //                     'dob': 1,
+  //                     'name': 1,
+  //                     'email': 1,
+  //                     'isBlocked': 1,
+  //                     'onlyPhoneNumber': 1,
+  //                     'passengerLevel': 1,
+  //                     'phoneNumber': 1,
+  //                     'profilePhoto': 1,
+  //                     'uniqueID': 1,
+  //                     'passengerEarning': 1
+  //                 }
+  //             })
+  //             // stage 6
+  //             aggregateQuery.push({
+  //                 $sort: {
+  //                     "passengerEarning": -1
+  //                 }
+  //             })
+  //             // stage 7
+  //             aggregateQuery.push({
+  //                 $limit: 10
+  //             })
+
+  //             PassengerSchema.aggregate(aggregateQuery, (err, passengerEarning) => {
+  //                 if (err) {
+  //                     return nextCall({
+  //                         "message": message.SOMETHING_WENT_WRONG,
+  //                     });
+  //                 } else {
+  //                     responseData.topTenPassengerByRideSpentMoney = passengerEarning;
+  //                     nextCall(null, responseData)
+  //                 }
+  //             })
+  //         },
+  //         /** get top ten driver by Number of completed rides */
+  //         function (responseData, nextCall) {
+  //             let aggregateQuery = [];
+  //             aggregateQuery.push({
+  //                 $match: {
+  //                     "isDeleted": false
+  //                 }
+  //             })
+  //             // stage 1
+  //             aggregateQuery.push({
+  //                 $lookup: {
+  //                     "from": "ride",
+  //                     "localField": "_id",
+  //                     "foreignField": "driverId",
+  //                     "as": "rideRef"
+  //                 }
+  //             })
+  //             // stage 2
+  //             aggregateQuery.push({
+  //                 $unwind: {
+  //                     path: "$rideRef",
+  //                     preserveNullAndEmptyArrays: true
+  //                 }
+  //             })
+  //             // stage 3
+  //             aggregateQuery.push({
+  //                 $match: {
+  //                     "rideRef.status": "completed",
+  //                     "rideRef.paymentStatus": true
+  //                 }
+  //             })
+  //             // stage 4
+  //             aggregateQuery.push({
+  //                 $group: {
+  //                     '_id': "$_id",
+  //                     'totalCompletedRide': {
+  //                         $sum: 1
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'autoIncrementID': {
+  //                         $first: '$autoIncrementID'
+  //                     },
+  //                     'avgRating': {
+  //                         $first: '$avgRating'
+  //                     },
+  //                     'countryCode': {
+  //                         $first: '$countryCode'
+  //                     },
+  //                     'createdAt': {
+  //                         $first: '$createdAt'
+  //                     },
+  //                     'creditBalance': {
+  //                         $first: '$creditBalance'
+  //                     },
+  //                     'dob': {
+  //                         $first: '$dob'
+  //                     },
+  //                     'driverLevel': {
+  //                         $first: '$driverLevel'
+  //                     },
+  //                     'email': {
+  //                         $first: '$email'
+  //                     },
+  //                     'isBlocked': {
+  //                         $first: '$isBlocked'
+  //                     },
+  //                     'isVerified': {
+  //                         $first: '$isVerified'
+  //                     },
+  //                     'onlyPhoneNumber': {
+  //                         $first: '$onlyPhoneNumber'
+  //                     },
+  //                     'phoneNumber': {
+  //                         $first: '$phoneNumber'
+  //                     },
+  //                     'profilePhoto': {
+  //                         $first: '$profilePhoto'
+  //                     },
+  //                     'uniqueID': {
+  //                         $first: '$uniqueID'
+  //                     }
+  //                 }
+  //             })
+  //             // stage 5
+  //             aggregateQuery.push({
+  //                 $project: {
+  //                     "_id": "$_id",
+  //                     "name": "$name",
+  //                     "autoIncrementID": 1,
+  //                     "avgRating": 1,
+  //                     "countryCode": 1,
+  //                     "createdAt": 1,
+  //                     "creditBalance": 1,
+  //                     "dob": 1,
+  //                     "driverLevel": 1,
+  //                     "email": 1,
+  //                     "isBlocked": 1,
+  //                     "isVerified": 1,
+  //                     "onlyPhoneNumber": 1,
+  //                     "phoneNumber": 1,
+  //                     "profilePhoto": 1,
+  //                     "uniqueID": 1,
+  //                     'totalCompletedRide': 1
+  //                 }
+  //             })
+  //             // stage 6
+  //             aggregateQuery.push({
+  //                 $sort: {
+  //                     "totalCompletedRide": -1
+  //                 }
+  //             })
+  //             // stage 7
+  //             aggregateQuery.push({
+  //                 $limit: 10
+  //             })
+
+  //             DriverSchema.aggregate(aggregateQuery, (err, totalCompletedRideData) => {
+  //                 if (err) {
+  //                     return nextCall({
+  //                         "message": message.SOMETHING_WENT_WRONG,
+  //                     });
+  //                 } else {
+  //                     responseData.topTenDriverByCompletedRide = totalCompletedRideData;
+  //                     nextCall(null, responseData)
+  //                 }
+  //             })
+  //         },
+  //         /** get top ten passenger by Number of completed rides */
+  //         function (responseData, nextCall) {
+  //             let aggregateQuery = [];
+  //             aggregateQuery.push({
+  //                 $match: {
+  //                     "isDeleted": false
+  //                 }
+  //             })
+  //             // stage 1
+  //             aggregateQuery.push({
+  //                 $lookup: {
+  //                     "from": "ride",
+  //                     "localField": "_id",
+  //                     "foreignField": "passengerId",
+  //                     "as": "rideRef"
+  //                 }
+  //             })
+  //             // stage 2
+  //             aggregateQuery.push({
+  //                 $unwind: {
+  //                     path: "$rideRef"
+  //                 }
+  //             })
+  //             // stage 3
+  //             aggregateQuery.push({
+  //                 $match: {
+  //                     "rideRef.status": "completed",
+  //                     "rideRef.paymentStatus": true
+  //                 }
+  //             })
+  //             // stage 4
+  //             aggregateQuery.push({
+  //                 $group: {
+  //                     '_id': "$_id",
+  //                     'totalCompletedRide': {
+  //                         $sum: 1
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'autoIncrementID': {
+  //                         $first: '$autoIncrementID'
+  //                     },
+  //                     'countryCode': {
+  //                         $first: '$countryCode'
+  //                     },
+  //                     'createdAt': {
+  //                         $first: '$createdAt'
+  //                     },
+  //                     'dob': {
+  //                         $first: '$dob'
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'email': {
+  //                         $first: '$email'
+  //                     },
+  //                     'isBlocked': {
+  //                         $first: '$isBlocked'
+  //                     },
+  //                     'onlyPhoneNumber': {
+  //                         $first: '$onlyPhoneNumber'
+  //                     },
+  //                     'passengerLevel': {
+  //                         $first: '$passengerLevel'
+  //                     },
+  //                     'phoneNumber': {
+  //                         $first: '$phoneNumber'
+  //                     },
+  //                     'profilePhoto': {
+  //                         $first: '$profilePhoto'
+  //                     },
+  //                     'uniqueID': {
+  //                         $first: '$uniqueID'
+  //                     }
+  //                 }
+  //             })
+  //             // stage 5
+  //             aggregateQuery.push({
+  //                 $project: {
+  //                     "_id": "$_id",
+  //                     "name": 1,
+  //                     'autoIncrementID': 1,
+  //                     'countryCode': 1,
+  //                     'createdAt': 1,
+  //                     'dob': 1,
+  //                     'name': 1,
+  //                     'email': 1,
+  //                     'isBlocked': 1,
+  //                     'onlyPhoneNumber': 1,
+  //                     'passengerLevel': 1,
+  //                     'phoneNumber': 1,
+  //                     'profilePhoto': 1,
+  //                     'uniqueID': 1,
+  //                     'totalCompletedRide': 1
+  //                 }
+  //             })
+  //             // stage 6
+  //             aggregateQuery.push({
+  //                 $sort: {
+  //                     "totalCompletedRide": -1
+  //                 }
+  //             })
+  //             // stage 7
+  //             aggregateQuery.push({
+  //                 $limit: 10
+  //             })
+
+  //             PassengerSchema.aggregate(aggregateQuery, (err, totalCompletedRideData) => {
+  //                 if (err) {
+  //                     return nextCall({
+  //                         "message": message.SOMETHING_WENT_WRONG,
+  //                     });
+  //                 } else {
+  //                     responseData.topTenPassengerByCompletedRide = totalCompletedRideData;
+  //                     nextCall(null, responseData)
+  //                 }
+  //             })
+  //         },
+  //         /** get top ten driver by Number of referral people count */
+  //         function (responseData, nextCall) {
+  //             let aggregateQuery = [];
+  //             aggregateQuery.push({
+  //                 $match: {
+  //                     "isDeleted": false
+  //                 }
+  //             })
+  //             // stage 1
+  //             aggregateQuery.push({
+  //                 $lookup: {
+  //                     "from": "driver_referrals",
+  //                     "localField": "_id",
+  //                     "foreignField": "parentDriver",
+  //                     "as": "parentDriverReferrals"
+  //                 }
+  //             })
+  //             // stage 2
+  //             aggregateQuery.push({
+  //                 $unwind: {
+  //                     path: "$parentDriverReferrals",
+  //                     preserveNullAndEmptyArrays: true
+  //                 }
+  //             })
+  //             // stage 3
+  //             aggregateQuery.push({
+  //                 $group: {
+  //                     '_id': "$_id",
+  //                     'parentDriverReferralsCount': {
+  //                         $sum: {
+  //                             $cond: {
+  //                                 if: {
+  //                                     $gt: ["$parentDriverReferrals.driverLevel", 0]
+  //                                 },
+  //                                 then: 1,
+  //                                 else: 0
+  //                             }
+  //                         },
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'autoIncrementID': {
+  //                         $first: '$autoIncrementID'
+  //                     },
+  //                     'avgRating': {
+  //                         $first: '$avgRating'
+  //                     },
+  //                     'countryCode': {
+  //                         $first: '$countryCode'
+  //                     },
+  //                     'createdAt': {
+  //                         $first: '$createdAt'
+  //                     },
+  //                     'creditBalance': {
+  //                         $first: '$creditBalance'
+  //                     },
+  //                     'dob': {
+  //                         $first: '$dob'
+  //                     },
+  //                     'driverLevel': {
+  //                         $first: '$driverLevel'
+  //                     },
+  //                     'email': {
+  //                         $first: '$email'
+  //                     },
+  //                     'isBlocked': {
+  //                         $first: '$isBlocked'
+  //                     },
+  //                     'isVerified': {
+  //                         $first: '$isVerified'
+  //                     },
+  //                     'onlyPhoneNumber': {
+  //                         $first: '$onlyPhoneNumber'
+  //                     },
+  //                     'phoneNumber': {
+  //                         $first: '$phoneNumber'
+  //                     },
+  //                     'profilePhoto': {
+  //                         $first: '$profilePhoto'
+  //                     },
+  //                     'uniqueID': {
+  //                         $first: '$uniqueID'
+  //                     }
+  //                 }
+  //             })
+  //             // stage 4
+  //             aggregateQuery.push({
+  //                 $lookup: {
+  //                     "from": "driver_referrals",
+  //                     "localField": "_id",
+  //                     "foreignField": "grandParentDriver",
+  //                     "as": "grandParentReferrals"
+  //                 }
+  //             })
+  //             // stage 5
+  //             aggregateQuery.push({
+  //                 $unwind: {
+  //                     path: "$grandParentReferrals",
+  //                     preserveNullAndEmptyArrays: true
+  //                 }
+  //             })
+  //             // stage 6
+  //             aggregateQuery.push({
+  //                 $group: {
+  //                     '_id': "$_id",
+  //                     'parentDriverReferralsCount': {
+  //                         $first: "$parentDriverReferralsCount"
+  //                     },
+  //                     'grandParentReferralsCount': {
+  //                         $sum: {
+  //                             $cond: {
+  //                                 if: {
+  //                                     $gt: ["$grandParentReferrals.driverLevel", 0]
+  //                                 },
+  //                                 then: 1,
+  //                                 else: 0
+  //                             }
+  //                         },
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'autoIncrementID': {
+  //                         $first: '$autoIncrementID'
+  //                     },
+  //                     'avgRating': {
+  //                         $first: '$avgRating'
+  //                     },
+  //                     'countryCode': {
+  //                         $first: '$countryCode'
+  //                     },
+  //                     'createdAt': {
+  //                         $first: '$createdAt'
+  //                     },
+  //                     'creditBalance': {
+  //                         $first: '$creditBalance'
+  //                     },
+  //                     'dob': {
+  //                         $first: '$dob'
+  //                     },
+  //                     'driverLevel': {
+  //                         $first: '$driverLevel'
+  //                     },
+  //                     'email': {
+  //                         $first: '$email'
+  //                     },
+  //                     'isBlocked': {
+  //                         $first: '$isBlocked'
+  //                     },
+  //                     'isVerified': {
+  //                         $first: '$isVerified'
+  //                     },
+  //                     'onlyPhoneNumber': {
+  //                         $first: '$onlyPhoneNumber'
+  //                     },
+  //                     'phoneNumber': {
+  //                         $first: '$phoneNumber'
+  //                     },
+  //                     'profilePhoto': {
+  //                         $first: '$profilePhoto'
+  //                     },
+  //                     'uniqueID': {
+  //                         $first: '$uniqueID'
+  //                     }
+  //                 }
+  //             })
+  //             // stage 7
+  //             aggregateQuery.push({
+  //                 $lookup: {
+  //                     "from": "driver_referrals",
+  //                     "localField": "_id",
+  //                     "foreignField": "greatGrandParentDriver",
+  //                     "as": "greatGrandParentDriverReferrals"
+  //                 }
+  //             })
+  //             // stage 8
+  //             aggregateQuery.push({
+  //                 $unwind: {
+  //                     path: "$greatGrandParentDriverReferrals",
+  //                     preserveNullAndEmptyArrays: true
+  //                 }
+  //             })
+  //             aggregateQuery.push({
+  //                 $group: {
+  //                     '_id': "$_id",
+  //                     'parentDriverReferralsCount': {
+  //                         $first: "$parentDriverReferralsCount"
+  //                     },
+  //                     'grandParentReferralsCount': {
+  //                         $first: "$grandParentReferralsCount"
+  //                     },
+  //                     'greatGrandParentDriverReferralsCount': {
+  //                         $sum: {
+  //                             $cond: {
+  //                                 if: {
+  //                                     $gt: ["$greatGrandParentDriverReferrals.driverLevel", 0]
+  //                                 },
+  //                                 then: 1,
+  //                                 else: 0
+  //                             }
+  //                         },
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'autoIncrementID': {
+  //                         $first: '$autoIncrementID'
+  //                     },
+  //                     'avgRating': {
+  //                         $first: '$avgRating'
+  //                     },
+  //                     'countryCode': {
+  //                         $first: '$countryCode'
+  //                     },
+  //                     'createdAt': {
+  //                         $first: '$createdAt'
+  //                     },
+  //                     'creditBalance': {
+  //                         $first: '$creditBalance'
+  //                     },
+  //                     'dob': {
+  //                         $first: '$dob'
+  //                     },
+  //                     'driverLevel': {
+  //                         $first: '$driverLevel'
+  //                     },
+  //                     'email': {
+  //                         $first: '$email'
+  //                     },
+  //                     'isBlocked': {
+  //                         $first: '$isBlocked'
+  //                     },
+  //                     'isVerified': {
+  //                         $first: '$isVerified'
+  //                     },
+  //                     'onlyPhoneNumber': {
+  //                         $first: '$onlyPhoneNumber'
+  //                     },
+  //                     'phoneNumber': {
+  //                         $first: '$phoneNumber'
+  //                     },
+  //                     'profilePhoto': {
+  //                         $first: '$profilePhoto'
+  //                     },
+  //                     'uniqueID': {
+  //                         $first: '$uniqueID'
+  //                     }
+  //                 }
+  //             })
+  //             // stage 9
+  //             aggregateQuery.push({
+  //                 $project: {
+  //                     "_id": "$_id",
+  //                     "name": "$name",
+  //                     "autoIncrementID": 1,
+  //                     "avgRating": 1,
+  //                     "countryCode": 1,
+  //                     "createdAt": 1,
+  //                     "creditBalance": 1,
+  //                     "dob": 1,
+  //                     "driverLevel": 1,
+  //                     "email": 1,
+  //                     "isBlocked": 1,
+  //                     "isVerified": 1,
+  //                     "onlyPhoneNumber": 1,
+  //                     "phoneNumber": 1,
+  //                     "profilePhoto": 1,
+  //                     "uniqueID": 1,
+  //                     "totalInvitedCount": {
+  //                         $add: ["$parentDriverReferralsCount", "$grandParentReferralsCount", '$greatGrandParentDriverReferralsCount']
+  //                     }
+  //                 }
+  //             })
+  //             // stage 10
+  //             aggregateQuery.push({
+  //                 $sort: {
+  //                     "totalInvitedCount": -1
+  //                 }
+  //             })
+  //             // stage 11
+  //             aggregateQuery.push({
+  //                 $limit: 10
+  //             })
+
+  //             DriverSchema.aggregate(aggregateQuery, (err, totalInvitedDrivers) => {
+  //                 if (err) {
+  //                     return nextCall({
+  //                         "message": message.SOMETHING_WENT_WRONG,
+  //                     });
+  //                 } else {
+  //                     responseData.topTenDriverByTotalInvited = totalInvitedDrivers;
+  //                     nextCall(null, responseData)
+  //                 }
+  //             })
+  //         },
+  //         /** get top ten passenger by Number of referral people count */
+  //         function (responseData, nextCall) {
+  //             let aggregateQuery = [];
+  //             aggregateQuery.push({
+  //                 $match: {
+  //                     "isDeleted": false
+  //                 }
+  //             })
+  //             // stage 1
+  //             aggregateQuery.push({
+  //                 $lookup: {
+  //                     "from": "passenger_referrals",
+  //                     "localField": "_id",
+  //                     "foreignField": "level1Passenger",
+  //                     "as": "level1PassengerReferrals"
+  //                 }
+  //             })
+  //             // stage 2
+  //             aggregateQuery.push({
+  //                 $unwind: {
+  //                     path: "$level1PassengerReferrals",
+  //                     preserveNullAndEmptyArrays: true
+  //                 }
+  //             })
+  //             // stage 3
+  //             aggregateQuery.push({
+  //                 $group: {
+  //                     '_id': "$_id",
+  //                     'level1PassengerReferralsCount': {
+  //                         $sum: {
+  //                             $cond: {
+  //                                 if: {
+  //                                     $gt: ["$level1PassengerReferrals.passengerLevel", 0]
+  //                                 },
+  //                                 then: 1,
+  //                                 else: 0
+  //                             }
+  //                         },
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'autoIncrementID': {
+  //                         $first: '$autoIncrementID'
+  //                     },
+  //                     'countryCode': {
+  //                         $first: '$countryCode'
+  //                     },
+  //                     'createdAt': {
+  //                         $first: '$createdAt'
+  //                     },
+  //                     'dob': {
+  //                         $first: '$dob'
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'email': {
+  //                         $first: '$email'
+  //                     },
+  //                     'isBlocked': {
+  //                         $first: '$isBlocked'
+  //                     },
+  //                     'onlyPhoneNumber': {
+  //                         $first: '$onlyPhoneNumber'
+  //                     },
+  //                     'passengerLevel': {
+  //                         $first: '$passengerLevel'
+  //                     },
+  //                     'phoneNumber': {
+  //                         $first: '$phoneNumber'
+  //                     },
+  //                     'profilePhoto': {
+  //                         $first: '$profilePhoto'
+  //                     },
+  //                     'uniqueID': {
+  //                         $first: '$uniqueID'
+  //                     }
+  //                 }
+  //             })
+  //             // stage 4
+  //             aggregateQuery.push({
+  //                 $lookup: {
+  //                     "from": "passenger_referrals",
+  //                     "localField": "_id",
+  //                     "foreignField": "level2Passenger",
+  //                     "as": "level2PassengerReferrals"
+  //                 }
+  //             })
+  //             // stage 5
+  //             aggregateQuery.push({
+  //                 $unwind: {
+  //                     path: "$level2PassengerReferrals",
+  //                     preserveNullAndEmptyArrays: true
+  //                 }
+  //             })
+  //             // stage 6
+  //             aggregateQuery.push({
+  //                 $group: {
+  //                     '_id': "$_id",
+  //                     "level1PassengerReferralsCount": {
+  //                         $first: "$level1PassengerReferralsCount"
+  //                     },
+  //                     'level2PassengerReferralsCount': {
+  //                         $sum: {
+  //                             $cond: {
+  //                                 if: {
+  //                                     $gt: ["$level2PassengerReferrals.passengerLevel", 0]
+  //                                 },
+  //                                 then: 1,
+  //                                 else: 0
+  //                             }
+  //                         },
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'autoIncrementID': {
+  //                         $first: '$autoIncrementID'
+  //                     },
+  //                     'countryCode': {
+  //                         $first: '$countryCode'
+  //                     },
+  //                     'createdAt': {
+  //                         $first: '$createdAt'
+  //                     },
+  //                     'dob': {
+  //                         $first: '$dob'
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'email': {
+  //                         $first: '$email'
+  //                     },
+  //                     'isBlocked': {
+  //                         $first: '$isBlocked'
+  //                     },
+  //                     'onlyPhoneNumber': {
+  //                         $first: '$onlyPhoneNumber'
+  //                     },
+  //                     'passengerLevel': {
+  //                         $first: '$passengerLevel'
+  //                     },
+  //                     'phoneNumber': {
+  //                         $first: '$phoneNumber'
+  //                     },
+  //                     'profilePhoto': {
+  //                         $first: '$profilePhoto'
+  //                     },
+  //                     'uniqueID': {
+  //                         $first: '$uniqueID'
+  //                     }
+  //                 }
+  //             })
+  //             // stage 7
+  //             aggregateQuery.push({
+  //                 $lookup: {
+  //                     "from": "passenger_referrals",
+  //                     "localField": "_id",
+  //                     "foreignField": "level3Passenger",
+  //                     "as": "level3PassengerReferrals"
+  //                 }
+  //             })
+  //             // stage 8
+  //             aggregateQuery.push({
+  //                 $unwind: {
+  //                     path: "$level3PassengerReferrals",
+  //                     preserveNullAndEmptyArrays: true
+  //                 }
+  //             })
+  //             // stage 9
+  //             aggregateQuery.push({
+  //                 $group: {
+  //                     '_id': "$_id",
+  //                     "level1PassengerReferralsCount": {
+  //                         $first: "$level1PassengerReferralsCount"
+  //                     },
+  //                     "level2PassengerReferralsCount": {
+  //                         $first: "$level2PassengerReferralsCount"
+  //                     },
+  //                     'level3PassengerReferralsCount': {
+  //                         $sum: {
+  //                             $cond: {
+  //                                 if: {
+  //                                     $gt: ["$level3PassengerReferrals.passengerLevel", 0]
+  //                                 },
+  //                                 then: 1,
+  //                                 else: 0
+  //                             }
+  //                         },
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'autoIncrementID': {
+  //                         $first: '$autoIncrementID'
+  //                     },
+  //                     'countryCode': {
+  //                         $first: '$countryCode'
+  //                     },
+  //                     'createdAt': {
+  //                         $first: '$createdAt'
+  //                     },
+  //                     'dob': {
+  //                         $first: '$dob'
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'email': {
+  //                         $first: '$email'
+  //                     },
+  //                     'isBlocked': {
+  //                         $first: '$isBlocked'
+  //                     },
+  //                     'onlyPhoneNumber': {
+  //                         $first: '$onlyPhoneNumber'
+  //                     },
+  //                     'passengerLevel': {
+  //                         $first: '$passengerLevel'
+  //                     },
+  //                     'phoneNumber': {
+  //                         $first: '$phoneNumber'
+  //                     },
+  //                     'profilePhoto': {
+  //                         $first: '$profilePhoto'
+  //                     },
+  //                     'uniqueID': {
+  //                         $first: '$uniqueID'
+  //                     }
+  //                 }
+  //             })
+  //             // stage 10
+  //             aggregateQuery.push({
+  //                 $lookup: {
+  //                     "from": "passenger_referrals",
+  //                     "localField": "_id",
+  //                     "foreignField": "level4Passenger",
+  //                     "as": "level4PassengerReferrals"
+  //                 }
+  //             })
+  //             // stage 11
+  //             aggregateQuery.push({
+  //                 $unwind: {
+  //                     path: "$level4PassengerReferrals",
+  //                     preserveNullAndEmptyArrays: true
+  //                 }
+  //             })
+  //             // stage 12
+  //             aggregateQuery.push({
+  //                 $group: {
+  //                     '_id': "$_id",
+  //                     "level1PassengerReferralsCount": {
+  //                         $first: "$level1PassengerReferralsCount"
+  //                     },
+  //                     "level2PassengerReferralsCount": {
+  //                         $first: "$level2PassengerReferralsCount"
+  //                     },
+  //                     "level3PassengerReferralsCount": {
+  //                         $first: "$level3PassengerReferralsCount"
+  //                     },
+  //                     'level4PassengerReferralsCount': {
+  //                         $sum: {
+  //                             $cond: {
+  //                                 if: {
+  //                                     $gt: ["$level4PassengerReferrals.passengerLevel", 0]
+  //                                 },
+  //                                 then: 1,
+  //                                 else: 0
+  //                             }
+  //                         },
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'autoIncrementID': {
+  //                         $first: '$autoIncrementID'
+  //                     },
+  //                     'countryCode': {
+  //                         $first: '$countryCode'
+  //                     },
+  //                     'createdAt': {
+  //                         $first: '$createdAt'
+  //                     },
+  //                     'dob': {
+  //                         $first: '$dob'
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'email': {
+  //                         $first: '$email'
+  //                     },
+  //                     'isBlocked': {
+  //                         $first: '$isBlocked'
+  //                     },
+  //                     'onlyPhoneNumber': {
+  //                         $first: '$onlyPhoneNumber'
+  //                     },
+  //                     'passengerLevel': {
+  //                         $first: '$passengerLevel'
+  //                     },
+  //                     'phoneNumber': {
+  //                         $first: '$phoneNumber'
+  //                     },
+  //                     'profilePhoto': {
+  //                         $first: '$profilePhoto'
+  //                     },
+  //                     'uniqueID': {
+  //                         $first: '$uniqueID'
+  //                     }
+  //                 }
+  //             })
+  //             // stage 13
+  //             aggregateQuery.push({
+  //                 $lookup: {
+  //                     "from": "passenger_referrals",
+  //                     "localField": "_id",
+  //                     "foreignField": "level5Passenger",
+  //                     "as": "level5PassengerReferrals"
+  //                 }
+  //             })
+  //             // stage 14
+  //             aggregateQuery.push({
+  //                 $unwind: {
+  //                     path: "$level5PassengerReferrals",
+  //                     preserveNullAndEmptyArrays: true
+  //                 }
+  //             })
+  //             // stage 15
+  //             aggregateQuery.push({
+  //                 $group: {
+  //                     '_id': "$_id",
+  //                     "level1PassengerReferralsCount": {
+  //                         $first: "$level1PassengerReferralsCount"
+  //                     },
+  //                     "level2PassengerReferralsCount": {
+  //                         $first: "$level2PassengerReferralsCount"
+  //                     },
+  //                     "level3PassengerReferralsCount": {
+  //                         $first: "$level3PassengerReferralsCount"
+  //                     },
+  //                     "level4PassengerReferralsCount": {
+  //                         $first: "$level4PassengerReferralsCount"
+  //                     },
+  //                     'level5PassengerReferralsCount': {
+  //                         $sum: {
+  //                             $cond: {
+  //                                 if: {
+  //                                     $gt: ["$level5PassengerReferrals.passengerLevel", 0]
+  //                                 },
+  //                                 then: 1,
+  //                                 else: 0
+  //                             }
+  //                         },
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'autoIncrementID': {
+  //                         $first: '$autoIncrementID'
+  //                     },
+  //                     'countryCode': {
+  //                         $first: '$countryCode'
+  //                     },
+  //                     'createdAt': {
+  //                         $first: '$createdAt'
+  //                     },
+  //                     'dob': {
+  //                         $first: '$dob'
+  //                     },
+  //                     'name': {
+  //                         $first: '$name'
+  //                     },
+  //                     'email': {
+  //                         $first: '$email'
+  //                     },
+  //                     'isBlocked': {
+  //                         $first: '$isBlocked'
+  //                     },
+  //                     'onlyPhoneNumber': {
+  //                         $first: '$onlyPhoneNumber'
+  //                     },
+  //                     'passengerLevel': {
+  //                         $first: '$passengerLevel'
+  //                     },
+  //                     'phoneNumber': {
+  //                         $first: '$phoneNumber'
+  //                     },
+  //                     'profilePhoto': {
+  //                         $first: '$profilePhoto'
+  //                     },
+  //                     'uniqueID': {
+  //                         $first: '$uniqueID'
+  //                     }
+  //                 }
+  //             })
+  //             // stage 16
+  //             aggregateQuery.push({
+  //                 $project: {
+  //                     "_id": "$_id",
+  //                     "name": 1,
+  //                     'autoIncrementID': 1,
+  //                     'countryCode': 1,
+  //                     'createdAt': 1,
+  //                     'dob': 1,
+  //                     'name': 1,
+  //                     'email': 1,
+  //                     'isBlocked': 1,
+  //                     'onlyPhoneNumber': 1,
+  //                     'passengerLevel': 1,
+  //                     'phoneNumber': 1,
+  //                     'profilePhoto': 1,
+  //                     'uniqueID': 1,
+  //                     "totalInvitedCount": {
+  //                         $add: ["$level1PassengerReferralsCount", "$level2PassengerReferralsCount", '$level3PassengerReferralsCount', '$level4PassengerReferralsCount', '$level5PassengerReferralsCount']
+  //                     }
+  //                 }
+  //             })
+  //             // stage 17
+  //             aggregateQuery.push({
+  //                 $sort: {
+  //                     "totalInvitedCount": -1
+  //                 }
+  //             })
+  //             // stage 18
+  //             aggregateQuery.push({
+  //                 $limit: 10
+  //             })
+
+  //             PassengerSchema.aggregate(aggregateQuery, (err, totalPassengerInviteData) => {
+  //                 if (err) {
+  //                     return nextCall({
+  //                         "message": message.SOMETHING_WENT_WRONG,
+  //                     });
+  //                 } else {
+  //                     responseData.topTenPassengerByTotalInvited = totalPassengerInviteData;
+  //                     nextCall(null, responseData)
+  //                 }
+  //             })
+  //         },
+
+  //     ], function (err, response) {
+  //         if (err) {
+  //             return res.sendToEncode({
+  //                 status: 400,
+  //                 message: (err && err.message) || message.SOMETHING_WENT_WRONG
+  //             });
+  //         }
+  //         return res.sendToEncode({
+  //             status_code: 200,
+  //             message: message.GET_DASHBOARD_DATA_SUCC,
+  //             data: response
+  //         });
+  //     })
+  // },

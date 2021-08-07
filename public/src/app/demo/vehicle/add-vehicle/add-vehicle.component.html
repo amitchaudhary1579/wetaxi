@@ -1,0 +1,136 @@
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="Add Vehicle" [options]="false">
+            <form [formGroup]="addVehicleForm" (ngSubmit)="onFormSubmit()" novalidate class="custom-login">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Name English <span class="text-danger">*</span></label>
+                            <input type="text"
+                                [ngClass]="(isSubmitted && addVehicleForm.controls.name_en.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                                id="name_en" name="name_en" placeholder="Enter Name English" formControlName="name_en"
+                                trim="blur">
+                            <span *ngIf="isSubmitted && addVehicleForm.hasError('required','name_en')"
+                                class="custom-error-show">Please
+                                enter name in english.</span>
+                            <div *ngIf="isSubmitted && !addVehicleForm.hasError('required','name_en') && addVehicleForm.hasError('pattern','name_en')"
+                                class="custom-error-show">
+                                Name english should contains alphabetic only.</div>
+                            <div *ngIf="isSubmitted && !addVehicleForm.hasError('required','name_en') && !addVehicleForm.hasError('pattern','name_en') && (addVehicleForm.hasError('maxlength','name_en') || addVehicleForm.hasError('minlength','name_en'))"
+                                class="custom-error-show">Name english
+                                must be 2 to 50 characters long.</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Name China <span class="text-danger">*</span></label>
+                            <input type="text"
+                                [ngClass]="(isSubmitted && addVehicleForm.controls.name_ch.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                                id="name_ch" name="name_ch" placeholder="Enter Name China" formControlName="name_ch"
+                                trim="blur">
+                            <span *ngIf="isSubmitted && addVehicleForm.hasError('required','name_ch')"
+                                class="custom-error-show">Please
+                                enter name china.</span>
+                            <!-- <div *ngIf="isSubmitted && !addVehicleForm.hasError('required','name_ch') && addVehicleForm.hasError('pattern','name_ch')"
+                                class="custom-error-show">
+                                Name china should contains alphabetic only.</div> -->
+                            <div *ngIf="isSubmitted && !addVehicleForm.hasError('required','name_ch') && (addVehicleForm.hasError('maxlength','name_ch') || addVehicleForm.hasError('minlength','name_ch'))"
+                                class="custom-error-show">Name china
+                                must be 2 to 50 characters long.</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Name Combodia <span class="text-danger">*</span></label>
+                            <input type="text"
+                                [ngClass]="(isSubmitted && addVehicleForm.controls.name_kh.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                                id="name_kh" name="name_kh" placeholder="Enter Name Combodia" formControlName="name_kh"
+                                trim="blur">
+                            <span *ngIf="isSubmitted && addVehicleForm.hasError('required','name_kh')"
+                                class="custom-error-show">Please
+                                enter name Combodia.</span>
+                            <!-- <div *ngIf="isSubmitted && !addVehicleForm.hasError('required','name_kh') && addVehicleForm.hasError('pattern','name_kh')"
+                                class="custom-error-show">
+                                Name should contains alphabetic only.</div> -->
+                            <div *ngIf="isSubmitted && !addVehicleForm.hasError('required','name_kh')  && (addVehicleForm.hasError('maxlength','name_kh') || addVehicleForm.hasError('minlength','name_kh'))"
+                                class="custom-error-show">Name China
+                                must be 2 to 50 characters long.</div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Minimum Fare (KHR) <span class="text-danger">*</span></label>
+                            <input type="text"
+                                [ngClass]="(isSubmitted && addVehicleForm.controls.minFare.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                                id="minFare" name="minFare" placeholder="Enter Minimum Fare" formControlName="minFare"
+                                trim="blur">
+                            <div *ngIf="isSubmitted && addVehicleForm.hasError('required','minFare')"
+                                class="custom-error-show">
+                                Please enter vehicle minimum fare.
+                            </div>
+                            <div *ngIf="isSubmitted && !addVehicleForm.hasError('pattern','minFare') && !addVehicleForm.hasError('required','minFare') && (addVehicleForm.hasError('minlength','minFare') || addVehicleForm.hasError('maxlength','minFare')) "
+                                class="custom-error-show">
+                                Minimum fare must contain 1 to 5 digits.
+                            </div>
+                            <div *ngIf="isSubmitted && !addVehicleForm.hasError('required','minFare') && addVehicleForm.hasError('pattern','minFare')"
+                                class="custom-error-show">
+                                Please enter valid minimum fare.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Per Kilometer Fare (KHR) <span
+                                    class="text-danger">*</span></label>
+                            <input type="text"
+                                [ngClass]="(isSubmitted && addVehicleForm.controls.feePerKM.errors)?'form-control input-md ng-touched ng-dirty is-invalid ng-invalid':'form-control input-md ng-touched ng-dirty ng-valid'"
+                                id="feePerKM" name="feePerKM" placeholder="Enter Per Kilometer Fare"
+                                formControlName="feePerKM" trim="blur">
+                            <div *ngIf="isSubmitted && addVehicleForm.hasError('required','feePerKM')"
+                                class="custom-error-show">
+                                Please enter vehicle per kilometer fare.
+                            </div>
+                            <div *ngIf="isSubmitted && !addVehicleForm.hasError('pattern','feePerKM') && !addVehicleForm.hasError('required','feePerKM') && (addVehicleForm.hasError('minlength','feePerKM') || addVehicleForm.hasError('maxlength','feePerKM')) "
+                                class="custom-error-show">
+                                Per kilometer fare must contain 1 to 5 digits.
+                            </div>
+                            <div *ngIf="isSubmitted && !addVehicleForm.hasError('required','feePerKM') && addVehicleForm.hasError('pattern','feePerKM')"
+                                class="custom-error-show">
+                                Please enter valid per kilometer fare.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Image <span class="text-danger">*</span></label>
+                            <div class="d-flex custom-file-upload-wrap">
+                                <div class="form-group">
+                                    <div class="custom-file-upload">
+                                        <input id="file-upload" type="file" name="image" formControlName="image"
+                                            (change)="onImageChange($event)" placeholder="Upload file"
+                                            accept=".png,.jpg,.jpeg" />
+                                        <span *ngIf="isSubmitted && !isImageSelected" class="custom-error-show">Please
+                                            select image.</span>
+                                        <span *ngIf="isSubmitted && isImageSelected && isImageExtensionError"
+                                            class="custom-error-show">Only JPG, JPEG and PNG format allow.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footrt-btns">
+                    <button type="submit" class="btn btn-info"><i class="fa fa-check"></i>Submit</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/vehicle/list-vehicle']"><i
+                            class="fa fa-backward"></i>Cancel</button>
+                </div>
+            </form>
+        </app-card>
+    </div>
+</div>
+<ngx-loading [show]="loading"
+    [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>

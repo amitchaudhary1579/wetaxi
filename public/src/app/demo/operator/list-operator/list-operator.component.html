@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="List Of Operator" [options]="false">
+      <div class="datatable-top-btn">
+        <button class="btn btn-info" type="button" [routerLink]="['/operator/add-operator/']" title="Add Passenger"><i
+            class="fas fa-plus"></i>Add Operator</button>
+      </div>
+      <div class="table-responsive custom-table-responsive">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+            <tr>
+              <th>Allow To Change Password</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="operators?.length != 0">
+            <tr *ngFor="let operator of operators">
+              <td width="10%">
+                <div class="checkbox checkbox-primary d-inline">
+                  <input [(ngModel)]="operator.canChangePassword" (change)="isAllSelected(operator._id,operator.canChangePassword)" type="checkbox"
+                    id="{{ operator._id }}">
+                  <label for="{{ operator._id }}" class="cr"></label>
+                </div>
+              </td>
+              <td>{{ operator.first_name }}</td>
+              <td>{{ operator.last_name }}</td>
+              <td>{{ operator.email }}</td>
+              <td>
+                <button *ngIf="!operator.isActive" class="btn btn-warning btn-verify" type="button"
+                  (click)="activeInactiveOperator(operator)" title="InActive">InActive</button>
+                <button *ngIf="operator.isActive" class="btn btn-success btn-verify" type="button"
+                  (click)="activeInactiveOperator(operator)" title="Active">Active</button>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-action" ngbtooltip="btn-primary" type="button"
+                  [routerLink]="['/operator/view-operator/', operator._id]" title="View"><i
+                    class="fas fa-edit"></i></button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="operators?.length == 0">
+            <tr>
+              <td colspan="5" class="no-data-available">No data!</td>
+            </tr>
+          <tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+</div>
+<ngx-loading [show]="loading"
+  [config]="{animationType: 'wandering-cubes', primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}">
+</ngx-loading>
